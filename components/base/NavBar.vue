@@ -12,8 +12,8 @@
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
           <template #button-content>
-            <em v-if="!userEmail"><b-icon icon="person"></b-icon></em>
-            <em v-if="userEmail">{{userEmail}} <b-icon icon="person"></b-icon></em>
+            <em v-if="!userEmail"><Person/></em>
+            <em v-if="userEmail">{{userEmail}} <Person/></em>
           </template>
           <b-dropdown-item v-show="isConnected" @click="signOut()">Sign Out</b-dropdown-item>
           <b-dropdown-item
@@ -28,6 +28,7 @@
 <script setup lang="ts">
 
   // icons
+  import Person from '~icons/bi/person'
   import {vBColorMode} from 'bootstrap-vue-next'
   
   // global states
