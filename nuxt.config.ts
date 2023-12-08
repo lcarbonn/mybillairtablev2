@@ -30,7 +30,7 @@ export default defineNuxtConfig({
       display: 'standalone',
       description: 'My Bill on Airtable',
       lang: 'fr-FR'
-    }
+    },
   },
   runtimeConfig: {
     FIREBASE_API_KEY: process.env.NUXT_FIREBASE_API_KEY,
