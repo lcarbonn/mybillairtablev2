@@ -15,6 +15,7 @@
   "devDependencies": {
     "@bootstrap-vue-next/nuxt": "^0.15.5",
     "@nuxt/devtools": "latest",
+    "@vite-pwa/nuxt": "^0.3.4",
     "bootstrap": "^5.3.2",
     "bootstrap-vue-next": "^0.15.5",
     "nuxt": "^3.8.2",

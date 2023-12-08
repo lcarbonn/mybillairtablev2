@@ -14,9 +14,22 @@ export default defineNuxtConfig({
       ]
     },
   },
-  modules: ['@bootstrap-vue-next/nuxt'],
+  modules: [
+    '@bootstrap-vue-next/nuxt',
+    '@vite-pwa/nuxt'
+  ],
   css: [
     'bootstrap/dist/css/bootstrap.min.css',
     '~/assets/css/custom-theme.scss'
   ],
+  pwa: {
+    /* PWA options */
+    manifest: {
+      name: 'My Bill Airtable',
+      short_name: 'mybillairtable',
+      display: 'standalone',
+      description: 'My Bill on Airtable',
+      lang: 'fr-FR'
+    }
+  }
 })
