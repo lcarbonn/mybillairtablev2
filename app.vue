@@ -16,11 +16,11 @@
 <script setup lang="ts">
 
   // imports
-  import { version } from '~/package.json';
+  import { name, version } from '~/package.json';
 
   // nuxt cycle hooks
   onMounted(() => {
-    console.log("appVersion:",version)
+    console.log("starting app : "+name + ", appVersion:" +version)
   })
 
 </script>
