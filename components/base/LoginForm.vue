@@ -36,7 +36,10 @@
 
     //props
     const props = defineProps({
-        form: Object
+        form: {
+            type: Object,
+            default: undefined
+        },
     })
 
     // emits declaration
