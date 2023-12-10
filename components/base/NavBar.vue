@@ -7,20 +7,19 @@
                 </BLink>
     </BNavbarBrand>
     <BNavbarToggle target="nav-collapse" />
-    <BCollapse id="nav-collapse" is-nav>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
+    <BCollapse id="nav-collapse" isNav="true">
+      <BNavbarNav class="ms-auto mb-2 mb-lg-0">
+        <!-- <BNavItem v-if="isConnected"><em v-if="userEmail">{{userEmail}} <Person/></em></BNavItem>
+        <BNavItem v-if="isConnected">Sign Out</BNavItem> -->
+        <BNavItemDropdown right v-b-color-mode="'light'">
           <template #button-content>
             <em v-if="!userEmail"><Person/></em>
-            <em v-if="userEmail">{{userEmail}} <Person/></em>
+            <em v-else>{{userEmail}} <Person/></em>
           </template>
-          <b-dropdown-item v-show="isConnected" @click="signOut()">Sign Out</b-dropdown-item>
-          <b-dropdown-item
-                       v-show="!isConnected"
-                       href="/login">Login</b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-navbar-nav>
+          <BDropdownItem v-if="isConnected" @click="signOut()">Sign Out</BDropdownItem>
+          <!-- <BDropdownItem v-else href="/login">Login</BDropdownItem> -->
+        </BNavItemDropdown>
+      </BNavbarNav>
     </BCollapse>
   </BNavbar>
 </template>
@@ -36,7 +35,7 @@
 
   // computed properties
   const isConnected = computed(() => {
-    return !firebaseUser.value?.isAnonymous
+    return !!firebaseUser.value?.uid
   })
   const userEmail = computed(() => {
     return firebaseUser.value?.email
@@ -44,15 +43,12 @@
 
   // methods
   const goHome = async () => {
-    textsearch.value = null
-    currentTheme.value = ""
-    resetCards()
     await navigateTo('/')
   }
 
   const signOut = () => {
     signOutUser().then(async () => {
-      await navigateTo('/')
+      //await navigateTo('/login')
     })
   }
 

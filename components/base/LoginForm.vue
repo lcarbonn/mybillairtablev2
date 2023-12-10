@@ -1,7 +1,7 @@
 <template>
     <BContainer>
         <BCard>
-            <BForm @submit="onSubmit">
+            <BForm @submit="emit('submit')">
                 <BFormGroup
                     id="input-email"
                     label="Email address:"
@@ -32,24 +32,14 @@
         </BCard>
     </BContainer>
 </template>
+<script setup lang="ts">
 
-<script setup>
-
-    // local ref
-    const form = reactive({
-        email: null,
-        password: null,
+    //props
+    const props = defineProps({
+        form: Object
     })
 
-    // nuxt cycle hook
-    const onSubmit = (event) => {
-        event.preventDefault()
-        signInUser(form.email, form.password)
-        .then((credentials) => {
-            console.log("signIn user=", credentials)
-        if(credentials) navigateTo('/')
-
-        })
-    }
+    // emits declaration
+    const emit = defineEmits(['submit'])
 
 </script>

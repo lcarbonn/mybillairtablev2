@@ -66,20 +66,14 @@ export const signOutUser = async () :Promise<void> => {
 /**
  * Initialize the firebase listener on auth state change
  */
-export const initUser = async () => {
+export const initUser = () => {
   const auth = getAuth()
   const firebaseUser = useFirebaseUser();
 
-  onAuthStateChanged(auth, async (user) => {
+  onAuthStateChanged(auth, (user) => {
     if (user) {
-      firebaseUser.value = user;
-      const currentRoute = useRoute().fullPath
-      if(!user.isAnonymous) {
-        await navigateTo('/login')
-      }
-  } else {
-      //if signed out get to sign in
-      await navigateTo('/login')
+    } else {
     }
+    firebaseUser.value = user
   })
 }
