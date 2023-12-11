@@ -7,17 +7,13 @@
                 </BLink>
     </BNavbarBrand>
     <BNavbarToggle target="nav-collapse" />
-    <BCollapse id="nav-collapse" isNav="true">
+    <BCollapse id="nav-collapse" isNav>
       <BNavbarNav class="ms-auto mb-2 mb-lg-0">
-        <!-- <BNavItem v-if="isConnected"><em v-if="userEmail">{{userEmail}} <Person/></em></BNavItem>
-        <BNavItem v-if="isConnected">Sign Out</BNavItem> -->
-        <BNavItemDropdown right v-b-color-mode="'light'">
+        <BNavItemDropdown v-if="isConnected" right v-b-color-mode="'light'">
           <template #button-content>
-            <em v-if="!userEmail"><Person/></em>
-            <em v-else>{{userEmail}} <Person/></em>
+            <em>{{userEmail}}<Person/></em>
           </template>
-          <BDropdownItem v-if="isConnected" @click="signOut()">Sign Out</BDropdownItem>
-          <!-- <BDropdownItem v-else href="/login">Login</BDropdownItem> -->
+          <BDropdownItem  @click="signOut()">Sign Out</BDropdownItem>
         </BNavItemDropdown>
       </BNavbarNav>
     </BCollapse>
