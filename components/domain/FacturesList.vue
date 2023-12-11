@@ -6,10 +6,7 @@
     <!-- <DomainFacturesTable :factures="factures" :clients="clients" :cas="cas" :filterShadow="filterShadow"
                           @showCopyFacture="showCopyFacture"
                           @deleteFacture="deleteFacture"></DomainFacturesTable> -->
-    <div v-for="facture in factures"
-      :key="facture.id">
-      <p>{{ facture.numFac }}</p>
-    </div>
+    <DomainFacturesTable :factures="factures"/>
 
   </div>
 </template>
