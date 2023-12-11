@@ -1,7 +1,7 @@
 /**
  * Type Airtable config
  */
-type IAtConf = {
+export type IAtConf = {
     apiKey:string,
     baseName: string,
     baseId: string,

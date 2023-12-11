@@ -2,8 +2,8 @@
     <div>
       <span>INDEX</span>
     <div v-for="facture in factures"
-            :key="facture">
-            <p>{{ facture }}</p>
+            :key="facture.id">
+            <p>{{ facture.numFac }}</p>
             </div>
     </div>
 </template>
