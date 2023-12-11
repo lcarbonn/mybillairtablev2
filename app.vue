@@ -6,7 +6,7 @@
         :form="signinForm" 
         @submit="signIn"
         v-if="!firebaseUser"></BaseLoginForm>
-      <BContainer fluid v-if="firebaseUser">
+      <BContainer v-if="firebaseUser">
         <NuxtPage />
       </BContainer>
     </div>

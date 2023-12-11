@@ -1,10 +1,8 @@
 <template>
     <div>
-      <span>INDEX</span>
-    <div v-for="facture in factures"
-            :key="facture.id">
-            <p>{{ facture.numFac }}</p>
-            </div>
+      <BButton class="m-3" variant="primary">Ajouter facture</BButton>
+      <DomainFacturesList :factures="factures"></DomainFacturesList>
+      <!-- <DomainAddFacture :factures="factures" :clients="clients" :clientOptions="clientOptions" :cas="cas" @addFacture="addFacture"></DomainAddFacture> -->
     </div>
 </template>
 
