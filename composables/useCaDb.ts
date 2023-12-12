@@ -32,7 +32,6 @@ export const getCasDb = () :Promise<ICa[]> => {
             fetchNextPage();
         }, function done(err) {
             if (err) { console.error(err); return; }
-            console.log("CA found:",cas.length)
             resolve(cas)
         });
     })
