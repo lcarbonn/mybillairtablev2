@@ -1,11 +1,28 @@
 <template>
   <div>
+    <BRow>
+      <BCol lg="4" class="my-1">
+        <BPagination
+              v-model="currentPage"
+              :total-rows="totalRows"
+              :per-page="perPage"
+              size="sm"></BPagination>
+      </BCol>
+      <BCol lg="4" class="my-1">
+        <!-- <span>Total HT : {{ totalHT }}€</span> -->
+        <span>Total HT : €</span>
+      </BCol>
+    </BRow>    
+
     <BTable
       striped
       hover
       stacked="md"
       :fields="fields"
-      :items="factures"></BTable>
+      :items="factures"
+      :current-page="currentPage"
+      :per-page="perPage"
+      ></BTable>
 
   </div>
 </template>
@@ -26,6 +43,27 @@
             type: Array<IClient>,
             default: undefined
         },
+  })
+
+  // local ref
+  const perPage = 10
+  const currentPage =ref(1)
+  const totalRows = ref()
+
+  // nuxt cycle hook
+  watch(() => props.factures, async(newFactures, oldFactures) => {
+    if(newFactures) {
+            totalRows.value = newFactures.length
+            // this.totalHT = this.sumTotalHT(newFactures)
+            // this.isBusy = false
+          }
+          
+    },
+    { immediate: true }
+  )
+
+  onMounted(() => {
+    totalRows.value = props.factures?.length
   })
 
   // const fields
@@ -87,6 +125,11 @@
            }
       ]
 
+      /**
+       * Get the date in locale and change color if facture is ovedue date
+       * @param date - The date
+       * @param item - The facture
+       */
       const getFormatedDate = (date:any, item:any) : string => {
         const today = new Date()
         const dateFacture = new Date(date)
@@ -100,7 +143,11 @@
         }
         return dateFacture.toLocaleDateString()
       }
-
+      
+      /**
+       * Get the CA name
+       * @param value - the CA id
+       */
       const getCaName = (value:string) :string => {
         if(!props.cas) return ""
         let date = ""
@@ -112,6 +159,10 @@
         return date
       }
 
+      /**
+       * Get the client name
+       * @param value - the Client id
+       */
       const getClientName = (value:string):string => {
         if(!props.clients) return ""
         let name = ""

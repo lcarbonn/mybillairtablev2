@@ -32,7 +32,6 @@ export const getClientsDb = () :Promise<IClient[]> => {
             fetchNextPage();
         }, function done(err) {
             if (err) { console.error(err); return; }
-            console.log("Clients found:",clients.length)
             resolve(clients)
         });
     })
