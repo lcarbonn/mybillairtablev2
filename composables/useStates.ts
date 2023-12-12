@@ -12,3 +12,8 @@ export const useSnackBarMessage = () => useState<String>("snackBarMessage", () =
  * State for factures
  */
 export const useFactures = () => useState<IFacture[]>("factures");
+
+/**
+ * State for CAs
+ */
+export const useCas = () => useState<ICa[]>("cas");

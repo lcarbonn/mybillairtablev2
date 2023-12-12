@@ -69,10 +69,10 @@
           //   sortByFormatted:true,
           //   filterByFormatted: true
           // },
-          // {
-          //   key: 'id',
-          //   label: 'Actions'
-          //  }
+          {
+            key: 'id',
+            label: 'Actions'
+           }
       ]
 
       const getFormatedDate = (date:any, item:any) : string => {

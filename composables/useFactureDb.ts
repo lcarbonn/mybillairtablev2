@@ -20,7 +20,7 @@ export const getFacturesDb = () :Promise<IFacture[]> => {
         console.debug("start getFactures", config.tableFacture)
         const factures:IFacture[] = []
 
-        db('Facture').select({
+        db(config.tableFacture).select({
             fields: ["#NumFac", "Index", "#Num",  "Statut",
              'Total HT', 'Total TTC', 'Comment', 'Client', 'CA',
              'Date', 'Date Paiement', 'Délai règlement', 'Taux TVA', 'Bon de Commande'],
