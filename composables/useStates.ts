@@ -17,3 +17,8 @@ export const useFactures = () => useState<IFacture[]>("factures");
  * State for CAs
  */
 export const useCas = () => useState<ICa[]>("cas");
+
+/**
+ * State for Clients
+ */
+export const useClients = () => useState<IClient[]>("clients");
