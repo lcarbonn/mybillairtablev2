@@ -18,6 +18,10 @@
           type: Array<IFacture>,
           default: undefined
       },
+      cas: {
+          type: Array<ICa>,
+          default: undefined
+      },
   })
 
   // const fields
@@ -58,17 +62,19 @@
             key: 'date',
             label: 'Date',
             formatter: (value: any, key: any, item: any) => {
-            return getFormatedDate(value, item)
-          },
+              return getFormatedDate(value, item)
+            },
             sortable: true
            },
-          // {
-          //   key:'ca',
-          //   formatter: 'getCAName',
-          //   sortable: true,
-          //   sortByFormatted:true,
-          //   filterByFormatted: true
-          // },
+          {
+            key:'ca',
+            formatter: (value: any, key: any, item: any) => {
+              return getCaName(value)
+            },
+            sortable: true,
+            sortByFormatted:true,
+            filterByFormatted: true
+          },
           {
             key: 'id',
             label: 'Actions'
@@ -87,6 +93,17 @@
           }
         }
         return dateFacture.toLocaleDateString()
+      }
+
+      const getCaName = (value:string) :string => {
+        if(!props.cas) return ""
+        let date = ""
+        props.cas.forEach(ca => {
+          if(ca.id == value) {
+            date = ca.date
+          }
+        })
+        return date
       }
 
   </script>

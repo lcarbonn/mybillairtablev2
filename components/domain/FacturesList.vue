@@ -6,7 +6,7 @@
     <!-- <DomainFacturesTable :factures="factures" :clients="clients" :cas="cas" :filterShadow="filterShadow"
                           @showCopyFacture="showCopyFacture"
                           @deleteFacture="deleteFacture"></DomainFacturesTable> -->
-    <DomainFacturesTable :factures="factures"/>
+    <DomainFacturesTable :factures="factures" :cas="cas"/>
 
   </div>
 </template>
@@ -17,6 +17,10 @@
     const props = defineProps({
         factures: {
             type: Array<IFacture>,
+            default: undefined
+        },
+        cas: {
+            type: Array<ICa>,
             default: undefined
         },
     })
