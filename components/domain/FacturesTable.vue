@@ -22,6 +22,10 @@
           type: Array<ICa>,
           default: undefined
       },
+      clients: {
+            type: Array<IClient>,
+            default: undefined
+        },
   })
 
   // const fields
@@ -39,7 +43,9 @@
             key: 'client',
             label: 'Nom client',
             sortable: true,
-            formatter: 'getClientName',
+            formatter: (value: any, key: any, item: any) => {
+              return getClientName(value)
+            },
             filterByFormatted: false
           },
           {
@@ -104,6 +110,17 @@
           }
         })
         return date
+      }
+
+      const getClientName = (value:string):string => {
+        if(!props.clients) return ""
+        let name = ""
+        props.clients.forEach(client => {
+          if(client.id == value) {
+            name = client.name
+          }
+        })
+        return name
       }
 
   </script>

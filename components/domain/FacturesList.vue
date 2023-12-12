@@ -6,7 +6,7 @@
     <!-- <DomainFacturesTable :factures="factures" :clients="clients" :cas="cas" :filterShadow="filterShadow"
                           @showCopyFacture="showCopyFacture"
                           @deleteFacture="deleteFacture"></DomainFacturesTable> -->
-    <DomainFacturesTable :factures="factures" :cas="cas"/>
+    <DomainFacturesTable :factures="factures" :cas="cas" :clients="clients"/>
 
   </div>
 </template>
@@ -21,6 +21,10 @@
         },
         cas: {
             type: Array<ICa>,
+            default: undefined
+        },
+        clients: {
+            type: Array<IClient>,
             default: undefined
         },
     })
