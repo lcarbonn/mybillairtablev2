@@ -17,17 +17,18 @@
       striped
       hover
       stacked="md"
-      :fields="fields"
+      :fields="(fields as TableField[])"
       :items="factures"
       :current-page="currentPage"
       :per-page="perPage"
-      :busy="isBusy"
-      ></BTable>
-
+      :busy="isBusy"      >
+    </BTable>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { TableField } from 'bootstrap-vue-next';
+
 
   // props
   const props = defineProps({
@@ -42,7 +43,7 @@
       clients: {
             type: Array<IClient>,
             default: undefined
-        },
+      }
   })
 
   // const fields
@@ -63,7 +64,7 @@
         formatter: (value: any, key: any, item: any) => {
           return getClientName(value)
         },
-        filterByFormatted: false
+        filterByFormatted: true
       },
       {
         key: 'statut',
@@ -110,7 +111,7 @@
     const totalRows = ref()
     const totalHT = ref()
     const isBusy = ref(true)
-
+    
     // nuxt cycle hook
     watch(() => props.factures, async(newFactures, oldFactures) => {
       if(newFactures) {
@@ -118,9 +119,8 @@
               totalHT.value = sumTotalHT(newFactures)
               isBusy.value = false
             }
-            
-      },
-      { immediate: true }
+      }
+      // { immediate: true }
     )
 
     /**
@@ -179,5 +179,4 @@
       });
       return sum.toLocaleString()
     }
-
-  </script>
+</script>
