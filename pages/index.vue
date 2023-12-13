@@ -9,13 +9,11 @@
 
 <script setup lang="ts">
 
-// local refproperties
-  const filter = ref()
-
   // stated properties
   const factures = useFactures()
   const cas = useCas()
   const clients = useClients()
+  const filter = useFilter()
 
   // nuxt hook
   onMounted(() => {
@@ -26,9 +24,8 @@
 
 
     // methods
-    const emitFilter = (emitFilter:any) => {
-        console.log("emited filter:", emitFilter)
-        filter.value = emitFilter
+    const emitFilter = () => {
+        console.log("emited filter:", filter.value)
       }
 
 </script>

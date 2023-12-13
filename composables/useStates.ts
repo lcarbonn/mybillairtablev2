@@ -22,3 +22,8 @@ export const useCas = () => useState<ICa[]>("cas");
  * State for Clients
  */
 export const useClients = () => useState<IClient[]>("clients");
+
+/**
+ * State for filter
+ */
+export const useFilter = () => useState<IFilter>("filter", () => new Filter());

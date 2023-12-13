@@ -65,9 +65,11 @@
   const emit = defineEmits(['emitFilter'])
 
   // local ref properties
-  const filter = ref()
   const filterCA = ref()
   const filterSearch = ref()
+
+  // state managed properties
+  const filter = useFilter()
 
   // computed properties
   const casOptions = computed(() => {
@@ -77,12 +79,12 @@
   // watch local refs udpates
   watch(filterCA, (newValue, oldValue) => {
     console.log("ca filter:"+newValue)
-    filter.value = newValue? new String(newValue).toString():null
+    filter.value.ca = newValue? new String(newValue).toString():undefined
     emitFilter()
   })
   watch(filterSearch, (newValue, oldValue) => {
     console.log("search filter:"+newValue)
-    filter.value = newValue
+    filter.value.search = newValue
     emitFilter()
   })
 
@@ -101,6 +103,6 @@
 
   // emit the filter query
   const emitFilter = () => {
-    emit('emitFilter', filter.value)
+    emit('emitFilter')
   }
 </script>
