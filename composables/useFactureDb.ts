@@ -34,6 +34,7 @@ export const getFacturesDb = () :Promise<IFacture[]> => {
             fetchNextPage();
         }, function done(err) {
             if (err) { console.error(err); return; }
+            console.debug("end getFactures", factures.length)
             resolve(factures)
         });
     })
