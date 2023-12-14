@@ -23,7 +23,7 @@ export const getFacturesDb = () :Promise<IFacture[]> => {
         db(config.tableFacture).select({
             fields: ["#NumFac", "Index", "#Num",  "Statut",
              'Total HT', 'Total TTC', 'Comment', 'Client', 'CA',
-             'Date', 'Date Paiement', 'Délai règlement', 'Taux TVA', 'Bon de Commande'],
+             'Date', 'Date Paiement', 'Délai règlement', 'Taux TVA', 'Bon de Commande', 'Année CA'],
             sort: [{ field: "#NumFac", direction: "desc" }]
         }).eachPage(function page(records, fetchNextPage) {
             records.forEach(function(record) {

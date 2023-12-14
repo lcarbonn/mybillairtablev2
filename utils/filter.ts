@@ -40,11 +40,11 @@ export class Filter implements IFilter {
  * @param filter - the filter
  * @returns the filtered list of factures
  */
-export const filterFunction = (factures:IFacture[], cas:ICa[], filter:IFilter) : IFacture[] => {
+export const filterFunction = (factures:IFacture[], filter:IFilter) : IFacture[] => {
   console.debug("filtering")
   const filteredFactures:IFacture[] = []
   factures.forEach((facture) => {
-    if(isFiltered(facture, cas, filter)) {
+    if(isFiltered(facture, filter)) {
       filteredFactures.push(facture)
     }
   })
@@ -58,16 +58,17 @@ export const filterFunction = (factures:IFacture[], cas:ICa[], filter:IFilter) :
  * @param filter - The filter
  * @returns true if facture meet the filter, otherwise false
  */
-const isFiltered = (facture:IFacture, cas:ICa[], filter:IFilter) :boolean => {
+const isFiltered = (facture:IFacture, filter:IFilter) :boolean => {
   const isDate=!filter.date||(facture.date && filter.date && facture.date.getFullYear()==filter.date)?true:false
   const isClient=!filter.client||(facture.client && filter.client && facture.client==filter.client)?true:false
   const isSearch=!filter.search||(facture.comment && filter.search && facture.comment.toLowerCase().indexOf(filter.search.toLowerCase())!=-1)?true:false
-  const isstatut=!filter.statut||(facture.statut && filter.statut && facture.statut==filter.statut)?true:false
-  let caName = ""
-  if(filter.ca && facture.ca) {
-    caName = getCaName(facture.ca, cas)
-  }
-  const isCA=!filter.ca||(facture.ca && filter.ca && caName.toLowerCase().startsWith(filter.ca))?true:false
-  const isFiltered=isDate&&isClient&&isSearch&&isstatut&&isCA
+  const isStatut=!filter.statut||(facture.statut && filter.statut && facture.statut==filter.statut)?true:false
+  // let caName = ""
+  // if(filter.ca && facture.ca) {
+  //   caName = getCaName(facture.ca, cas)
+  // }
+  const isCA=!filter.ca||(facture.anneeCa && filter.ca && facture.anneeCa==filter.ca)?true:false
+  // const isCA=!filter.ca||(facture.ca && filter.ca && facture.anneeCa== filter.ca)?true:false
+  const isFiltered=isDate&&isClient&&isSearch&&isStatut&&isCA
   return isFiltered
 }

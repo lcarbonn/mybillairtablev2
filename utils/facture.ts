@@ -19,6 +19,7 @@ export type IFacture = {
     bdc: string,
     payDate: Date|undefined,
     id: string,
+    anneeCa:string
 }
 
 /**
@@ -40,6 +41,7 @@ export class Facture implements IFacture {
     bdc: string
     payDate: Date|undefined
     id: string
+    anneeCa:string
 
        /**
      * Card constructor
@@ -65,6 +67,7 @@ export class Facture implements IFacture {
         this.paymentDelay = dr ? dr[0] : undefined
         this.bdc = record.get('Bon de Commande') as string
         this.payDate = payDate ? new Date(payDate) : undefined
+        this.anneeCa = record.get('Année CA') as string
         this.id = record.getId()
        }
 }

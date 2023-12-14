@@ -28,15 +28,14 @@
     if(newFactures) {
       filteredFactures.value = newFactures
         }
-  }
-  // { immediate: true }
-)
+    }
+    // { immediate: true }
+  )
 
-
-    // methods
-    const emitFilter = () => {
-        console.log("emited filter:", filter.value)
-        filteredFactures.value = filterFunction(factures.value, cas.value, filter.value)
-      }
+  // methods
+  const emitFilter = () => {
+      console.log("emited filter:", filter.value)
+      filteredFactures.value = filterFunction(factures.value, filter.value)
+    }
 
 </script>
