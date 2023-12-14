@@ -21,3 +21,15 @@ export class Ca implements ICa {
         this.id = record.getId()
        }
 }
+
+export const getCasOptions = (cas:ICa[]) => {
+  const opts:{value:string, text:string}[] = []
+  const options = new Map()
+  if(cas) cas.forEach(ca => {
+    options.set(ca.year, ca.year)
+  })
+  options.forEach((value, key) => {
+    opts.push({ value: key, text: value })
+  })
+  return opts
+}

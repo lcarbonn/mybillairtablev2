@@ -24,3 +24,27 @@ export class Client implements IClient {
         this.id = record.getId()
        }
 }
+
+export const getClientsOptions = (clients:IClient[]) => {
+  const cliopts = []
+  const actifCliOpts:{value:string, text:string}[] = []
+  const inactifCliOpts:{value:string, text:string}[] = []
+  if(clients) clients.forEach(client => {
+    if(client.actif) {
+      actifCliOpts.push(
+        { value: client.id, text: client.name }
+      )
+    } else {
+      inactifCliOpts.push(
+        { value: client.id, text: client.name }
+      )
+    }
+  })
+  cliopts.push(
+    { label: 'Clients actifs', options: actifCliOpts}
+  )
+  cliopts.push(
+    { label: 'Clients inactifs', options: inactifCliOpts}
+  )
+  return cliopts
+}

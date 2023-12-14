@@ -24,6 +24,27 @@
       </BCol>
       <BCol lg="4" class="my-1">
         <BForm-group
+          label="Client"
+          label-for="filter-client"
+        >
+        <BInput-group size="sm">
+              <BForm-select
+                id="filter-client"
+                v-model="filterClient"
+                :options="clientsOptions"
+              >
+              <template #first>
+                <BForm-select-option :value="null">-- Choisir un client --</BForm-select-option>
+              </template>
+            </BForm-select>
+              <BInput-group-append>
+                <b-button :disabled="!filterClient" @click="filterClient = null"><X/></b-button>
+              </BInput-group-append>
+            </BInput-group>
+        </BForm-group>
+      </BCol>
+      <BCol lg="4" class="my-1">
+        <BForm-group
           label="Commentaire"
           label-for="filter-input"
         >
@@ -66,6 +87,7 @@
 
   // local ref properties
   const filterCA = ref()
+  const filterClient = ref()
   const filterSearch = ref()
 
   // state managed properties
@@ -73,7 +95,10 @@
 
   // computed properties
   const casOptions = computed(() => {
-    return genCaOptions()
+    if(props.cas) return getCasOptions(props.cas)
+  })
+  const clientsOptions = computed(() => {
+    if(props.clients) return getClientsOptions(props.clients)
   })
 
   // watch local refs udpates
@@ -87,19 +112,11 @@
     filter.value.search = newValue
     emitFilter()
   })
-
-  // methods
-  const genCaOptions = () => {
-        const opts:any[] = []
-        const options = new Map()
-        if(props.cas) props.cas.forEach(ca => {
-          options.set(ca.year, ca.year)
-        })
-        options.forEach((value, key) => {
-          opts.push({ value: key, text: value })
-        })
-        return opts
-      }
+  watch(filterClient, (newValue, oldValue) => {
+    console.log("client filter:"+newValue)
+    filter.value.client = newValue
+    emitFilter()
+  })
 
   // emit the filter query
   const emitFilter = () => {
