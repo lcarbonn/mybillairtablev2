@@ -21,7 +21,12 @@
       :items="factures"
       :current-page="currentPage"
       :per-page="perPage"
-      :busy="isBusy"      >
+      :busy="isBusy">
+      <template #cell(id)="data">
+        <BButton @click="navigateTo('/facture/'+data.value)" size="sm" tilte="Détail"><Pen/></BButton>
+        <!-- <b-button @click="deleteFacture(data)" size="sm" v-b-tooltip.hover title="Supprimer"><b-icon icon="trash"/></b-button>
+        <b-button @click="showCopyFacture(data)" size="sm" v-b-tooltip.hover title="Dupliquer"><b-icon icon="back"/></b-button> -->
+      </template>
     </BTable>
   </div>
 </template>
@@ -29,6 +34,8 @@
 <script setup lang="ts">
 import type { TableField } from 'bootstrap-vue-next';
 
+  // icons
+  import Pen from '~icons/bi/pen'
 
   // props
   const props = defineProps({

@@ -63,12 +63,7 @@ const isFiltered = (facture:IFacture, filter:IFilter) :boolean => {
   const isClient=!filter.client||(facture.client && filter.client && facture.client==filter.client)?true:false
   const isSearch=!filter.search||(facture.comment && filter.search && facture.comment.toLowerCase().indexOf(filter.search.toLowerCase())!=-1)?true:false
   const isStatut=!filter.statut||(facture.statut && filter.statut && facture.statut==filter.statut)?true:false
-  // let caName = ""
-  // if(filter.ca && facture.ca) {
-  //   caName = getCaName(facture.ca, cas)
-  // }
   const isCA=!filter.ca||(facture.anneeCa && filter.ca && facture.anneeCa==filter.ca)?true:false
-  // const isCA=!filter.ca||(facture.ca && filter.ca && facture.anneeCa== filter.ca)?true:false
   const isFiltered=isDate&&isClient&&isSearch&&isStatut&&isCA
   return isFiltered
 }

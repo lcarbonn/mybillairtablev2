@@ -1,14 +1,6 @@
 import type { AirtableBase } from "airtable/lib/airtable_base"
 
 /**
- * get all factures and set state
- */
-export const getFactures = () => {
-    getFacturesDb().then((list) => {
-        useFactures().value = list
-    })
-}
-/**
  * Get all factures from airtable
  * @returns Promise - the factures list
  */
@@ -37,5 +29,16 @@ export const getFacturesDb = () :Promise<IFacture[]> => {
             console.debug("end getFactures", factures.length)
             resolve(factures)
         });
+    })
+}
+
+/**
+ * Get the facture with the given id from db
+ * @param id - the facture id
+ * @returns Promise - the factures list
+ */
+export const getFactureDb = (id:string) :Promise<IFacture> => {
+    return new Promise((resolve, reject) => {
+
     })
 }

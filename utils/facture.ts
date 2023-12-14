@@ -10,7 +10,7 @@ export type IFacture = {
     num: string,
     comment: string,
     client: string|undefined,
-    statut: string,
+    statut: string|undefined
     totalHT: string,
     totalTTC: string,
     ca: string|undefined,
@@ -32,7 +32,7 @@ export class Facture implements IFacture {
     num: string
     comment: string
     client: string|undefined
-    statut: string
+    statut: string|undefined
     totalHT: string
     totalTTC: string
     ca: string|undefined

@@ -1,9 +1,9 @@
 <template>
     <div>
-      <BButton class="m-3" variant="primary">Ajouter facture</BButton>
+      <BButton class="m-3" variant="primary" @click="showAddFacture">Ajouter facture</BButton>
       <DomainFacturesFilter :clients="clients" :cas="cas" @emitFilter="emitFilter"></DomainFacturesFilter>
       <DomainFacturesTable :factures="filteredFactures" :cas="cas" :clients="clients"/>
-      <!-- <DomainAddFacture :factures="factures" :clients="clients" :clientOptions="clientOptions" :cas="cas" @addFacture="addFacture"></DomainAddFacture> -->
+      <!-- <DomainAddFacture :modalAddFacture="modalAddFacture" :factures="factures" :clients="clients"></DomainAddFacture> -->
     </div>
 </template>
 
@@ -15,6 +15,7 @@
   const clients = useClients()
   const filter = useFilter()
   const filteredFactures = ref()
+  const modalAddFacture = ref({show:false})
 
   // nuxt hook
   onMounted(() => {
@@ -34,8 +35,11 @@
 
   // methods
   const emitFilter = () => {
-      console.log("emited filter:", filter.value)
       filteredFactures.value = filterFunction(factures.value, filter.value)
-    }
+  }
+  const showAddFacture = () => {
+        modalAddFacture.value.show = !modalAddFacture.value.show
+  }
+
 
 </script>
