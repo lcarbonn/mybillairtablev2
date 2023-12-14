@@ -2,64 +2,85 @@
   <div>
     <BRow>
       <BCol lg="4" class="my-1">
-        <BForm-group
+        <BFormGroup
           label="Année CA"
           label-for="filter-ca"
         >
-        <BInput-group size="sm">
-              <BForm-select
+        <BInputGroup size="sm">
+              <BFormSelect
                 id="filter-ca"
                 v-model="filterCA"
                 :options="casOptions"
               >
               <template #first>
-                <BForm-select-option :value="null">-- Choisir une année de CA --</BForm-select-option>
+                <BFormSelectOption :value="null" disabled>-- Choisir une année de CA --</BFormSelectOption>
               </template>
-            </BForm-select>
-              <BInput-group-append>
+            </BFormSelect>
+              <BInputGroup-append>
                 <BButton :disabled="!filterCA" @click="filterCA = null"><X/></BButton>
-              </BInput-group-append>
-            </BInput-group>
-        </BForm-group>
+              </BInputGroup-append>
+            </BInputGroup>
+        </BFormGroup>
       </BCol>
       <BCol lg="4" class="my-1">
-        <BForm-group
+        <BFormGroup
           label="Client"
           label-for="filter-client"
         >
-        <BInput-group size="sm">
-              <BForm-select
+        <BInputGroup size="sm">
+              <BFormSelect
                 id="filter-client"
                 v-model="filterClient"
                 :options="clientsOptions"
               >
               <template #first>
-                <BForm-select-option :value="null">-- Choisir un client --</BForm-select-option>
+                <BFormSelectOption :value="null" disabled>-- Choisir un client --</BFormSelectOption>
               </template>
-            </BForm-select>
-              <BInput-group-append>
+            </BFormSelect>
+              <BInputGroup-append>
                 <b-button :disabled="!filterClient" @click="filterClient = null"><X/></b-button>
-              </BInput-group-append>
-            </BInput-group>
-        </BForm-group>
+              </BInputGroup-append>
+            </BInputGroup>
+        </BFormGroup>
       </BCol>
       <BCol lg="4" class="my-1">
-        <BForm-group
+        <BFormGroup
+          label="Statut"
+          label-for="filter-status"
+        >
+        <BInputGroup size="sm">
+              <BFormSelect
+                id="filter-status"
+                v-model="filterStatus"
+                :options="statusOptions"
+              >
+              <template #first>
+                <BFormSelectOption :value="null" disabled>-- Choisir un statut --</BFormSelectOption>
+              </template>
+            </BFormSelect>
+              <BInputGroup-append>
+                <b-button :disabled="!filterStatus" @click="filterStatus = null"><X/></b-button>
+              </BInputGroup-append>
+            </BInputGroup>
+        </BFormGroup>
+      </BCol>      
+      <BCol lg="4" class="my-1">
+        <BFormGroup
           label="Commentaire"
           label-for="filter-input"
         >
-          <BInput-group size="sm">
+          <BInputGroup size="sm">
             <BForm-input
               id="filter-input"
               v-model="filterSearch"
               type="search"
               placeholder="Chercher..."
             ></BForm-input>
-            <BInput-group-append>
+            <BInputGroup-append>
               <BButton :disabled="!filterSearch" @click="filterSearch = null"><X/></BButton>
-            </BInput-group-append>
-          </BInput-group>
-        </BForm-group>
+            </BInputGroup-append>
+          </BInputGroup>
+        </BFormGroup>
       </BCol>
     </BRow>
   </div>
@@ -86,8 +107,9 @@
   const emit = defineEmits(['emitFilter'])
 
   // local ref properties
-  const filterCA = ref()
-  const filterClient = ref()
+  const filterCA = ref(null)
+  const filterClient = ref(null)
+  const filterStatus = ref(null)
   const filterSearch = ref()
 
   // state managed properties
@@ -114,7 +136,12 @@
   })
   watch(filterClient, (newValue, oldValue) => {
     console.log("client filter:"+newValue)
-    filter.value.client = newValue
+    filter.value.client = newValue?newValue:undefined
+    emitFilter()
+  })
+  watch(filterStatus, (newValue, oldValue) => {
+    console.log("status filter:"+newValue)
+    filter.value.statut = newValue?newValue:undefined
     emitFilter()
   })
 
