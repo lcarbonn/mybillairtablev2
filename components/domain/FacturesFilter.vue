@@ -16,9 +16,9 @@
                 <BFormSelectOption :value="null" disabled>-- Choisir une année de CA --</BFormSelectOption>
               </template>
             </BFormSelect>
-              <BInputGroup-append>
-                <BButton :disabled="!filterCA" @click="filterCA = null"><X/></BButton>
-              </BInputGroup-append>
+              <BInputGroupAppend>
+                <BButton :disabled="!filterCA" @click="filterCA = null" variant="primary"><X/></BButton>
+              </BInputGroupAppend>
             </BInputGroup>
         </BFormGroup>
       </BCol>
@@ -37,9 +37,9 @@
                 <BFormSelectOption :value="null" disabled>-- Choisir un client --</BFormSelectOption>
               </template>
             </BFormSelect>
-              <BInputGroup-append>
-                <b-button :disabled="!filterClient" @click="filterClient = null"><X/></b-button>
-              </BInputGroup-append>
+              <BInputGroupAppend>
+                <BButton :disabled="!filterClient" @click="filterClient = null" variant="primary"><X/></BButton>
+              </BInputGroupAppend>
             </BInputGroup>
         </BFormGroup>
       </BCol>
@@ -58,29 +58,57 @@
                 <BFormSelectOption :value="null" disabled>-- Choisir un statut --</BFormSelectOption>
               </template>
             </BFormSelect>
-              <BInputGroup-append>
-                <b-button :disabled="!filterStatus" @click="filterStatus = null"><X/></b-button>
-              </BInputGroup-append>
+              <BInputGroupAppend>
+                <BButton :disabled="!filterStatus" @click="filterStatus = null" variant="primary"><X/></BButton>
+              </BInputGroupAppend>
             </BInputGroup>
         </BFormGroup>
-      </BCol>      
+      </BCol>
+      <BCol lg="4" class="my-1">
+        <BFormGroup
+          label="Année Facture"
+          label-for="filter-date"
+        >
+        <BInputGroup size="sm">
+              <BFormSelect
+                id="filter-date"
+                v-model="filterDate"
+                :options="casOptions"
+              >
+              <template #first>
+                <BFormSelectOption :value="null">-- Choisir une année --</BFormSelectOption>
+              </template>
+            </BFormSelect>
+              <BInputGroupAppend>
+                <BButton :disabled="!filterDate" @click="filterDate = null" variant="primary"><X/></BButton>
+              </BInputGroupAppend>
+            </BInputGroup>
+        </BFormGroup>
+      </BCol>
       <BCol lg="4" class="my-1">
         <BFormGroup
           label="Commentaire"
           label-for="filter-input"
         >
           <BInputGroup size="sm">
-            <BForm-input
+            <BFormInput
               id="filter-input"
               v-model="filterSearch"
               type="search"
               placeholder="Chercher..."
-            ></BForm-input>
-            <BInputGroup-append>
-              <BButton :disabled="!filterSearch" @click="filterSearch = null"><X/></BButton>
-            </BInputGroup-append>
+            ></BFormInput>
+            <BInputGroupAppend>
+              <BButton :disabled="!filterSearch" @click="filterSearch = null" variant="primary"><X/></BButton>
+            </BInputGroupAppend>
           </BInputGroup>
         </BFormGroup>
+      </BCol>
+      <BCol lg="4" class="my-1">
+        <BFormGroup
+          label="Filtre"
+          label-for="filter">
+        <BButton id="filter" size="sm" :disabled="!filter" @click="resetAllFilter" variant="primary">Effacer tous les filtres</BButton>
+      </BFormGroup>
       </BCol>
     </BRow>
   </div>
@@ -110,6 +138,7 @@
   const filterCA = ref(null)
   const filterClient = ref(null)
   const filterStatus = ref(null)
+  const filterDate = ref(null)
   const filterSearch = ref()
 
   // state managed properties
@@ -126,9 +155,6 @@
   // watch local refs udpates
   watch(filterCA, (newValue, oldValue) => {
     prepEmit(newValue, "ca", "ca filter:")
-    // console.log("ca filter:"+newValue)
-    // filter.value.ca = newValue? new String(newValue).toString():undefined
-    // emitFilter()
   })
   watch(filterSearch, (newValue, oldValue) => {
     prepEmit(newValue, "search", "search filter:")
@@ -140,6 +166,10 @@
     prepEmit(newValue, "statut", "status filter:")
 
   })
+  watch(filterDate, (newValue, oldValue) => {
+    prepEmit(newValue, "date", "date filter:")
+
+  })
 
   const prepEmit= (newValue:any, filterName:string, log?:string) => {
     if(log) console.log(log,":",newValue)
@@ -148,13 +178,16 @@
         filter.value.ca = newValue? new String(newValue).toString():undefined
         break;
       case "client":
-      filter.value.search = newValue? newValue:undefined
+      filter.value.client = newValue? newValue:undefined
       break;
       case "statut":
       filter.value.statut = newValue? newValue:undefined
       break;
       case "search":
       filter.value.search = newValue? newValue:undefined
+      break;
+      case "date":
+      filter.value.date = newValue? new Number(newValue).valueOf() :undefined
       break;
     
       default:
@@ -166,4 +199,13 @@
   const emitFilter = () => {
     emit('emitFilter')
   }
+  // reset the filters
+  const resetAllFilter = () => {
+    filterCA.value = null
+    filterDate.value = null
+    filterClient.value = null
+    filterSearch.value = null
+    filterStatus.value = null
+  }
+
 </script>
