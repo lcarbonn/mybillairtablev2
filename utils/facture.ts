@@ -1,5 +1,8 @@
 import type { Record, FieldSet } from "airtable"
 
+/**
+ * Type for Facture table
+ */
 export type IFacture = {
     numFac: string,
     date: Date|undefined,
@@ -18,6 +21,9 @@ export type IFacture = {
     id: string,
 }
 
+/**
+ * Class for Facture table
+ */
 export class Facture implements IFacture {
     numFac: string
     date: Date|undefined

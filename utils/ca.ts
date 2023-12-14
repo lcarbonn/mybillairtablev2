@@ -1,11 +1,16 @@
 import type { Record, FieldSet } from "airtable"
-
+/**
+ * Type for CA table
+ */
 export type ICa = {
     date: string,
     year:string,
     id: string,
 }
 
+/**
+ * Class for CA Table
+ */
 export class Ca implements ICa {
   date: string
   year:string
@@ -22,6 +27,11 @@ export class Ca implements ICa {
        }
 }
 
+/**
+ * Get all CA as options for select
+ * @param cas the CAs list
+ * @returns options for CA select
+ */
 export const getCasOptions = (cas:ICa[]) => {
   const opts:{value:string, text:string}[] = []
   const options = new Map()
@@ -33,3 +43,21 @@ export const getCasOptions = (cas:ICa[]) => {
   })
   return opts
 }
+
+/**
+ * Get the CA name
+ * @param value - the CA id
+ * @param cas - the CA list
+ * @return the date as string
+ */
+export const getCaName = (value:string, cas:ICa[]) :string => {
+  if(!cas || !value) return ""
+  let date = ""
+  cas.forEach(ca => {
+    if(ca.id == value) {
+      date = ca.date
+    }
+  })
+  return date
+}
+

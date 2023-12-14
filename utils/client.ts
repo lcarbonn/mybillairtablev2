@@ -1,5 +1,7 @@
 import type { Record, FieldSet } from "airtable"
-
+/**
+ * Type for Client table
+ */
 export type IClient = {
     name: string,
     paymentDelay:string,
@@ -7,6 +9,9 @@ export type IClient = {
     id: string,
 }
 
+/**
+ * Class for Client table
+ */
 export class Client implements IClient {
   name: string
   paymentDelay:string
@@ -25,6 +30,11 @@ export class Client implements IClient {
        }
 }
 
+/**
+ * Get all clients as options for select
+ * @param clients 
+ * @returns options for select
+ */
 export const getClientsOptions = (clients:IClient[]) => {
   const cliopts = []
   const actifCliOpts:{value:string, text:string}[] = []

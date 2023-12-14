@@ -33,6 +33,13 @@ export class Filter implements IFilter {
     //    }
 }
 
+/**
+ * The filtering function
+ * @param factures - list of factures
+ * @param cas - liste of CAs
+ * @param filter - the filter
+ * @returns the filtered list of factures
+ */
 export const filterFunction = (factures:IFacture[], cas:ICa[], filter:IFilter) : IFacture[] => {
   console.debug("filtering")
   const filteredFactures:IFacture[] = []
@@ -45,21 +52,12 @@ export const filterFunction = (factures:IFacture[], cas:ICa[], filter:IFilter) :
 }
 
 /**
- * Get the CA name
- * @param value - the CA id
- * @param cas - the CA list
+ * Is the facture filtered
+ * @param facture The facture
+ * @param cas - the list of CAs
+ * @param filter - The filter
+ * @returns true if facture meet the filter, otherwise false
  */
-const getCaName = (value:string, cas:ICa[]) :string => {
-  if(!cas || !value) return ""
-  let date = ""
-  cas.forEach(ca => {
-    if(ca.id == value) {
-      date = ca.date
-    }
-  })
-  return date
-}
-
 const isFiltered = (facture:IFacture, cas:ICa[], filter:IFilter) :boolean => {
   const isDate=!filter.date||(facture.date && filter.date && facture.date.getFullYear()==filter.date)?true:false
   const isClient=!filter.client||(facture.client && filter.client && facture.client==filter.client)?true:false
