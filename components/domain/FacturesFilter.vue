@@ -125,26 +125,43 @@
 
   // watch local refs udpates
   watch(filterCA, (newValue, oldValue) => {
-    console.log("ca filter:"+newValue)
-    filter.value.ca = newValue? new String(newValue).toString():undefined
-    emitFilter()
+    prepEmit(newValue, "ca", "ca filter:")
+    // console.log("ca filter:"+newValue)
+    // filter.value.ca = newValue? new String(newValue).toString():undefined
+    // emitFilter()
   })
   watch(filterSearch, (newValue, oldValue) => {
-    console.log("search filter:"+newValue)
-    filter.value.search = newValue
-    emitFilter()
+    prepEmit(newValue, "search", "search filter:")
   })
   watch(filterClient, (newValue, oldValue) => {
-    console.log("client filter:"+newValue)
-    filter.value.client = newValue?newValue:undefined
-    emitFilter()
+    prepEmit(newValue, "client", "client filter:")
   })
   watch(filterStatus, (newValue, oldValue) => {
-    console.log("status filter:"+newValue)
-    filter.value.statut = newValue?newValue:undefined
-    emitFilter()
+    prepEmit(newValue, "statut", "status filter:")
+
   })
 
+  const prepEmit= (newValue:any, filterName:string, log?:string) => {
+    if(log) console.log(log,":",newValue)
+    switch (filterName) {
+      case "ca":
+        filter.value.ca = newValue? new String(newValue).toString():undefined
+        break;
+      case "client":
+      filter.value.search = newValue? newValue:undefined
+      break;
+      case "statut":
+      filter.value.statut = newValue? newValue:undefined
+      break;
+      case "search":
+      filter.value.search = newValue? newValue:undefined
+      break;
+    
+      default:
+        break;
+    }
+    emitFilter()
+  }
   // emit the filter query
   const emitFilter = () => {
     emit('emitFilter')
