@@ -251,7 +251,6 @@
       if(props.facture && casOptions) {
         setFactureCA(props.facture, casOptions.value)
       }
-      // props.facture.ca = prepCA(props.facture, casOptions)
     }
   })
   watch(numForm, (newValue) => {
@@ -261,12 +260,13 @@
     numForm.value = props.facture.num
   })
   watch(clientForm, (newValue) => {
+    props.facture.client = newValue
     if(newValue) {
-      props.facture.client = newValue
-
-      //setFactureNums(props.facture, undefined, newValue)
+      if(props.clients) props.facture.paymentDelay = getPaymentDelay(props.clients, newValue)
+      if(props.facture && casOptions) {
+        setFactureCA(props.facture, casOptions.value)
+      }
     }
-    numForm.value = props.facture.num
   })
 
   // form state functions
