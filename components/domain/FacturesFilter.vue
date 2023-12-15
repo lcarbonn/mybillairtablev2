@@ -146,7 +146,7 @@
 
   // computed properties
   const casOptions = computed(() => {
-    if(props.cas) return getCasOptions(props.cas)
+    if(props.cas) return getCaYearsOptions(props.cas)
   })
   const clientsOptions = computed(() => {
     if(props.clients) return getClientsOptions(props.clients)
@@ -168,7 +168,6 @@
   })
   watch(filterDate, (newValue, oldValue) => {
     prepEmit(newValue, "date", "date filter:")
-
   })
 
   const prepEmit= (newValue:any, filterName:string, log?:string) => {

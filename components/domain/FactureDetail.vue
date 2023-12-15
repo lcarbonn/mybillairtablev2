@@ -13,7 +13,15 @@
             class="mb-0"
           >
             <BInputGroup size="sm">
-              <BFormDatepicker id="datepicker" v-model="dateForm" placeholder="Choisir une date" :state="dateState"></BFormDatepicker>
+              <VueDatePicker id="datepicker"
+                v-model="dateForm" 
+                auto-apply 
+                :enable-time-picker="false" 
+                :state="dateState"
+                placeholder="Choisir une date"
+                format="dd/MM/yyyy"
+                locale="fr-FR"
+                text-input></VueDatePicker>
             </BInputGroup>
           </BFormGroup>
         </BCol>
@@ -124,9 +132,9 @@
                   <BFormSelectOption :value="undefined" disabled>-- Choisir un status --</BFormSelectOption>
                 </template>
               </BFormSelect>
-              <BInputGroup-append>
+              <BInputGroupAppend>
                   <b-button :disabled="!facture.statut" @click="facture.statut = undefined"><X/></b-button>
-              </BInputGroup-append>
+              </BInputGroupAppend>
             </BInputGroup>
           </BFormGroup>
         </BCol>
@@ -140,10 +148,20 @@
             class="mb-0"
           >
             <BInputGroup size="sm">
-              <BFormDatepicker size="sm" id="paydate" v-model="facture.payDate" :state="payState" placeholder="Choisir une date"></BFormDatepicker>
-              <BInputGroup-append>
+              <!-- <Datepicker size="sm" id="paydate" v-model="facture.payDate" :state="payState" placeholder="Choisir une date"></Datepicker> -->
+              <VueDatePicker id="paydate"
+                v-model="facture.payDate" 
+                auto-apply 
+                :enable-time-picker="false" 
+                :state="payState"
+                placeholder="Choisir une date"
+                format="dd/MM/yyyy"
+                locale="fr-FR"
+                text-input></VueDatePicker>
+
+              <!-- <BInputGroupAppend>
                   <b-button :disabled="!facture.payDate" @click="facture.payDate = undefined"><X/></b-button>
-              </BInputGroup-append>
+              </BInputGroupAppend> -->
 
             </BInputGroup>
           </BFormGroup>
@@ -171,6 +189,7 @@
             label-align-sm="left"
             class="mb-0"
           >
+
             <BInputGroup size="sm" append="€">
               <BFormInput id="tht" v-model="facture.totalHT" readonly class="text-right"></BFormInput>
             </BInputGroup>
@@ -197,6 +216,11 @@
 
 <script setup lang="ts">
 
+  // import datepicker vue component
+  import VueDatePicker from '@vuepic/vue-datepicker'
+  import '@vuepic/vue-datepicker/dist/main.css'
+  import { fr } from 'date-fns/locale';
+
   // icons
   import X from '~icons/bi/x'
 
@@ -220,35 +244,48 @@
       }
   })
 
+  // local refs
+  const dateForm = ref(props.facture.date)
+  const clientForm = ref(props.facture.client)
+  const numForm = ref(props.facture.num)
+
+  // watch local refs udpates
+  watch(dateForm, (newValue) => {
+    if(newValue) {
+      setFactureNums(props.facture, newValue)
+      numForm.value = getMaxNum(props.factures, props.facture)
+      if(props.facture && casOptions) {
+        setFactureCA(props.facture, casOptions.value)
+      }
+      // props.facture.ca = prepCA(props.facture, casOptions)
+    }
+  })
+  watch(numForm, (newValue) => {
+    if(newValue) {
+      setFactureNums(props.facture, undefined, newValue)
+    }
+    numForm.value = props.facture.num
+  })
+
+  // form state functions
   const dateState = computed(() => {
     return props.facture.date != null ? true:false
   })
   const numState = computed(() => {
-    return (props.facture.num != null && props.facture.num != "")  ? true:false
+    return props.facture.num != null ? true:false
   })
-
   const clientState = computed(() => {
     return props.facture.client != null ? true:false
   })
   const caState = computed(() => {
     return props.facture.ca != null ? true:false
   })
-
   const payState = computed(() => {
     return ((props.facture.statut == "Payée" && props.facture.payDate == null) || 
     (props.facture.payDate != null && props.facture.statut != "Payée")) ? false:true
   })
 
-  const dateForm = computed(() => {
-    return props.facture.date
-  })
-  const clientForm = computed(() => {
-    return props.facture.client
-  })
-  const numForm = computed(() => {
-    return props.facture.num
-  })
-
+  // computed properties for select components
   const casOptions = computed(() => {
     if(props.cas) return getCasOptions(props.cas)
   })

@@ -1,4 +1,6 @@
 import type { Record, FieldSet } from "airtable"
+import type { ICa } from "./ca"
+import type { IOptions } from "./options"
 
 /**
  * Type for Facture table
@@ -15,7 +17,7 @@ export type IFacture = {
     totalTTC: string,
     ca: string|undefined,
     tva: string,
-    paymentDelay: string|undefined,
+    paymentDelay: number|undefined,
     bdc: string,
     payDate: Date|undefined,
     id: string,
@@ -37,7 +39,7 @@ export class Facture implements IFacture {
     totalTTC: string
     ca: string|undefined
     tva: string
-    paymentDelay: string|undefined
+    paymentDelay: number|undefined
     bdc: string
     payDate: Date|undefined
     id: string
@@ -70,4 +72,68 @@ export class Facture implements IFacture {
         this.anneeCa = record.get('Année CA') as string
         this.id = record.getId()
        }
+}
+
+
+export const padTo2Digits = (num:string):string => {
+  return num.toString().padStart(2, "0")
+}
+
+export const formatDate = (date:Date) => {
+  let newDate = new Date(date)
+  return [
+    newDate.getFullYear(),
+    padTo2Digits(String(newDate.getMonth() + 1)),
+  ].join('-');
+}
+
+export const setFactureNums = (facture:IFacture, date?:Date, num?:string) => {
+  if(date) {
+    facture.date = new Date(date)
+    facture.index = formatDate(new Date(date))
+  }
+  if(num)  {
+    facture.num = padTo2Digits(num)
+  }
+  facture.numFac = facture.index + "-"+ facture.num
+
+  console.log("set facture nums: ", facture.numFac, ", ", facture.index, ", ",facture.num, ", ",facture.date)
+}
+
+export const getMaxNum = (factures:IFacture[]|undefined, newFacture:IFacture) :string => {
+  let maxNum = 0
+  if(newFacture.index && factures && factures.length>0) {
+    factures.forEach(facture => {
+      if(facture.index==newFacture.index && newFacture.id!=facture.id && Number(facture.num)>maxNum) maxNum = new Number(facture.num).valueOf()
+    });
+  }
+  return padTo2Digits(String(++maxNum))
+}
+
+export const setFactureCA = (facture:IFacture, caOpts:IOptions[]|undefined) => {
+  let caFac = undefined
+  if(facture.date && caOpts) {
+    const newDate = new Date(facture.date)
+    let year = newDate.getFullYear()
+    let month = newDate.getMonth()+1
+    if(facture.paymentDelay){
+      month=month+(facture.paymentDelay/30)
+    } else {
+      month++
+    }
+    if (month > 12) {
+      month = month - 12
+      year++
+    }
+    let ca = year + "-" + month;
+    if(month<10) {
+      ca = year + "-0" + month;
+    }
+    console.debug("calculated CA text:"+ca)
+    caOpts.forEach(caOpt => {
+      if(caOpt.text == ca) caFac = caOpt.value
+    });
+  }
+  console.debug("calculated CA value:"+caFac)
+  facture.ca = caFac
 }
