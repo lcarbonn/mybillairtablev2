@@ -12,6 +12,27 @@
 </template>
 
 <script setup lang="ts">
+
+  // props
+  const props = defineProps({
+    facture: {
+        type: Facture,
+        default: undefined
+    },
+    factures: {
+        type: Array<IFacture>,
+        default: undefined
+    },
+    cas: {
+        type: Array<ICa>,
+        default: undefined
+    },
+    clients: {
+          type: Array<IClient>,
+          default: undefined
+    }
+  })
+
 // import { BIcon, BIconSave, BIconArrowCounterclockwise, BIconTrash } from 'bootstrap-vue'
 
 // export default {

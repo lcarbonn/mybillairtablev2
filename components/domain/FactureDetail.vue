@@ -125,7 +125,7 @@
                 </template>
               </BFormSelect>
               <BInputGroup-append>
-                  <b-button :disabled="!facture.statut" @click="facture.statut = undefined"><BIcon icon="x"/></b-button>
+                  <b-button :disabled="!facture.statut" @click="facture.statut = undefined"><X/></b-button>
               </BInputGroup-append>
             </BInputGroup>
           </BFormGroup>
@@ -140,9 +140,9 @@
             class="mb-0"
           >
             <BInputGroup size="sm">
-              <BForm-datepicker size="sm" id="paydate" v-model="facture.payDate" :state="payState" placeholder="Choisir une date"></BForm-datepicker>
+              <BFormDatepicker size="sm" id="paydate" v-model="facture.payDate" :state="payState" placeholder="Choisir une date"></BFormDatepicker>
               <BInputGroup-append>
-                  <b-button :disabled="!facture.payDate" @click="facture.payDate = undefined"><BIcon icon="x"/></b-button>
+                  <b-button :disabled="!facture.payDate" @click="facture.payDate = undefined"><X/></b-button>
               </BInputGroup-append>
 
             </BInputGroup>
@@ -196,6 +196,9 @@
 </template>
 
 <script setup lang="ts">
+
+  // icons
+  import X from '~icons/bi/x'
 
   // props
   const props = defineProps({

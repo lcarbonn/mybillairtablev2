@@ -25,7 +25,11 @@ export const getFacturesDb = () :Promise<IFacture[]> => {
             });
             fetchNextPage();
         }, function done(err) {
-            if (err) { console.error(err); return; }
+            if (err) { 
+                console.error(err); 
+                reject(err)
+                return; 
+            }
             console.debug("end getFactures", factures.length)
             resolve(factures)
         });
@@ -39,6 +43,20 @@ export const getFacturesDb = () :Promise<IFacture[]> => {
  */
 export const getFactureDb = (id:string) :Promise<IFacture> => {
     return new Promise((resolve, reject) => {
-
+        const { $airtableConfig, $db } = useNuxtApp()
+        const db = $db as AirtableBase
+        const config = $airtableConfig as IAtConf
+     
+        db(config.tableFacture).find(id, function(err, record) {
+            if (err) { 
+                console.error(err);
+                reject(err)
+                return;
+            }
+            if(record) {
+                const facture = new Facture(record)
+                resolve(facture)
+            }
+        });
     })
 }
