@@ -1,14 +1,6 @@
 import type { AirtableBase } from "airtable/lib/airtable_base"
 
 /**
- * get all CA and set state
- */
-export const getCas = () => {
-    getCasDb().then((list) => {
-        useCas().value = list
-    })
-}
-/**
  * Get all CA from airtable
  * @returns Promise - the CA list
  */

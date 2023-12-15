@@ -1,14 +1,6 @@
 import type { AirtableBase } from "airtable/lib/airtable_base"
 
 /**
- * get all Clients and set state
- */
-export const getClients = () => {
-    getClientsDb().then((list) => {
-        useClients().value = list
-    })
-}
-/**
  * Get all Clients from airtable
  * @returns Promise - the Clients list
  */

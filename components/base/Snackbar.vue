@@ -8,6 +8,7 @@
              variant="primary"
              dismissible
              ref="myAlert"
+             interval="100"
              @close-countdown="countdown = $event">
       <div class="d-flex flex-wrap justify-content-md-center">{{ message }}</div>
       <BProgress variant="primary" :max="dismissCountDown" :value="countdown" height="4px" />

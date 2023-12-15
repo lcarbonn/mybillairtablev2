@@ -19,9 +19,9 @@
 
   // nuxt hook
   onMounted(() => {
-    getFactures()
-    getCas()
-    getClients()
+    getStateFactures()
+    getStateCas()
+    getStateClients()
   })
 
   // nuxt cycle hook

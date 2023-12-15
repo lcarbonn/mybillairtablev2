@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DomainFacture
+    <DomainFacture v-if="facture"
       :facture="facture"
       :factures="factures" 
       :clients="clients"
@@ -9,6 +9,7 @@
       @deleteFacture="deleteFacture"
       @resetFacture="resetFacture">
     </DomainFacture>
+    <span v-else>Non such bill</span>
   </div>
 </template>
 
@@ -25,21 +26,23 @@
 
   // nuxt hook
   onMounted(() => {
-    getFacture(id)
-    getFactures()
-    getCas()
-    getClients()
+    getStateFacture(id)
+    getStateFactures()
+    getStateCas()
+    getStateClients()
   })
 
   // methods
   const updateFacture = () => {
-    
+    updateStateFacture(facture.value)
   }
   const deleteFacture = () => {
-    
+    deleteStateFacture(facture.value.id)
+    navigateTo('/')
   }
   const resetFacture = () => {
-    getFacture(id)
+    getStateFacture(id)
+    messageToSnack("Facture reset")
   }
 
 </script>

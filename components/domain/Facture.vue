@@ -4,11 +4,12 @@
         <BCard-text>
           <DomainFactureDetail :facture.sync="facture" :factures="factures" :clients="clients" :cas="cas"></DomainFactureDetail>
         </BCard-text>
-        <b-button @click="updateFacture" size="sm" v-b-tooltip.hover title="Enregistrer"><Save/></b-button>
-        <b-button @click="deleteFacture" size="sm" v-b-tooltip.hover title="Supprimer"><Trash/></b-button>
-        <b-button @click="resetFacture" size="sm" v-b-tooltip.hover title="Annuler"><Reset/></b-button>
+        <b-button class="mx-1" @click="updateFacture" size="sm"><Save/></b-button>
+        <b-button class="mx-1" @click="deleteFacture" size="sm" ><Trash/></b-button>
+        <b-button class="mx-1" @click="resetFacture" size="sm" ><Reset/></b-button>
       </BCard>
-  </div>
+      <BModal v-model="modal" title="Supprimer Facture" @ok="confirmDelete"> Vraiment ? </BModal>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -41,11 +42,17 @@
   // emits declaration
   const emit = defineEmits(['updateFacture', 'deleteFacture', 'resetFacture'])
 
+  // local refs
+  const modal = ref(false)
+
   // methods
   const updateFacture = () => {
     emit('updateFacture')
   }
   const deleteFacture = () => {
+    modal.value = !modal.value
+  }
+  const confirmDelete = () => {
     emit('deleteFacture')
   }
   const resetFacture = () => {
