@@ -1,4 +1,11 @@
 /**
+ * Type for Input Select Options
+ */
+export type IOptions = {
+    value:string
+    text:string
+}
+/**
  * Status select options constants
  */
 export const statusOptions  = [

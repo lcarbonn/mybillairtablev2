@@ -1,4 +1,5 @@
 import type { Record, FieldSet } from "airtable"
+import type { IOptions } from "./options"
 /**
  * Type for CA table
  */
@@ -28,12 +29,12 @@ export class Ca implements ICa {
 }
 
 /**
- * Get all CA as options for select
+ * Get all Years of CA as options for select
  * @param cas the CAs list
  * @returns options for CA select
  */
-export const getCasOptions = (cas:ICa[]) => {
-  const opts:{value:string, text:string}[] = []
+export const getCaYearsOptions = (cas:ICa[]):IOptions[] => {
+  const opts:IOptions[] = []
   const options = new Map()
   if(cas) cas.forEach(ca => {
     options.set(ca.year, ca.year)
@@ -41,6 +42,21 @@ export const getCasOptions = (cas:ICa[]) => {
   options.forEach((value, key) => {
     opts.push({ value: key, text: value })
   })
+  return opts
+}
+
+/**
+ * Get all CA as options for select
+ * @param cas the CAs list
+ * @returns options for CA select
+ */
+export const getCasOptions = (cas:ICa[]):IOptions[] => {
+  const opts:IOptions[] = []
+  if(cas) {
+    cas.forEach((ca) => {
+      opts.push({ value:ca.id, text: ca.date })
+    })
+  }
   return opts
 }
 
