@@ -3,7 +3,7 @@
       <BButton class="m-3" variant="primary" @click="showAddFacture">Ajouter facture</BButton>
       <DomainFacturesFilter :clients="clients" :cas="cas" @emitFilter="emitFilter"></DomainFacturesFilter>
       <DomainFacturesTable :factures="filteredFactures" :cas="cas" :clients="clients"/>
-      <!-- <DomainAddFacture :modalAddFacture="modalAddFacture" :factures="factures" :clients="clients"></DomainAddFacture> -->
+      <DomainAddFacture :modalAddFacture="modalAddFacture" :factures="factures" :clients="clients" :cas="cas"></DomainAddFacture>
     </div>
 </template>
 
@@ -15,7 +15,7 @@
   const clients = useClients()
   const filter = useFilter()
   const filteredFactures = ref()
-  const modalAddFacture = ref({show:false})
+  const modalAddFacture = ref(new ModalShow())
 
   // nuxt hook
   onMounted(() => {
@@ -25,7 +25,7 @@
   })
 
   // nuxt cycle hook
-  watch(factures, async(newFactures, oldFactures) => {
+  watch(factures, async(newFactures) => {
     if(newFactures) {
       filteredFactures.value = newFactures
         }

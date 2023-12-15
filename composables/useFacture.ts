@@ -13,6 +13,7 @@ export const getStateFactures = () => {
 export const getStateFacture = (id:string) => {
     getFactureDb(id).then((facture) => {
         useFacture().value = facture
+        console.log("facture:", facture)
     })
 }
 

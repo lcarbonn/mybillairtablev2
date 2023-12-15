@@ -120,7 +120,7 @@ import type { TableField } from 'bootstrap-vue-next';
     const isBusy = ref(true)
     
     // nuxt cycle hook
-    watch(() => props.factures, async(newFactures, oldFactures) => {
+    watch(() => props.factures, async(newFactures) => {
       if(newFactures) {
               totalRows.value = newFactures.length
               totalHT.value = sumTotalHT(newFactures)

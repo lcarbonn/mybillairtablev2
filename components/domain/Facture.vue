@@ -2,7 +2,7 @@
   <div>
       <BCard v-if="facture" :title="'Facture : '+facture.numFac">
         <BCard-text>
-          <DomainFactureDetail :facture.sync="facture" :factures="factures" :clients="clients" :cas="cas"></DomainFactureDetail>
+          <DomainFactureDetail :facture="facture" :factures="factures" :clients="clients" :cas="cas"></DomainFactureDetail>
         </BCard-text>
         <b-button class="mx-1" @click="updateFacture" size="sm"><Save/></b-button>
         <b-button class="mx-1" @click="deleteFacture" size="sm" ><Trash/></b-button>

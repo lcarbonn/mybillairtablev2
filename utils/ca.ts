@@ -18,7 +18,7 @@ export class Ca implements ICa {
   id: string
 
        /**
-     * Card constructor
+     * CA constructor
      * @param record - Record form Airtable
      */
        constructor(record:Record<FieldSet>) {

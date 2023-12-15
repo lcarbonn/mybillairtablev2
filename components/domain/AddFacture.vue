@@ -9,12 +9,11 @@
         size="lg"
         cancel-title="Annuler"
         ok-title="Ajouter"
-        v-modal="handleOk"
         @ok="submit"
         @cancel="cancel">
           <BCard v-if="facture" :title="'Facture : '+facture.numFac">
             <BCardText>
-              <DomainFactureDetail :facture.sync="facture" :factures="factures" :clients="clients" :clientOptions="clientOptions" :cas="cas"></DomainFactureDetail>
+              <DomainFactureDetail :facture="facture" :factures="factures" :clients="clients" :cas="cas"></DomainFactureDetail>
             </BCardText>
           </BCard>
       </BModal>
@@ -25,19 +24,26 @@
 
   // props
   const props = defineProps({
-      modalAddFacture: Object,
+      modalAddFacture: {
+          type: ModalShow,
+          default: new ModalShow()
+      },
       factures: {
           type: Array<IFacture>,
           default: undefined
       },
       clients: {
-            type: Array<IClient>,
-            default: undefined
-        },
+          type: Array<IClient>,
+          default: undefined
+      },
+      cas: {
+          type: Array<ICa>,
+          default: undefined
+      },
   })
 
   // local ref
-  const facture = ref()
+  const facture = ref(new Facture())
 
   // methods
   const handleOk = () => {

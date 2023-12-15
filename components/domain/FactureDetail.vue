@@ -148,7 +148,6 @@
             class="mb-0"
           >
             <BInputGroup size="sm">
-              <!-- <Datepicker size="sm" id="paydate" v-model="facture.payDate" :state="payState" placeholder="Choisir une date"></Datepicker> -->
               <VueDatePicker id="paydate"
                 v-model="facture.payDate" 
                 auto-apply 
@@ -248,7 +247,7 @@
     if(newValue) {
       setFactureNums(props.facture, newValue)
       numForm.value = getMaxNum(props.factures, props.facture)
-      if(props.facture && casOptions) {
+      if(props.facture && casOptions.value) {
         setFactureCA(props.facture, casOptions.value)
       }
     }
@@ -263,7 +262,7 @@
     props.facture.client = newValue
     if(newValue) {
       if(props.clients) props.facture.paymentDelay = getPaymentDelay(props.clients, newValue)
-      if(props.facture && casOptions) {
+      if(props.facture && casOptions.value) {
         setFactureCA(props.facture, casOptions.value)
       }
     }

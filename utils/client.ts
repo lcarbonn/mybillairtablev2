@@ -20,7 +20,7 @@ export class Client implements IClient {
   id: string
 
        /**
-     * Card constructor
+     * Client constructor
      * @param record - Record form Airtable
      */
        constructor(record:Record<FieldSet>) {

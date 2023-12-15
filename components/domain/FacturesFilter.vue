@@ -153,20 +153,20 @@
   })
 
   // watch local refs udpates
-  watch(filterCA, (newValue, oldValue) => {
+  watch(filterCA, (newValue) => {
     prepEmit(newValue, "ca", "ca filter:")
   })
-  watch(filterSearch, (newValue, oldValue) => {
+  watch(filterSearch, (newValue) => {
     prepEmit(newValue, "search", "search filter:")
   })
-  watch(filterClient, (newValue, oldValue) => {
+  watch(filterClient, (newValue) => {
     prepEmit(newValue, "client", "client filter:")
   })
-  watch(filterStatus, (newValue, oldValue) => {
+  watch(filterStatus, (newValue) => {
     prepEmit(newValue, "statut", "status filter:")
 
   })
-  watch(filterDate, (newValue, oldValue) => {
+  watch(filterDate, (newValue) => {
     prepEmit(newValue, "date", "date filter:")
   })
 
