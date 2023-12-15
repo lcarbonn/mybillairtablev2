@@ -3,8 +3,6 @@
  */
 export const getStateCas = () => {
     getCasDb().then((list) => {
-        getCasDb().then((list) => {
         useCas().value = list
-        })
     })
 }

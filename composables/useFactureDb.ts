@@ -28,10 +28,10 @@ export const getFacturesDb = () :Promise<IFacture[]> => {
             if (err) { 
                 console.error(err); 
                 reject(err)
-                return; 
+            } else {
+                console.debug("end getFactures", factures.length)
+                resolve(factures)
             }
-            console.debug("end getFactures", factures.length)
-            resolve(factures)
         });
     })
 }
@@ -51,7 +51,6 @@ export const getFactureDb = (id:string) :Promise<IFacture> => {
             if (err) { 
                 console.error(err);
                 reject(err)
-                return;
             }
             if(record) {
                 const facture = new Facture(record)
@@ -86,7 +85,6 @@ export const updateFactureDb = (facture:IFacture) :Promise<IFacture> => {
                 if (err) {
                     console.error(err);
                     reject(err)
-                    return;
                     }
                 if(record) {
                     const facture = new Facture(record)
@@ -110,11 +108,44 @@ export const deleteFactureDb = (id:string) :Promise<string> => {
             if (err) {
                 console.error(err);
                 reject(err)
-                return;
-                }
+            }
             if(deletedRecord) {
                 resolve(deletedRecord.id)
             }
         })
+    })
+}
+
+/**
+ * Update the facture in the db
+ * @param facture Update the facture in db
+ * @returns a Promise with the updated facture from db or the error
+ */
+export const createFactureDb = (facture:IFacture) :Promise<IFacture> => {
+    return new Promise((resolve, reject) => {
+        const { $airtableConfig, $db } = useNuxtApp()
+        const db = $db as AirtableBase
+        const config = $airtableConfig as IAtConf
+        db(config.tableFacture).create(
+            {
+            "Date": facture.date?.toString(),
+            "#Num": facture.num,
+            "Comment": facture.comment,
+            "Taux TVA": facture.tva,
+            "Statut": facture.statut,
+            'Client': facture.client? [facture.client]:undefined,
+            "CA": facture.ca?[facture.ca]:undefined,
+            "Bon de Commande": facture.bdc,
+            "Date Paiement": facture.payDate?.toString()
+            }, function(err, record) {
+                if (err) {
+                    console.error(err);
+                    reject(err)
+                }
+                if(record) {
+                    const facture = new Facture(record)
+                    resolve(facture)
+                }
+            })
     })
 }

@@ -9,7 +9,7 @@
         size="lg"
         cancel-title="Annuler"
         ok-title="Ajouter"
-        @ok="submit"
+        @ok.prevent="preventOk"
         @cancel="cancel">
           <BCard v-if="facture" :title="'Facture : '+facture.numFac">
             <BCardText>
@@ -42,21 +42,29 @@
       },
   })
 
+  // emits declaration
+  const emit = defineEmits(['addFacture'])
+
   // local ref
   const facture = ref(new Facture())
 
   // methods
-  const handleOk = () => {
-      // Trigger submit handler
-      //this.handleSubmit()
-      return true
+  const isFactureValide = () => {
+      const valid = Boolean(facture.value.date && facture.value.num && facture.value.client && facture.value.ca)
+      return valid
+  }
+
+  const preventOk = () => {
+    if(isFactureValide()) {
+      props.modalAddFacture.show = false
+      submit()
+    }
   }
   const submit = () => {
-
+    emit('addFacture', facture.value)
   }
   const cancel = () => {
-    
+    facture.value = new Facture()
   }
-
   
 </script>

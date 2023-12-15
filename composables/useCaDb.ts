@@ -23,8 +23,11 @@ export const getCasDb = () :Promise<ICa[]> => {
             });
             fetchNextPage();
         }, function done(err) {
-            if (err) { console.error(err); return; }
-            resolve(cas)
+            if (err) {
+                console.error(err);
+                reject(err)
+            }
+            else resolve(cas)
         });
     })
 }

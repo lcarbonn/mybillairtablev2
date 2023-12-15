@@ -4,7 +4,7 @@ import type { Record, FieldSet } from "airtable"
  * Type for Facture table
  */
 export type IFacture = {
-    numFac: string|undefined,
+    numFac: string,
     date: Date|undefined,
     index: string|undefined,
     num: string|undefined,
@@ -18,7 +18,7 @@ export type IFacture = {
     paymentDelay: number|undefined,
     bdc: string|undefined,
     payDate: Date|undefined,
-    id: string|undefined,
+    id: string,
     anneeCa:string|undefined
 }
 
@@ -26,7 +26,7 @@ export type IFacture = {
  * Class for Facture table
  */
 export class Facture implements IFacture {
-    numFac: string|undefined
+    numFac: string
     date: Date|undefined
     index: string|undefined
     num: string|undefined
@@ -40,7 +40,7 @@ export class Facture implements IFacture {
     paymentDelay: number|undefined
     bdc: string|undefined
     payDate: Date|undefined
-    id: string|undefined
+    id: string
     anneeCa:string|undefined
     
     /**
@@ -72,6 +72,7 @@ export class Facture implements IFacture {
           this.id = record.getId()
         }
         else {
+          this.id=""
           this.numFac = ""
           this.tva = 0.2
         }

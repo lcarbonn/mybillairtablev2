@@ -1,13 +1,15 @@
 <template>
     <div>
       <BButton class="m-3" variant="primary" @click="showAddFacture">Ajouter facture</BButton>
-      <DomainFacturesFilter :clients="clients" :cas="cas" @emitFilter="emitFilter"></DomainFacturesFilter>
+      <DomainFacturesFilter :clients="clients" :cas="cas" @emit-filter="emitFilter"></DomainFacturesFilter>
       <DomainFacturesTable :factures="filteredFactures" :cas="cas" :clients="clients"/>
-      <DomainAddFacture :modalAddFacture="modalAddFacture" :factures="factures" :clients="clients" :cas="cas"></DomainAddFacture>
+      <DomainAddFacture :modalAddFacture="modalAddFacture" :factures="factures" :clients="clients" :cas="cas" @add-facture="addFacture"></DomainAddFacture>
     </div>
 </template>
 
 <script setup lang="ts">
+import type { Facture } from '#imports';
+
 
   // stated properties
   const factures = useFactures()
@@ -35,10 +37,14 @@
 
   // methods
   const emitFilter = () => {
-      filteredFactures.value = filterFunction(factures.value, filter.value)
+    filteredFactures.value = filterFunction(factures.value, filter.value)
   }
   const showAddFacture = () => {
-        modalAddFacture.value.show = !modalAddFacture.value.show
+    modalAddFacture.value.show = !modalAddFacture.value.show
+  }
+  const addFacture = (facture:IFacture) => {
+    console.log("add facture :", facture)
+    createStateFacture(facture)
   }
 
 

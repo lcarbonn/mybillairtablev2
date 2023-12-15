@@ -23,7 +23,11 @@ export const getClientsDb = () :Promise<IClient[]> => {
             });
             fetchNextPage();
         }, function done(err) {
-            if (err) { console.error(err); return; }
+            if (err) {
+                 console.error(err);
+                 reject(err)
+                 return; 
+            }
             resolve(clients)
         });
     })
