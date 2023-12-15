@@ -17,7 +17,7 @@
               </template>
             </BFormSelect>
               <BInputGroupAppend>
-                <BButton :disabled="!filterCA" @click="filterCA = null" variant="primary"><X/></BButton>
+                <BButton :disabled="!filterCA" @click="filterCA = null" ><X/></BButton>
               </BInputGroupAppend>
             </BInputGroup>
         </BFormGroup>
@@ -38,7 +38,7 @@
               </template>
             </BFormSelect>
               <BInputGroupAppend>
-                <BButton :disabled="!filterClient" @click="filterClient = null" variant="primary"><X/></BButton>
+                <BButton :disabled="!filterClient" @click="filterClient = null" ><X/></BButton>
               </BInputGroupAppend>
             </BInputGroup>
         </BFormGroup>
@@ -59,7 +59,7 @@
               </template>
             </BFormSelect>
               <BInputGroupAppend>
-                <BButton :disabled="!filterStatus" @click="filterStatus = null" variant="primary"><X/></BButton>
+                <BButton :disabled="!filterStatus" @click="filterStatus = null" ><X/></BButton>
               </BInputGroupAppend>
             </BInputGroup>
         </BFormGroup>
@@ -80,7 +80,7 @@
               </template>
             </BFormSelect>
               <BInputGroupAppend>
-                <BButton :disabled="!filterDate" @click="filterDate = null" variant="primary"><X/></BButton>
+                <BButton :disabled="!filterDate" @click="filterDate = null" ><X/></BButton>
               </BInputGroupAppend>
             </BInputGroup>
         </BFormGroup>
@@ -98,7 +98,7 @@
               placeholder="Chercher..."
             ></BFormInput>
             <BInputGroupAppend>
-              <BButton :disabled="!filterSearch" @click="filterSearch = null" variant="primary"><X/></BButton>
+              <BButton :disabled="!filterSearch" @click="filterSearch = null" ><X/></BButton>
             </BInputGroupAppend>
           </BInputGroup>
         </BFormGroup>
@@ -107,7 +107,7 @@
         <BFormGroup
           label="Filtre"
           label-for="filter">
-        <BButton id="filter" size="sm" :disabled="!filter" @click="resetAllFilter" variant="primary">Effacer tous les filtres</BButton>
+        <BButton id="filter" size="sm" :disabled="!filter" @click="resetAllFilter" >Effacer tous les filtres</BButton>
       </BFormGroup>
       </BCol>
     </BRow>

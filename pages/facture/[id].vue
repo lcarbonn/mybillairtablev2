@@ -4,7 +4,10 @@
       :facture="facture"
       :factures="factures" 
       :clients="clients"
-      :cas="cas">
+      :cas="cas"
+      @updateFacture="updateFacture"
+      @deleteFacture="deleteFacture"
+      @resetFacture="resetFacture">
     </DomainFacture>
   </div>
 </template>
@@ -27,5 +30,16 @@
     getCas()
     getClients()
   })
+
+  // methods
+  const updateFacture = () => {
+    
+  }
+  const deleteFacture = () => {
+    
+  }
+  const resetFacture = () => {
+    getFacture(id)
+  }
 
 </script>
