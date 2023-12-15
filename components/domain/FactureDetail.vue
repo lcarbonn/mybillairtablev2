@@ -158,11 +158,6 @@
                 format="dd/MM/yyyy"
                 locale="fr-FR"
                 text-input></VueDatePicker>
-
-              <!-- <BInputGroupAppend>
-                  <b-button :disabled="!facture.payDate" @click="facture.payDate = undefined"><X/></b-button>
-              </BInputGroupAppend> -->
-
             </BInputGroup>
           </BFormGroup>
         </BCol>
@@ -189,8 +184,7 @@
             label-align-sm="left"
             class="mb-0"
           >
-
-            <BInputGroup size="sm" append="€">
+        <BInputGroup size="sm" append="€">
               <BFormInput id="tht" v-model="facture.totalHT" readonly class="text-right"></BFormInput>
             </BInputGroup>
           </BFormGroup>
@@ -219,7 +213,6 @@
   // import datepicker vue component
   import VueDatePicker from '@vuepic/vue-datepicker'
   import '@vuepic/vue-datepicker/dist/main.css'
-  import { fr } from 'date-fns/locale';
 
   // icons
   import X from '~icons/bi/x'
@@ -246,8 +239,9 @@
 
   // local refs
   const dateForm = ref(props.facture.date)
-  const clientForm = ref(props.facture.client)
   const numForm = ref(props.facture.num)
+  const clientForm = ref(props.facture.client)
+  
 
   // watch local refs udpates
   watch(dateForm, (newValue) => {
@@ -263,6 +257,14 @@
   watch(numForm, (newValue) => {
     if(newValue) {
       setFactureNums(props.facture, undefined, newValue)
+    }
+    numForm.value = props.facture.num
+  })
+  watch(clientForm, (newValue) => {
+    if(newValue) {
+      props.facture.client = newValue
+
+      //setFactureNums(props.facture, undefined, newValue)
     }
     numForm.value = props.facture.num
   })

@@ -5,6 +5,15 @@ export type IOptions = {
     value:string
     text:string
 }
+
+/**
+ * Type for Input Select Options
+ */
+export type ISupOptions = {
+    label:string
+    options:IOptions[]
+}
+
 /**
  * Status select options constants
  */

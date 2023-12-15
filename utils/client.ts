@@ -1,10 +1,11 @@
 import type { Record, FieldSet } from "airtable"
+import type { IOptions } from "./options"
 /**
  * Type for Client table
  */
 export type IClient = {
     name: string,
-    paymentDelay:string,
+    paymentDelay:number,
     actif:boolean,
     id: string,
 }
@@ -14,7 +15,7 @@ export type IClient = {
  */
 export class Client implements IClient {
   name: string
-  paymentDelay:string
+  paymentDelay:number
   actif:boolean
   id: string
 
@@ -24,7 +25,7 @@ export class Client implements IClient {
      */
        constructor(record:Record<FieldSet>) {
         this.name = record.get('Name') as string
-        this.paymentDelay = record.get('Délai Règlement') as string
+        this.paymentDelay = record.get('Délai Règlement') as number
         this.actif = record.get('Actif') as boolean
         this.id = record.getId()
        }
@@ -35,10 +36,10 @@ export class Client implements IClient {
  * @param clients 
  * @returns options for select
  */
-export const getClientsOptions = (clients:IClient[]) => {
-  const cliopts = []
-  const actifCliOpts:{value:string, text:string}[] = []
-  const inactifCliOpts:{value:string, text:string}[] = []
+export const getClientsOptions = (clients:IClient[]):ISupOptions[] => {
+  const cliopts:ISupOptions[] = []
+  const actifCliOpts:IOptions[] = []
+  const inactifCliOpts:IOptions[] = []
   if(clients) clients.forEach(client => {
     if(client.actif) {
       actifCliOpts.push(
@@ -57,4 +58,14 @@ export const getClientsOptions = (clients:IClient[]) => {
     { label: 'Clients inactifs', options: inactifCliOpts}
   )
   return cliopts
+}
+
+export const getPaymentDelay = (clients:IClient[], clientId:string):number|undefined => {
+  let paymentDelay = undefined
+  clients.forEach(client => {
+    if(client.id == clientId) {
+      paymentDelay = client.paymentDelay
+    }
+  })
+  return paymentDelay
 }
