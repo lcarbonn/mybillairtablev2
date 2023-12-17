@@ -2,14 +2,18 @@
     <div>
       <BButton class="m-3" variant="primary" @click="showAddFacture">Ajouter facture</BButton>
       <DomainFacturesFilter :clients="clients" :cas="cas" @emit-filter="emitFilter"></DomainFacturesFilter>
-      <DomainFacturesTable :factures="filteredFactures" :cas="cas" :clients="clients"/>
+      <DomainFacturesTable :factures="filteredFactures" :cas="cas" :clients="clients" @delete-facture="deleteFacture"/>
       <DomainAddFacture :modalAddFacture="modalAddFacture" :factures="factures" :clients="clients" :cas="cas" @add-facture="addFacture"></DomainAddFacture>
+      <BModal v-model="modal" title="Supprimer Facture" @ok="confirmDelete"> Vraiment ? </BModal>
     </div>
 </template>
 
 <script setup lang="ts">
 import type { Facture } from '#imports';
 
+  // local refs
+  const modal = ref(false)
+  const id4Delete = ref()
 
   // stated properties
   const factures = useFactures()
@@ -47,5 +51,12 @@ import type { Facture } from '#imports';
     createStateFacture(facture)
   }
 
-
+  const deleteFacture = (id:string) => {
+    id4Delete.value = id
+    modal.value = !modal.value
+  }
+  const confirmDelete = () => {
+    console.log("delete facture :", id4Delete.value)
+    deleteStateFacture(id4Delete.value)
+  }
 </script>

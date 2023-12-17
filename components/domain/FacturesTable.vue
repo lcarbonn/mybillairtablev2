@@ -23,9 +23,9 @@
       :per-page="perPage"
       :busy="isBusy">
       <template #cell(id)="data">
-        <BButton @click="navigateTo('/facture/'+data.value)" size="sm" tilte="Détail"><Pen/></BButton>
-        <!-- <b-button @click="deleteFacture(data)" size="sm" v-b-tooltip.hover title="Supprimer"><b-icon icon="trash"/></b-button>
-        <b-button @click="showCopyFacture(data)" size="sm" v-b-tooltip.hover title="Dupliquer"><b-icon icon="back"/></b-button> -->
+        <BButton class="mx-1" @click="navigateTo('/facture/'+data.value)" size="sm" tilte="Détail"><Pen/></BButton>
+        <BButton class="mx-1" @click="deleteFacture(data.value as string)" size="sm" ><Trash/></BButton>
+        <!-- <b-button @click="showCopyFacture(data)" size="sm" v-b-tooltip.hover title="Dupliquer"><b-icon icon="back"/></b-button> -->
       </template>
     </BTable>
   </div>
@@ -36,6 +36,7 @@ import type { TableField } from 'bootstrap-vue-next';
 
   // icons
   import Pen from '~icons/bi/pen'
+  import Trash from '~icons/bi/trash'
 
   // props
   const props = defineProps({
@@ -52,6 +53,9 @@ import type { TableField } from 'bootstrap-vue-next';
             default: undefined
       }
   })
+
+  // emits declaration
+  const emit = defineEmits(['deleteFacture'])
 
   // const fields
   const fields = [
@@ -185,5 +189,9 @@ import type { TableField } from 'bootstrap-vue-next';
         sum = sum + Number(facture.totalHT)
       });
       return sum.toLocaleString()
+    }
+
+    const deleteFacture =(id:string) => {
+      emit('deleteFacture', id)
     }
 </script>
