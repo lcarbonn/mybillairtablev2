@@ -2,14 +2,16 @@
     <div>
       <BButton class="m-3" variant="primary" @click="showAddFacture">Ajouter facture</BButton>
       <DomainFacturesFilter :clients="clients" :cas="cas" @emit-filter="emitFilter"></DomainFacturesFilter>
-      <DomainFacturesTable :factures="filteredFactures" :cas="cas" :clients="clients" @delete-facture="deleteFacture"/>
+      <DomainFacturesTable :factures="filteredFactures" :cas="cas" :clients="clients" @delete-facture="deleteFacture" @copy-facture="showCopyFacture"/>
       <DomainAddFacture :modalAddFacture="modalAddFacture" :factures="factures" :clients="clients" :cas="cas" @add-facture="addFacture"></DomainAddFacture>
+      <DomainCopyFacture :modalCopyFacture="modalCopyFacture" :facture="selectedFacture" @copy-facture="copyFacture"></DomainCopyFacture>
+
       <BModal v-model="modal" title="Supprimer Facture" @ok="confirmDelete"> Vraiment ? </BModal>
     </div>
 </template>
 
 <script setup lang="ts">
-import type { Facture } from '#imports';
+import { Facture } from '#imports';
 
   // local refs
   const modal = ref(false)
@@ -22,6 +24,8 @@ import type { Facture } from '#imports';
   const filter = useFilter()
   const filteredFactures = ref()
   const modalAddFacture = ref(new ModalShow())
+  const selectedFacture = ref(new Facture())
+  const modalCopyFacture = ref(new ModalShow())    
 
   // nuxt hook
   onMounted(() => {
@@ -56,7 +60,16 @@ import type { Facture } from '#imports';
     modal.value = !modal.value
   }
   const confirmDelete = () => {
-    console.log("delete facture :", id4Delete.value)
     deleteStateFacture(id4Delete.value)
   }
+  const showCopyFacture = (facture:IFacture) => {
+    selectedFacture.value = facture
+    modalCopyFacture.value.show = !modalCopyFacture.value.show
+  }
+  const copyFacture = (dateForm:Date) => {
+    const newFacture = duplicateFacture(dateForm, selectedFacture.value, factures.value, getCasOptions(cas.value))
+    console.log("copy facture :", newFacture)
+    createStateFacture(newFacture)
+  }
+
 </script>

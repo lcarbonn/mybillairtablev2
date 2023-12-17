@@ -23,9 +23,9 @@
       :per-page="perPage"
       :busy="isBusy">
       <template #cell(id)="data">
-        <BButton class="mx-1" @click="navigateTo('/facture/'+data.value)" size="sm" tilte="Détail"><Pen/></BButton>
+        <BButton @click="navigateTo('/facture/'+data.value)" size="sm" tilte="Détail"><Pen/></BButton>
         <BButton class="mx-1" @click="deleteFacture(data.value as string)" size="sm" ><Trash/></BButton>
-        <!-- <b-button @click="showCopyFacture(data)" size="sm" v-b-tooltip.hover title="Dupliquer"><b-icon icon="back"/></b-button> -->
+        <BButton @click="copyFacture(data.item as IFacture)" size="sm"><Copy/></BButton>
       </template>
     </BTable>
   </div>
@@ -37,6 +37,7 @@ import type { TableField } from 'bootstrap-vue-next';
   // icons
   import Pen from '~icons/bi/pen'
   import Trash from '~icons/bi/trash'
+  import Copy from '~icons/bi/copy'
 
   // props
   const props = defineProps({
@@ -55,7 +56,7 @@ import type { TableField } from 'bootstrap-vue-next';
   })
 
   // emits declaration
-  const emit = defineEmits(['deleteFacture'])
+  const emit = defineEmits(['deleteFacture', 'copyFacture'])
 
   // const fields
   const fields = [
@@ -191,7 +192,11 @@ import type { TableField } from 'bootstrap-vue-next';
       return sum.toLocaleString()
     }
 
-    const deleteFacture =(id:string) => {
+    const deleteFacture = (id:string) => {
       emit('deleteFacture', id)
     }
+
+    const copyFacture = (facture:IFacture) => {
+      emit('copyFacture', facture)
+    } 
 </script>

@@ -1,3 +1,4 @@
+import { NuxtWelcome } from "#build/components"
 import type { Record, FieldSet } from "airtable"
 
 /**
@@ -137,4 +138,23 @@ export const setFactureCA = (facture:IFacture, caOpts:IOptions[]) => {
     });
   }
   facture.ca = caFac
+}
+
+export const duplicateFacture = (date:Date, selectedFacture:IFacture, factures:IFacture[], caOpts:IOptions[]) : IFacture => {
+  console.debug("copyFacture original:", selectedFacture)
+  //get old facture
+  const oldFacture = selectedFacture
+  const newFacture = new Facture()
+  newFacture.date = date,
+  newFacture.comment = "DUPLICATE " + oldFacture.comment ,
+  newFacture.client = oldFacture.client,
+  newFacture.tva = oldFacture.tva,
+  newFacture.paymentDelay = oldFacture.paymentDelay,
+  newFacture.bdc = oldFacture.bdc,
+  setFactureCA(newFacture, caOpts)
+  setFactureNums(newFacture, date)
+  const num = getMaxNum(factures, newFacture)
+  setFactureNums(newFacture, undefined, num)
+  console.debug("copyFacture new facture :",newFacture )
+  return newFacture 
 }
