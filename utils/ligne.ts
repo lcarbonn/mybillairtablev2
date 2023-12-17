@@ -3,13 +3,13 @@ import type { Record, FieldSet } from "airtable"
  * Type for LigneFacture table
  */
 export type ILigne = {
-  numFac:string
+  numFacLigne:string
   ligne: string
   libelle:string
-  puHT:string
-  puH:string
-  quantite:string
-  totalHT:string
+  puHT:number
+  typePU:string
+  quantite:number
+  totalHT:number
   id: string
 }
 
@@ -17,13 +17,13 @@ export type ILigne = {
  * Class for LigneFacture Table
  */
 export class Ligne implements ILigne {
-  numFac:string
+  numFacLigne:string
   ligne: string
   libelle:string
-  puHT:string
-  puH:string
-  quantite:string
-  totalHT:string
+  puHT:number
+  typePU:string
+  quantite:number
+  totalHT:number
   id: string
 
        /**
@@ -31,13 +31,13 @@ export class Ligne implements ILigne {
      * @param record - Record form Airtable
      */
        constructor(record:Record<FieldSet>) {
-        this.numFac = record.get('#NumFacLigne') as string
+        this.numFacLigne = record.get('#NumFacLigne') as string
         this.ligne = record.get('#Ligne') as string
-        this.libelle = record.get('Libelle') as string
-        this.puHT = record.get('PU HT') as string
-        this.puH = record.get('PU/H') as string
-        this.quantite = record.get('Quantité') as string
-        this.totalHT = record.get('Total HT') as string
+        this.libelle = record.get('Libellé') as string
+        this.puHT = record.get('PU HT') as number
+        this.typePU = record.get('PU/H') as string
+        this.quantite = record.get('Quantité') as number
+        this.totalHT = record.get('Total HT') as number
         this.id = record.getId()
        }
 }

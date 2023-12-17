@@ -7,10 +7,11 @@
       :items="lignes"
     >
       <template #cell(id)="data">
-        <BButton @click="updateLigne(data.value)" size="sm"><Pen/></BButton>
-        <BButton @click="deleteLigne(data.value)" size="sm"><Trash/></BButton>
+        <BButton @click="updateLigne(data.item as ILigne)" size="sm"><Pen/></BButton>
+        <BButton @click="deleteLigne(data.value as string)" size="sm"><Trash/></BButton>
       </template>
     </BTable>
+    <DomainModalLigne :ligne="selectedLigne" :modalShowLigne="modalShowLigne"></DomainModalLigne>
   </div>
 </template>
 
@@ -28,11 +29,16 @@
     }
   })
 
-  // methods
-  const updateLigne = (ligneId:any) => {
+  // local refs
+  const selectedLigne = ref()
+  const modalShowLigne = ref(new ModalShow())
 
+  // methods
+  const updateLigne = (ligne:ILigne) => {
+    selectedLigne.value = ligne
+    modalShowLigne.value.show = !modalShowLigne.value.show
   }
-  const deleteLigne = (ligneId:any) => {
+  const deleteLigne = (ligneId:string) => {
 
 }
 </script>
