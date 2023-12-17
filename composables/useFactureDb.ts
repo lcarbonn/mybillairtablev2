@@ -72,7 +72,7 @@ export const updateFactureDb = (facture:IFacture) :Promise<IFacture> => {
         const config = $airtableConfig as IAtConf
         db(config.tableFacture).update(facture.id,
             {
-            "Date": facture.date?.toString(),
+            "Date": facture.date?.toDateString(),
             "#Num": facture.num,
             "Comment": facture.comment,
             "Taux TVA": facture.tva,
@@ -80,7 +80,7 @@ export const updateFactureDb = (facture:IFacture) :Promise<IFacture> => {
             'Client': facture.client? [facture.client]:undefined,
             "CA": facture.ca?[facture.ca]:undefined,
             "Bon de Commande": facture.bdc,
-            "Date Paiement": facture.payDate?.toString()
+            "Date Paiement": facture.payDate?.toDateString()
             }, function(err, record) {
                 if (err) {
                     console.error(err);
@@ -117,9 +117,9 @@ export const deleteFactureDb = (id:string) :Promise<string> => {
 }
 
 /**
- * Update the facture in the db
- * @param facture Update the facture in db
- * @returns a Promise with the updated facture from db or the error
+ * Create the facture in the db
+ * @param facture Create the facture in db
+ * @returns a Promise with the created facture from db or the error
  */
 export const createFactureDb = (facture:IFacture) :Promise<IFacture> => {
     return new Promise((resolve, reject) => {
@@ -128,7 +128,7 @@ export const createFactureDb = (facture:IFacture) :Promise<IFacture> => {
         const config = $airtableConfig as IAtConf
         db(config.tableFacture).create(
             {
-            "Date": facture.date?.toString(),
+            "Date": facture.date?.toDateString(),
             "#Num": facture.num,
             "Comment": facture.comment,
             "Taux TVA": facture.tva,
@@ -136,7 +136,7 @@ export const createFactureDb = (facture:IFacture) :Promise<IFacture> => {
             'Client': facture.client? [facture.client]:undefined,
             "CA": facture.ca?[facture.ca]:undefined,
             "Bon de Commande": facture.bdc,
-            "Date Paiement": facture.payDate?.toString()
+            "Date Paiement": facture.payDate?.toDateString()
             }, function(err, record) {
                 if (err) {
                     console.error(err);
