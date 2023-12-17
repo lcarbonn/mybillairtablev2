@@ -154,24 +154,23 @@
 
   // watch local refs udpates
   watch(filterCA, (newValue) => {
-    prepEmit(newValue, "ca", "ca filter:")
+    prepEmit(newValue, "ca")
   })
   watch(filterSearch, (newValue) => {
-    prepEmit(newValue, "search", "search filter:")
+    prepEmit(newValue, "search")
   })
   watch(filterClient, (newValue) => {
-    prepEmit(newValue, "client", "client filter:")
+    prepEmit(newValue, "client")
   })
   watch(filterStatus, (newValue) => {
-    prepEmit(newValue, "statut", "status filter:")
+    prepEmit(newValue, "statut")
 
   })
   watch(filterDate, (newValue) => {
-    prepEmit(newValue, "date", "date filter:")
+    prepEmit(newValue, "date")
   })
 
-  const prepEmit= (newValue:any, filterName:string, log?:string) => {
-    if(log) console.log(log,":",newValue)
+  const prepEmit= (newValue:any, filterName:string) => {
     switch (filterName) {
       case "ca":
         filter.value.ca = newValue? new String(newValue).toString():undefined

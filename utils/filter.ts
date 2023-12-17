@@ -41,7 +41,6 @@ export class Filter implements IFilter {
  * @returns the filtered list of factures
  */
 export const filterFunction = (factures:IFacture[], filter:IFilter) : IFacture[] => {
-  console.debug("filtering")
   const filteredFactures:IFacture[] = []
   factures.forEach((facture) => {
     if(isFiltered(facture, filter)) {
