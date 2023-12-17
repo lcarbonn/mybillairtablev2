@@ -14,6 +14,5 @@ export const messageToSnack = (message:string) => {
  */
 export const errorToSnack = (error:any, message:string) => {
     const snackBarMessage = useSnackBarMessage()
-    console.log(message, " : ", error?.code, error?.message)
     snackBarMessage.value = message + " : " + error?.message
 }

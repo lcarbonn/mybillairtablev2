@@ -13,7 +13,6 @@ export const getStateFactures = () => {
 export const getStateFacture = (id:string) => {
     getFactureDb(id).then((facture) => {
         useFacture().value = facture
-        console.log("facture:", facture)
     })
     .catch((error) => {
         errorToSnack(error, "Erreur lecture facture")
@@ -24,7 +23,6 @@ export const getStateFacture = (id:string) => {
  * Update the facture with the given facture data and set state
  */
 export const updateStateFacture = (facture:IFacture) => {
-    console.log("update facture:", facture)
     updateFactureDb(facture).then((updatedFac) => {
         useFacture().value = updatedFac
         messageToSnack("Facture " + updatedFac.numFac +" mise à jour")

@@ -101,8 +101,6 @@ export const setFactureNums = (facture:IFacture, date?:Date, num?:string) => {
     facture.num = padTo2Digits(num)
   }
   facture.numFac = facture.index + "-"+ facture.num
-
-  console.log("set facture nums: ", facture.numFac, ", ", facture.index, ", ",facture.num, ", ",facture.date)
 }
 
 export const getMaxNum = (factures:IFacture[]|undefined, newFacture:IFacture) :string => {
@@ -134,11 +132,9 @@ export const setFactureCA = (facture:IFacture, caOpts:IOptions[]) => {
     if(month<10) {
       ca = year + "-0" + month;
     }
-    console.debug("calculated CA text:",ca, ", date:", facture.date, )
     caOpts.forEach(caOpt => {
       if(caOpt.text == ca) caFac = caOpt.value
     });
   }
-  console.debug("calculated CA value:"+caFac)
   facture.ca = caFac
 }
