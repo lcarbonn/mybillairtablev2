@@ -1,11 +1,11 @@
 <template>
   <BNavbar toggleable="lg" variant="primary" sticky='top' v-b-color-mode="'dark'">
-    <BNavbarBrand>
+    <BNavbarBrand @click="goHome" >
       <BLink @click="goHome" class="navbar-brand">
-      <BAvatar rounded
-                  src="/icon.png"></BAvatar> My Bill Airtable
-                </BLink>
+        <BAvatar rounded src="/icon.png"></BAvatar>
+      </BLink>
     </BNavbarBrand>
+    <BNavbarNav><BNavItem :href="'https://airtable.com/' + baseId" target="_blanck">{{baseName}}</BNavItem></BNavbarNav>
     <BNavbarToggle target="nav-collapse" />
     <BCollapse id="nav-collapse" isNav>
       <BNavbarNav class="ms-auto mb-2 mb-lg-0">
@@ -28,6 +28,7 @@
   
   // global states
   const firebaseUser = useFirebaseUser()
+  const config = useRuntimeConfig()
 
   // computed properties
   const isConnected = computed(() => {
@@ -35,6 +36,12 @@
   })
   const userEmail = computed(() => {
     return firebaseUser.value?.email
+  })
+  const baseId = computed(() => {
+    return config.public.AIRTABLE_BASE_ID
+  })
+  const baseName = computed(() => {
+    return config.public.AIRTABLE_BASE_NAME
   })
 
   // methods

@@ -51,7 +51,6 @@ import { Facture } from '#imports';
     modalAddFacture.value.show = !modalAddFacture.value.show
   }
   const addFacture = (facture:IFacture) => {
-    console.log("add facture :", facture)
     createStateFacture(facture)
   }
 
@@ -68,7 +67,6 @@ import { Facture } from '#imports';
   }
   const copyFacture = (dateForm:Date) => {
     const newFacture = duplicateFacture(dateForm, selectedFacture.value, factures.value, getCasOptions(cas.value))
-    console.log("copy facture :", newFacture)
     createStateFacture(newFacture)
   }
 
