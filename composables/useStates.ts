@@ -32,3 +32,8 @@ export const useClients = () => useState<IClient[]>("clients");
  * State for filter
  */
 export const useFilter = () => useState<IFilter>("filter", () => new Filter());
+
+/**
+ * State for lignes factures
+ */
+export const useLignes = () => useState<ILigne[]>("lignes");

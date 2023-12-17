@@ -9,7 +9,11 @@
       @deleteFacture="deleteFacture"
       @resetFacture="resetFacture">
     </DomainFacture>
-    <span v-else>Non such bill</span>
+    <div v-else><BSpinner/></div>
+    <DomainLignesList v-if="facture && lignes"
+      :lignes="lignes">
+    </DomainLignesList>
+    <div v-else><BSpinner/></div>
   </div>
 </template>
 
@@ -23,6 +27,7 @@
   const factures = useFactures()
   const cas = useCas()
   const clients = useClients()
+  const lignes = useLignes()
 
   // nuxt hook
   onMounted(() => {
@@ -30,6 +35,10 @@
     getStateFactures()
     getStateCas()
     getStateClients()
+  })
+
+  watch(facture, (newFacture) => {
+    getStateLignes(newFacture.numFac)
   })
 
   // methods
