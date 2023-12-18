@@ -36,25 +36,17 @@
   })
 
   // emits declaration
-  const emit = defineEmits(['addLigne'])
+  const emit = defineEmits(['submitLigne'])
 
   // local ref
 
   // methods
-  const isLigneValide = () :boolean => {
-      // const valid = Boolean(facture.value.date && facture.value.num && facture.value.client && facture.value.ca)
-      // return valid
-      return false
-  }
-
   const preventOk = () => {
-    if(isLigneValide()) {
-      props.modalShowLigne.show = false
-      submit()
-    }
+    props.modalShowLigne.show = false
+    submit()
   }
   const submit = () => {
-    // emit('addLigne', props.ligne)
+    emit('submitLigne')
   }
   const cancel = () => {
     //reset ligne

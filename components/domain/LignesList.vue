@@ -11,15 +11,14 @@
         <BButton @click="deleteLigne(data.value as string)" size="sm"><Trash/></BButton>
       </template>
     </BTable>
-    <DomainModalLigne v-if="selectedLigne" :ligne="selectedLigne" :modalShowLigne="modalShowLigne" :maxNumLigne="maxNumLigne"></DomainModalLigne>
+    <DomainModalLigne v-if="selectedLigne" :ligne="selectedLigne" :modalShowLigne="modalShowLigne" :maxNumLigne="maxNumLigne" @submitLigne="submitLigne"></DomainModalLigne>
   </div>
 </template>
 
 <script setup lang="ts">
 
   // icons
-  import type { Ligne } from '#imports';
-import Pen from '~icons/bi/pen'
+  import Pen from '~icons/bi/pen'
   import Trash from '~icons/bi/trash'
 
   // props
@@ -37,10 +36,15 @@ import Pen from '~icons/bi/pen'
   // methods
   const updateLigne = (ligne:ILigne) => {
     // duplicate ligne to avoid state modification
-    selectedLigne.value = Object.create(ligne) as Ligne
+    selectedLigne.value = Object.create(ligne) as ILigne
     modalShowLigne.value.show = !modalShowLigne.value.show
   }
   const deleteLigne = (ligneId:string) => {
+  }
+
+  const submitLigne = () => {
+    console.log("submit slected:",selectedLigne)
+    updateStateLigne(selectedLigne.value)
   }
 
   const maxNumLigne = computed(() => {

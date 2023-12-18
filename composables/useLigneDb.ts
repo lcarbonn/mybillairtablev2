@@ -36,6 +36,41 @@ export const getLignesDb = (numFac:string) :Promise<ILigne[]> => {
     })
 }
 
+/**
+ * Update the Ligne in the db
+ * @param ligne Update the Ligne in db
+ * @returns a Promise with the updated Ligne from db or the error
+ */
+export const updateLigneDb = (ligne:ILigne) :Promise<ILigne> => {
+    return new Promise((resolve, reject) => {
+        if(!ligne.id) {
+            reject("ligne id not provided")
+            return
+        }
+
+        const { $airtableConfig, $db } = useNuxtApp()
+        const db = $db as AirtableBase
+        const config = $airtableConfig as IAtConf
+        db(config.tableLigneFacture).update(ligne.id,
+            {
+            "#Ligne": ligne.ligne,
+            "Libellé": ligne.libelle,
+            "PU HT": ligne.puHT,
+            "PU/H": ligne.typePU,
+            }, function(err, record) {
+                if (err) {
+                    console.error(err);
+                    reject(err)
+                    }
+                if(record) {
+                    const ligne = new Ligne(record)
+                    resolve(ligne)
+                }
+            }
+        )
+    })
+}
+
 // /**
 //  * Get the Ligne with the given id from db
 //  * @param id - the Ligne id
@@ -60,39 +95,6 @@ export const getLignesDb = (numFac:string) :Promise<ILigne[]> => {
 //     })
 // }
 
-// /**
-//  * Update the Ligne in the db
-//  * @param Ligne Update the Ligne in db
-//  * @returns a Promise with the updated Ligne from db or the error
-//  */
-// export const updateLigneDb = (Ligne:ILigne) :Promise<ILigne> => {
-//     return new Promise((resolve, reject) => {
-//         const { $airtableConfig, $db } = useNuxtApp()
-//         const db = $db as AirtableBase
-//         const config = $airtableConfig as IAtConf
-//         db(config.tableLigneFacture).update(Ligne.id,
-//             {
-//             "Date": Ligne.date?.toDateString(),
-//             "#Num": Ligne.num,
-//             "Comment": Ligne.comment,
-//             "Taux TVA": Ligne.tva,
-//             "Statut": Ligne.statut,
-//             'Client': Ligne.client? [Ligne.client]:undefined,
-//             "CA": Ligne.ca?[Ligne.ca]:undefined,
-//             "Bon de Commande": Ligne.bdc,
-//             "Date Paiement": Ligne.payDate?.toDateString()
-//             }, function(err, record) {
-//                 if (err) {
-//                     console.error(err);
-//                     reject(err)
-//                     }
-//                 if(record) {
-//                     const Ligne = new Ligne(record)
-//                     resolve(Ligne)
-//                 }
-//             })
-//     })
-// }
 
 // /**
 //  * Delete the Ligne in the db

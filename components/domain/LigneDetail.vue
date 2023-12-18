@@ -97,7 +97,7 @@
       return props.ligne.ligne
     },
     set(newValue) {
-      props.ligne.ligne = newValue;
+      props.ligne.ligne = Number(newValue)
     }
   })
 

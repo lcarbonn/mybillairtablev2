@@ -7,6 +7,27 @@ export const getStateLignes = (numFac:string) => {
     })
 }
 
+/**
+ * Update the facture ligne with the given ligne data and set state
+ * @param ligne - the ligne
+ */
+export const updateStateLigne = (ligne:ILigne) => {
+    updateLigneDb(ligne).then((updatedLigne) => {
+        let lignes:ILigne[] = []
+        useLignes().value.forEach(l => {
+            if(l.id == updatedLigne.id) {
+                l = updatedLigne
+            }
+            lignes.push(l)
+        });
+        useLignes().value = lignes
+        messageToSnack("Ligne facture " + updatedLigne.numFacLigne +" mise à jour")
+    })
+    .catch((error) => {
+        errorToSnack(error, "Erreur mise à jour ligne facture")
+    })
+}
+
 // /**
 //  * Delete the Ligne with the given id and set state
 //  */
