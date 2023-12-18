@@ -11,7 +11,7 @@
     </DomainFacture>
     <div v-else><BSpinner/></div>
     <DomainLignesList v-if="facture && lignes"
-      :lignes="lignes">
+      :lignes="lignes" :idFac="facture.id">
     </DomainLignesList>
     <div v-else><BSpinner/></div>
   </div>

@@ -93,36 +93,33 @@ export const deleteLigneDb = (id:string) :Promise<string> => {
     })
 }
 
-// /**
-//  * Create the Ligne in the db
-//  * @param Ligne Create the Ligne in db
-//  * @returns a Promise with the created Ligne from db or the error
-//  */
-// export const createLigneDb = (Ligne:ILigne) :Promise<ILigne> => {
-//     return new Promise((resolve, reject) => {
-//         const { $airtableConfig, $db } = useNuxtApp()
-//         const db = $db as AirtableBase
-//         const config = $airtableConfig as IAtConf
-//         db(config.tableLigneFacture).create(
-//             {
-//             "Date": Ligne.date?.toDateString(),
-//             "#Num": Ligne.num,
-//             "Comment": Ligne.comment,
-//             "Taux TVA": Ligne.tva,
-//             "Statut": Ligne.statut,
-//             'Client': Ligne.client? [Ligne.client]:undefined,
-//             "CA": Ligne.ca?[Ligne.ca]:undefined,
-//             "Bon de Commande": Ligne.bdc,
-//             "Date Paiement": Ligne.payDate?.toDateString()
-//             }, function(err, record) {
-//                 if (err) {
-//                     console.error(err);
-//                     reject(err)
-//                 }
-//                 if(record) {
-//                     const Ligne = new Ligne(record)
-//                     resolve(Ligne)
-//                 }
-//             })
-//     })
-// }
+/**
+ * Create the Ligne in the db
+ * @param ligne - Create the Ligne in db
+ * @returns a Promise with the created Ligne from db or the error
+ */
+export const createLigneDb = (ligne:ILigne) :Promise<ILigne> => {
+    return new Promise((resolve, reject) => {
+        const { $airtableConfig, $db } = useNuxtApp()
+        const db = $db as AirtableBase
+        const config = $airtableConfig as IAtConf
+        db(config.tableLigneFacture).create(
+            {
+
+                "#Ligne": ligne.ligne,
+                "Libellé": ligne.libelle,
+                "PU HT": ligne.puHT,
+                "PU/H": ligne.typePU,
+                "#NumFac": ligne.numFac? [ligne.numFac]:undefined,
+            }, function(err, record) {
+                if (err) {
+                    console.error(err);
+                    reject(err)
+                }
+                if(record) {
+                    const ligne = new Ligne(record)
+                    resolve(ligne)
+                }
+            })
+    })
+}

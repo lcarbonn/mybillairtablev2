@@ -46,17 +46,16 @@ export const deleteStateLigne = (id:string) => {
     })
 }
 
-// /**
-//  * Create the Ligne with the given Ligne data and set state
-//  */
-// export const createStateLigne = (Ligne:ILigne) => {
-//     console.log("create Ligne:", Ligne)
-//     createLigneDb(Ligne).then((createdFac:ILigne) => {
-//         useLigne().value = createdFac
-//         useLignes().value.unshift(createdFac)
-//         messageToSnack("Ligne " + createdFac.numFac +" créée")
-//     })
-//     .catch((error) => {
-//         errorToSnack(error, "Erreur création Ligne")
-//     })
-// }
+/**
+ * Create the Ligne with the given Ligne data and set state
+ */
+export const createStateLigne = (ligne:ILigne) => {
+    console.log("create Ligne:", ligne)
+    createLigneDb(ligne).then((createdLigne:ILigne) => {
+        useLignes().value.unshift(createdLigne)
+        messageToSnack("Ligne " + createdLigne.numFacLigne +" créée")
+    })
+    .catch((error) => {
+        errorToSnack(error, "Erreur création Ligne")
+    })
+}

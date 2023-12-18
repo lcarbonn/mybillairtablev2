@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BButton class="m-3" @click="addNewLigne">Ajouter ligne</BButton>
     <BTable
       striped
       hover
@@ -27,6 +28,10 @@
     lignes: {
         type: Array<ILigne>,
         default: undefined
+    },
+    idFac: {
+      type:String,
+      default: undefined
     }
   })
 
@@ -35,12 +40,20 @@
   const modalShowLigne = ref(new ModalShow())
   const modal = ref(false)
   const id4Delete = ref()
+  const isNewLigne = ref(false)
+
+  // computed properties
+  const maxNumLigne = computed(() => {
+    if(props.lignes) return getMaxNumLigne(props.lignes)
+    else return 0
+  })
 
   // methods
   const updateLigne = (ligne:ILigne) => {
     // duplicate ligne to avoid state modification
     selectedLigne.value = Object.create(ligne) as ILigne
     modalShowLigne.value.show = !modalShowLigne.value.show
+    isNewLigne.value = false
   }
   const deleteLigne = (ligneId:string) => {
     id4Delete.value = ligneId
@@ -52,12 +65,16 @@
   }
 
   const submitLigne = () => {
-    updateStateLigne(selectedLigne.value)
+    if(!isNewLigne.value) updateStateLigne(selectedLigne.value)
+    else  createStateLigne(selectedLigne.value)
   }
 
-  const maxNumLigne = computed(() => {
-    if(props.lignes) return getMaxNumLigne(props.lignes)
-    else return 0
-  })
+  const addNewLigne = () => {
+    const ligne = new Ligne()
+    ligne.numFac = props.idFac
+    selectedLigne.value = ligne
+    modalShowLigne.value.show = !modalShowLigne.value.show
+    isNewLigne.value = true
+  }
 
 </script>
