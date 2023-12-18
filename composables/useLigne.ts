@@ -28,23 +28,23 @@ export const updateStateLigne = (ligne:ILigne) => {
     })
 }
 
-// /**
-//  * Delete the Ligne with the given id and set state
-//  */
-// export const deleteStateLigne = (id:string) => {
-//     deleteLigneDb(id).then((deletedId) => {
-//         let Lignes:ILigne[] = []
-//         useLignes().value.forEach(Ligne => {
-//             if (Ligne.id != deletedId)
-//                 Lignes.push(Ligne)
-//         });
-//         useLignes().value = Lignes
-//         messageToSnack("Ligne supprimée")
-//     })
-//     .catch((error) => {
-//         errorToSnack(error, "Erreur suppression Ligne")
-//     })
-// }
+/**
+ * Delete the Ligne with the given id and set state
+ */
+export const deleteStateLigne = (id:string) => {
+    deleteLigneDb(id).then((deletedId) => {
+        let Lignes:ILigne[] = []
+        useLignes().value.forEach(Ligne => {
+            if (Ligne.id != deletedId)
+                Lignes.push(Ligne)
+        });
+        useLignes().value = Lignes
+        messageToSnack("Ligne supprimée")
+    })
+    .catch((error) => {
+        errorToSnack(error, "Erreur suppression Ligne ")
+    })
+}
 
 // /**
 //  * Create the Ligne with the given Ligne data and set state

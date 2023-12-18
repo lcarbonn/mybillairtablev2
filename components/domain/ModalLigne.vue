@@ -9,8 +9,7 @@
         size="lg"
         cancel-title="Annuler"
         ok-title="Ok"
-        @ok.prevent="preventOk"
-        @cancel="cancel">
+        @ok.prevent="preventOk">
           <BCard v-if="ligne" :title="'Ligne : '+ligne.numFacLigne">
             <BCardText>
               <DomainLigneDetail v-if="ligne" :ligne="ligne" :maxNumLigne="maxNumLigne"></DomainLigneDetail>
@@ -47,9 +46,6 @@
   }
   const submit = () => {
     emit('submitLigne')
-  }
-  const cancel = () => {
-    //reset ligne
   }
   
 </script>

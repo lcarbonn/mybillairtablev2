@@ -71,52 +71,27 @@ export const updateLigneDb = (ligne:ILigne) :Promise<ILigne> => {
     })
 }
 
-// /**
-//  * Get the Ligne with the given id from db
-//  * @param id - the Ligne id
-//  * @returns a Promise with the Ligne from db or the error
-//  */
-// export const getLigneDb = (id:string) :Promise<ILigne> => {
-//     return new Promise((resolve, reject) => {
-//         const { $airtableConfig, $db } = useNuxtApp()
-//         const db = $db as AirtableBase
-//         const config = $airtableConfig as IAtConf
-     
-//         db(config.tableLigneFacture).find(id, function(err, record) {
-//             if (err) { 
-//                 console.error(err);
-//                 reject(err)
-//             }
-//             if(record) {
-//                 const Ligne = new Ligne(record)
-//                 resolve(Ligne)
-//             }
-//         });
-//     })
-// }
-
-
-// /**
-//  * Delete the Ligne in the db
-//  * @param id the Ligne id 
-//  * @returns a Promise witn the deleted id
-//  */
-// export const deleteLigneDb = (id:string) :Promise<string> => {
-//     return new Promise((resolve, reject) => {
-//         const { $airtableConfig, $db } = useNuxtApp()
-//         const db = $db as AirtableBase
-//         const config = $airtableConfig as IAtConf
-//         db(config.tableLigneFacture).destroy(id, function(err, deletedRecord) {
-//             if (err) {
-//                 console.error(err);
-//                 reject(err)
-//             }
-//             if(deletedRecord) {
-//                 resolve(deletedRecord.id)
-//             }
-//         })
-//     })
-// }
+/**
+ * Delete the Ligne in the db
+ * @param id the Ligne id 
+ * @returns a Promise witn the deleted id
+ */
+export const deleteLigneDb = (id:string) :Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const { $airtableConfig, $db } = useNuxtApp()
+        const db = $db as AirtableBase
+        const config = $airtableConfig as IAtConf
+        db(config.tableLigneFacture).destroy(id, function(err, deletedRecord) {
+            if (err) {
+                console.error(err);
+                reject(err)
+            }
+            if(deletedRecord) {
+                resolve(deletedRecord.id)
+            }
+        })
+    })
+}
 
 // /**
 //  * Create the Ligne in the db

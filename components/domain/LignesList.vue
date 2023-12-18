@@ -40,10 +40,10 @@
     modalShowLigne.value.show = !modalShowLigne.value.show
   }
   const deleteLigne = (ligneId:string) => {
+    deleteStateLigne(ligneId)
   }
 
   const submitLigne = () => {
-    console.log("submit slected:",selectedLigne)
     updateStateLigne(selectedLigne.value)
   }
 
