@@ -13,7 +13,7 @@
         @cancel="cancel">
           <BCard v-if="ligne" :title="'Ligne : '+ligne.numFacLigne">
             <BCardText>
-              <DomainLigneDetail :ligne="ligne"></DomainLigneDetail>
+              <DomainLigneDetail v-if="ligne" :ligne="ligne" :maxNumLigne="maxNumLigne"></DomainLigneDetail>
             </BCardText>
           </BCard>
       </BModal>
@@ -25,13 +25,14 @@
   // props
   const props = defineProps({
     modalShowLigne: {
-          type: ModalShow,
-          default: new ModalShow()
-      },
-      ligne: {
-          type: Ligne,
-          default: undefined
-      }
+      type: ModalShow,
+      default: new ModalShow()
+    },
+    ligne: {
+        type: Ligne,
+        default: undefined
+    },
+    maxNumLigne:Number
   })
 
   // emits declaration
@@ -56,7 +57,7 @@
     // emit('addLigne', props.ligne)
   }
   const cancel = () => {
-
+    //reset ligne
   }
   
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <p hidden>id : {{ligne.id}}</p>
-    <BContainer fluid>
+    <BContainer fluid v-if="ligne">
       <BRow>
         <BCol lg="6" class="my-1">
           <BFormGroup
@@ -89,8 +89,17 @@
     ]
 
   // local refs
-  const ligneState = ref(false)
-  const numLigne = ref(props.ligne.ligne)
+  const numLigne = computed({
+    get() {
+      if(!props.ligne.ligne) {
+        props.ligne.ligne =  props.maxNumLigne
+      }
+      return props.ligne.ligne
+    },
+    set(newValue) {
+      props.ligne.ligne = newValue;
+    }
+  })
 
   // form state functions
   const puhtState = computed(() => {
@@ -99,11 +108,8 @@
   const typePUState = computed(() => {
     return (props.ligne.typePU != null && props.ligne.typePU != "undefined") ? true:false
   })
-
-  // watch local refs udpates
-  watch(numLigne, (newValue) => {
-    if(newValue) {
-    }
+  const ligneState = computed(() => {
+    return numLigne ? true:false
   })
 
 </script>
