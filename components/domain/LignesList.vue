@@ -12,6 +12,7 @@
       </template>
     </BTable>
     <DomainModalLigne v-if="selectedLigne" :ligne="selectedLigne" :modalShowLigne="modalShowLigne" :maxNumLigne="maxNumLigne" @submitLigne="submitLigne"></DomainModalLigne>
+    <BModal v-model="modal" title="Supprimer Ligne" @ok="confirmDelete"> Vraiment ? </BModal>
   </div>
 </template>
 
@@ -32,6 +33,8 @@
   // local refs
   const selectedLigne = ref()
   const modalShowLigne = ref(new ModalShow())
+  const modal = ref(false)
+  const id4Delete = ref()
 
   // methods
   const updateLigne = (ligne:ILigne) => {
@@ -40,7 +43,12 @@
     modalShowLigne.value.show = !modalShowLigne.value.show
   }
   const deleteLigne = (ligneId:string) => {
-    deleteStateLigne(ligneId)
+    id4Delete.value = ligneId
+    modal.value = !modal.value
+  }
+  const confirmDelete = () => {
+    if(id4Delete.value) deleteStateLigne(id4Delete.value)
+    id4Delete.value = null
   }
 
   const submitLigne = () => {

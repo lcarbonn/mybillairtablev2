@@ -59,7 +59,8 @@ import { Facture } from '#imports';
     modal.value = !modal.value
   }
   const confirmDelete = () => {
-    deleteStateFacture(id4Delete.value)
+    if(id4Delete.value) deleteStateFacture(id4Delete.value)
+    id4Delete.value = null
   }
   const showCopyFacture = (facture:IFacture) => {
     selectedFacture.value = facture
