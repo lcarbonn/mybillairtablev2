@@ -27,7 +27,7 @@
             class="mb-0"
           >
             <BInputGroup size="sm">
-              <BFormInput id="libelle" v-model="ligne.libelle" trim placeholder="Libellé"></BFormInput>
+              <BFormInput id="libelle" v-model="ligne.libelle" trim placeholder="Libellé" :state="libelleState"></BFormInput>
             </BInputGroup>
           </BFormGroup>
         </BCol>
@@ -103,13 +103,16 @@
 
   // form state functions
   const puhtState = computed(() => {
-    return (props.ligne.puHT != null && props.ligne.puHT >= 0) ? true:false
+    return (props.ligne.puHT && props.ligne.puHT >= 0) ? true:false
+  })
+  const libelleState = computed(() => {
+    return (props.ligne.libelle && props.ligne.libelle!="") ? true:false
   })
   const typePUState = computed(() => {
     return (props.ligne.typePU != null && props.ligne.typePU != "undefined") ? true:false
   })
   const ligneState = computed(() => {
-    return numLigne ? true:false
+    return (numLigne && numLigne.value>0) ? true:false
   })
 
 </script>
