@@ -6,13 +6,14 @@
       hover
       stacked="md"
       :items="lignes"
+      :fields="(fields as TableField[])"
     >
       <template #cell(id)="data">
         <BButton @click="updateLigne(data.item as ILigne)" size="sm"><Pen/></BButton>
         <BButton @click="deleteLigne(data.value as string)" size="sm"><Trash/></BButton>
       </template>
     </BTable>
-    <DomainModalLigne v-if="selectedLigne" :ligne="selectedLigne" :modalShowLigne="modalShowLigne" :maxNumLigne="maxNumLigne" @submitLigne="submitLigne"></DomainModalLigne>
+    <LazyDomainModalLigne v-if="selectedLigne" :ligne="selectedLigne" :modalShowLigne="modalShowLigne" :maxNumLigne="maxNumLigne" @submitLigne="submitLigne"></LazyDomainModalLigne>
     <BModal v-model="modal" title="Supprimer Ligne" @ok="confirmDelete"> Vraiment ? </BModal>
   </div>
 </template>
@@ -20,6 +21,7 @@
 <script setup lang="ts">
 
   // icons
+  import type { TableField } from 'bootstrap-vue-next';
   import Pen from '~icons/bi/pen'
   import Trash from '~icons/bi/trash'
 
@@ -34,6 +36,44 @@
       default: undefined
     }
   })
+
+    // const fields
+    //'#NumFacLigne', '#Ligne', "Libellé", 'PU HT', 'PU/H', '#NumFac', "Quantité", "Total HT"
+    const fields = [
+      {
+        key: 'numFacLigne',
+        label: 'Num Fac Ligne',
+        sortable: true
+        },
+      {
+        key: 'ligne',
+        label: 'Ligne',
+      },
+      {
+        key: 'libelle',
+        label: 'Libellé',
+      },
+      {
+        key: 'puHT',
+        label: 'Pu HT',
+      },
+      {
+        key: 'typePU',
+        label: 'Type PU',
+      },
+      {
+        key: 'quantite',
+        label: 'Quantité',
+      },
+      {
+        key: 'totalHT',
+        label: 'Total HT',
+      },
+      {
+        key: 'id',
+        label: 'Actions'
+      }
+    ]
 
   // local refs
   const selectedLigne = ref()

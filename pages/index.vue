@@ -3,8 +3,8 @@
       <BButton class="m-3" variant="primary" @click="showAddFacture">Ajouter facture</BButton>
       <DomainFacturesFilter :clients="clients" :cas="cas" @emit-filter="emitFilter"></DomainFacturesFilter>
       <DomainFacturesTable :factures="filteredFactures" :cas="cas" :clients="clients" @delete-facture="deleteFacture" @copy-facture="showCopyFacture"/>
-      <DomainAddFacture :modalAddFacture="modalAddFacture" :factures="factures" :clients="clients" :cas="cas" @add-facture="addFacture"></DomainAddFacture>
-      <DomainCopyFacture :modalCopyFacture="modalCopyFacture" :facture="selectedFacture" @copy-facture="copyFacture"></DomainCopyFacture>
+      <LazyDomainAddFacture :modalAddFacture="modalAddFacture" :factures="factures" :clients="clients" :cas="cas" @add-facture="addFacture"></LazyDomainAddFacture>
+      <LazyDomainCopyFacture :modalCopyFacture="modalCopyFacture" :facture="selectedFacture" @copy-facture="copyFacture"></LazyDomainCopyFacture>
 
       <BModal v-model="modal" title="Supprimer Facture" @ok="confirmDelete"> Vraiment ? </BModal>
     </div>
