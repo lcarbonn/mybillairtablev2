@@ -141,7 +141,6 @@ export const setFactureCA = (facture:IFacture, caOpts:IOptions[]) => {
 }
 
 export const duplicateFacture = (date:Date, selectedFacture:IFacture, factures:IFacture[], caOpts:IOptions[]) : IFacture => {
-  console.debug("copyFacture original:", selectedFacture)
   //get old facture
   const oldFacture = selectedFacture
   const newFacture = new Facture()
@@ -155,6 +154,5 @@ export const duplicateFacture = (date:Date, selectedFacture:IFacture, factures:I
   setFactureNums(newFacture, date)
   const num = getMaxNum(factures, newFacture)
   setFactureNums(newFacture, undefined, num)
-  console.debug("copyFacture new facture :",newFacture )
   return newFacture 
 }

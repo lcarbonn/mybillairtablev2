@@ -50,7 +50,7 @@ export const deleteStateLigne = (id:string) => {
  * Delete all lignes of a facture
  * @param numFac - the numFac of teh facture
  */
-export const deleteLignes = (numFac:string) :Promise<void> => {
+export const deleteFactureLignes = (numFac:string) :Promise<void> => {
     return new Promise((resolve, reject) => {
         getLignesDb(numFac).then((list) => {
             list.forEach(ligne => {
@@ -64,6 +64,31 @@ export const deleteLignes = (numFac:string) :Promise<void> => {
     })
 }
 
+/**
+ * Copy lignes of the facture
+ */
+export const copyFactureLignes = (newFactureId:string, oldNumFac:string) :Promise<void> => {
+    return new Promise((resolve, reject) => {
+        getLignesDb(oldNumFac).then((list) => {
+            list.forEach(ligne => {
+                if(ligne) {
+                    // copy ligne the create
+                    const ligneCopy = new Ligne() 
+                    ligneCopy.numFac = newFactureId
+                    ligneCopy.ligne = ligne.ligne
+                    ligneCopy.libelle = "DUPLICATE " + ligne.libelle
+                    ligneCopy.puHT = ligne.puHT
+                    ligneCopy.typePU = ligne.typePU
+                    createLigneDb(ligneCopy)
+                }
+            });
+            resolve()
+        })
+        .catch((err) => {
+            reject(err)
+        })
+    })
+}
 /**
  * Create the Ligne with the given Ligne data and set state
  */

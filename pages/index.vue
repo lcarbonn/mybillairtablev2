@@ -67,8 +67,9 @@ import { Facture, type IFacture } from '#imports';
     modalCopyFacture.value.show = !modalCopyFacture.value.show
   }
   const copyFacture = (dateForm:Date) => {
-    const newFacture = duplicateFacture(dateForm, selectedFacture.value, factures.value, getCasOptions(cas.value))
-    createStateFacture(newFacture)
+    const oldFacture = selectedFacture.value
+    const newFacture = duplicateFacture(dateForm, oldFacture, factures.value, getCasOptions(cas.value))
+    copyStateFacture(newFacture, oldFacture)
   }
 
 </script>

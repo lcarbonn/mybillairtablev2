@@ -37,7 +37,7 @@ export const updateStateFacture = (facture:IFacture) => {
  */
 export const deleteStateFacture = (facture:IFacture) => {
     // delete lignes
-    deleteLignes(facture.numFac).then(() => {
+    deleteFactureLignes(facture.numFac).then(() => {
         // delete facture
         deleteFactureDb(facture.id).then((deletedId) => {
             let factures:IFacture[] = []
@@ -69,5 +69,26 @@ export const createStateFacture = (facture:IFacture) => {
     })
     .catch((error) => {
         errorToSnack(error, "Erreur création facture")
+    })
+}
+
+/**
+ * Copy old fature to new facture and associated lignes adn set state
+ * @param newFacture - the new facture
+ * @param oldFacture - the old facture
+ */
+export const copyStateFacture = (newFacture:IFacture, oldFacture:IFacture) => {
+    createFactureDb(newFacture).then((createdFac:IFacture) => {
+        useFacture().value = createdFac
+        useFactures().value.unshift(createdFac)
+        copyFactureLignes(createdFac.id, oldFacture.numFac).then(() => {
+            messageToSnack("Facture " + createdFac.numFac +" créée")
+        })
+        .catch((error) => {
+            errorToSnack(error, "Erreur copie lignes facture")
+        })
+    })
+    .catch((error) => {
+        errorToSnack(error, "Erreur copie facture")
     })
 }
