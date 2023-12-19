@@ -35,18 +35,25 @@ export const updateStateFacture = (facture:IFacture) => {
 /**
  * Delete the facture with the given id and set state
  */
-export const deleteStateFacture = (id:string) => {
-    deleteFactureDb(id).then((deletedId) => {
-        let factures:IFacture[] = []
-        useFactures().value.forEach(facture => {
-            if (facture.id != deletedId)
-                factures.push(facture)
-        });
-        useFactures().value = factures
-        messageToSnack("Facture supprimée")
+export const deleteStateFacture = (facture:IFacture) => {
+    // delete lignes
+    deleteLignes(facture.numFac).then(() => {
+        // delete facture
+        deleteFactureDb(facture.id).then((deletedId) => {
+            let factures:IFacture[] = []
+            useFactures().value.forEach(facture => {
+                if (facture.id != deletedId)
+                    factures.push(facture)
+            });
+            useFactures().value = factures
+            messageToSnack("Facture et lignes supprimées")
+        })
+        .catch((error) => {
+            errorToSnack(error, "Erreur suppression facture")
+        })
     })
     .catch((error) => {
-        errorToSnack(error, "Erreur suppression facture")
+        errorToSnack(error, "Erreur suppression lignes facture")
     })
 }
 

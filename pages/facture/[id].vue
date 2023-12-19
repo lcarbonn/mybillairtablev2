@@ -46,7 +46,7 @@
     updateStateFacture(facture.value)
   }
   const deleteFacture = () => {
-    deleteStateFacture(facture.value.id)
+    deleteStateFacture(facture.value)
     navigateTo('/')
   }
   const resetFacture = () => {

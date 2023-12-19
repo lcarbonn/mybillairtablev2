@@ -24,7 +24,7 @@
       :busy="isBusy">
       <template #cell(id)="data">
         <BButton @click="navigateTo('/facture/'+data.value)" size="sm" tilte="Détail"><Pen/></BButton>
-        <BButton class="mx-1" @click="deleteFacture(data.value as string)" size="sm" ><Trash/></BButton>
+        <BButton class="mx-1" @click="deleteFacture(data.item as IFacture)" size="sm" ><Trash/></BButton>
         <BButton @click="copyFacture(data.item as IFacture)" size="sm"><Copy/></BButton>
       </template>
     </BTable>
@@ -192,8 +192,8 @@ import type { TableField } from 'bootstrap-vue-next';
       return sum.toLocaleString()
     }
 
-    const deleteFacture = (id:string) => {
-      emit('deleteFacture', id)
+    const deleteFacture = (facture:IFacture) => {
+      emit('deleteFacture', facture)
     }
 
     const copyFacture = (facture:IFacture) => {

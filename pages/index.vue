@@ -11,11 +11,11 @@
 </template>
 
 <script setup lang="ts">
-import { Facture } from '#imports';
+import { Facture, type IFacture } from '#imports';
 
   // local refs
   const modal = ref(false)
-  const id4Delete = ref()
+  const facture4Delete = ref()
 
   // stated properties
   const factures = useFactures()
@@ -54,13 +54,13 @@ import { Facture } from '#imports';
     createStateFacture(facture)
   }
 
-  const deleteFacture = (id:string) => {
-    id4Delete.value = id
+  const deleteFacture = (facture:IFacture) => {
+    facture4Delete.value = facture
     modal.value = !modal.value
   }
   const confirmDelete = () => {
-    if(id4Delete.value) deleteStateFacture(id4Delete.value)
-    id4Delete.value = null
+    if(facture4Delete.value) deleteStateFacture(facture4Delete.value)
+    facture4Delete.value = null
   }
   const showCopyFacture = (facture:IFacture) => {
     selectedFacture.value = facture

@@ -47,6 +47,24 @@ export const deleteStateLigne = (id:string) => {
 }
 
 /**
+ * Delete all lignes of a facture
+ * @param numFac - the numFac of teh facture
+ */
+export const deleteLignes = (numFac:string) :Promise<void> => {
+    return new Promise((resolve, reject) => {
+        getLignesDb(numFac).then((list) => {
+            list.forEach(ligne => {
+                if(ligne.id) deleteLigneDb(ligne.id)
+            });
+            resolve()
+        })
+        .catch((err) => {
+            reject(err)
+        })
+    })
+}
+
+/**
  * Create the Ligne with the given Ligne data and set state
  */
 export const createStateLigne = (ligne:ILigne) => {
