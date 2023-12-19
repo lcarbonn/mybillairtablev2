@@ -89,6 +89,7 @@ export const copyFactureLignes = (newFactureId:string, oldNumFac:string) :Promis
         })
     })
 }
+
 /**
  * Create the Ligne with the given Ligne data and set state
  */
