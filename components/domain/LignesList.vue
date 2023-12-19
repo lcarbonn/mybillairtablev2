@@ -38,7 +38,6 @@
   })
 
     // const fields
-    //'#NumFacLigne', '#Ligne', "Libellé", 'PU HT', 'PU/H', '#NumFac', "Quantité", "Total HT"
     const fields = [
       {
         key: 'numFacLigne',
