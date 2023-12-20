@@ -37,9 +37,18 @@
     getStateClients()
   })
 
+  // watch facture update
   watch(facture, (newFacture) => {
     getStateLignes(newFacture.numFac)
   })
+  // watch lignes update and refresh the facture for update totals
+  watch(lignes, (newLignes) => {
+      if(newLignes) {
+        getStateFacture(id)
+            }
+      }
+      // { immediate: true }
+    )
 
   // methods
   const updateFacture = () => {
