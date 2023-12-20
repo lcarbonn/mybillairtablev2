@@ -89,22 +89,25 @@
   })
 
   // methods
+  // ask modal for updating ligne
   const updateLigne = (ligne:ILigne) => {
     // duplicate ligne to avoid state modification
     selectedLigne.value = Object.create(ligne) as ILigne
     modalShowLigne.value.show = !modalShowLigne.value.show
     isNewLigne.value = false
   }
+  // ask before delete
   const deleteLigne = (ligneId:string) => {
     id4Delete.value = ligneId
     modal.value = !modal.value
   }
+  // confirmation received for delete
   const confirmDelete = () => {
     if(id4Delete.value) deleteStateLigne(id4Delete.value)
     id4Delete.value = null
   }
 
-  // prepare the modal for ligne detail
+  // ask modal for add ligne
   const addNewLigne = () => {
     const ligne = new Ligne()
     ligne.numFac = props.idFac
@@ -113,13 +116,13 @@
     isNewLigne.value = true
   }
 
-  // save or update the ligne detail after modal
+  // confirmation received and save or update the ligne detail after modal
   const submitLigne = () => {
     if(!isNewLigne.value) updateStateLigne(selectedLigne.value)
     else  createStateLigne(selectedLigne.value)
   }
 
-  // copy ligne adn show ligne modal for detail
+  // copy ligne and show ligne modal for detail
   const copyLigne = (ligne:ILigne) => {
     const newLine = new Ligne()
     newLine.numFac = props.idFac
