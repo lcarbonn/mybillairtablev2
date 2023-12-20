@@ -93,12 +93,16 @@ export const copyFactureLignes = (newFactureId:string, oldNumFac:string) :Promis
 /**
  * Create the Ligne with the given Ligne data and set state
  */
-export const createStateLigne = (ligne:ILigne) => {
-    createLigneDb(ligne).then((createdLigne:ILigne) => {
-        useLignes().value.unshift(createdLigne)
-        messageToSnack("Ligne " + createdLigne.numFacLigne +" créée")
-    })
-    .catch((error) => {
-        errorToSnack(error, "Erreur création Ligne")
+export const createStateLigne = (ligne:ILigne) :Promise<ILigne> => {
+    return new Promise((resolve, reject) => {
+        createLigneDb(ligne).then((createdLigne:ILigne) => {
+            useLignes().value.push(createdLigne)
+            messageToSnack("Ligne " + createdLigne.numFacLigne +" créée")
+            resolve(createdLigne)
+        })
+        .catch((error) => {
+            errorToSnack(error, "Erreur création Ligne")
+            reject(error)
+        })
     })
 }

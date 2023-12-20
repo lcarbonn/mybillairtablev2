@@ -11,6 +11,7 @@
       <template #cell(id)="data">
         <BButton @click="updateLigne(data.item as ILigne)" size="sm"><Pen/></BButton>
         <BButton @click="deleteLigne(data.value as string)" size="sm"><Trash/></BButton>
+        <BButton @click="copyLigne(data.item as ILigne)" size="sm"><Copy/></BButton>
       </template>
     </BTable>
     <LazyDomainModalLigne v-if="selectedLigne" :ligne="selectedLigne" :modalShowLigne="modalShowLigne" :maxNumLigne="maxNumLigne" @submitLigne="submitLigne"></LazyDomainModalLigne>
@@ -24,7 +25,7 @@
   import type { TableField } from 'bootstrap-vue-next';
   import Pen from '~icons/bi/pen'
   import Trash from '~icons/bi/trash'
-
+  import Copy from '~icons/bi/copy'
   // props
   const props = defineProps({
     lignes: {
@@ -103,11 +104,7 @@
     id4Delete.value = null
   }
 
-  const submitLigne = () => {
-    if(!isNewLigne.value) updateStateLigne(selectedLigne.value)
-    else  createStateLigne(selectedLigne.value)
-  }
-
+  // prepare the modal for ligne detail
   const addNewLigne = () => {
     const ligne = new Ligne()
     ligne.numFac = props.idFac
@@ -115,5 +112,26 @@
     modalShowLigne.value.show = !modalShowLigne.value.show
     isNewLigne.value = true
   }
+
+  // save or update the ligne detail after modal
+  const submitLigne = () => {
+    if(!isNewLigne.value) updateStateLigne(selectedLigne.value)
+    else  createStateLigne(selectedLigne.value)
+  }
+
+  // copy ligne adn show ligne modal for detail
+  const copyLigne = (ligne:ILigne) => {
+    const newLine = new Ligne()
+    newLine.numFac = props.idFac
+    newLine.ligne = Number(maxNumLigne.value)
+    newLine.libelle = "DUPLICATE " + ligne.libelle
+    newLine.puHT = ligne.puHT
+    newLine.typePU = ligne.typePU
+    createStateLigne(newLine).then((createdLigne) => {
+      selectedLigne.value = createdLigne
+      isNewLigne.value = false
+      modalShowLigne.value.show = !modalShowLigne.value.show
+    })
+  } 
 
 </script>
