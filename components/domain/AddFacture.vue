@@ -62,6 +62,7 @@
   }
   const submit = () => {
     emit('addFacture', facture.value)
+    facture.value = new Facture()
   }
   const cancel = () => {
     facture.value = new Facture()

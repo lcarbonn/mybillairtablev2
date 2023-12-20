@@ -68,14 +68,17 @@ export const deleteStateFacture = (facture:IFacture) => {
 /**
  * Create the facture with the given facture data and set state
  */
-export const createStateFacture = (facture:IFacture) => {
-    createFactureDb(facture).then((createdFac:IFacture) => {
-        useFacture().value = createdFac
-        useFactures().value.unshift(createdFac)
-        messageToSnack("Facture " + createdFac.numFac +" créée")
-    })
-    .catch((error) => {
-        errorToSnack(error, "Erreur création facture")
+export const createStateFacture = (facture:IFacture) :Promise<IFacture> => {
+    return new Promise((resolve, reject) => {
+        createFactureDb(facture).then((createdFac:IFacture) => {
+            useFacture().value = createdFac
+            messageToSnack("Facture " + createdFac.numFac +" créée")
+            resolve(createdFac)
+        })
+        .catch((error) => {
+            errorToSnack(error, "Erreur création facture")
+            reject(error)
+        })
     })
 }
 

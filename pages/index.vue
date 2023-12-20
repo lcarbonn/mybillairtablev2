@@ -44,28 +44,36 @@ import { Facture, type IFacture } from '#imports';
   )
 
   // methods
+  // filter the factures based on received filter
   const emitFilter = () => {
     filteredFactures.value = filterFunction(factures.value, filter.value)
   }
+  // show the modal for adding an nex facture
   const showAddFacture = () => {
     modalAddFacture.value.show = !modalAddFacture.value.show
   }
+  // after ok on modal
   const addFacture = (facture:IFacture) => {
-    createStateFacture(facture)
+    createStateFacture(facture).then((newFacture) => {
+      factures.value.unshift(newFacture)
+    })
   }
-
+  // ask for modal before delete
   const deleteFacture = (facture:IFacture) => {
     facture4Delete.value = facture
     modal.value = !modal.value
   }
+  // confirm delete received
   const confirmDelete = () => {
     if(facture4Delete.value) deleteStateFacture(facture4Delete.value)
     facture4Delete.value = null
   }
+  // ask for date before copy facture
   const showCopyFacture = (facture:IFacture) => {
     selectedFacture.value = facture
     modalCopyFacture.value.show = !modalCopyFacture.value.show
   }
+  // date & confirmation recieved for copy
   const copyFacture = (dateForm:Date) => {
     const oldFacture = selectedFacture.value
     const newFacture = duplicateFacture(dateForm, oldFacture, factures.value, getCasOptions(cas.value))
