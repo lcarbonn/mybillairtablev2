@@ -31,16 +31,18 @@
 
   // nuxt hook
   onMounted(() => {
-    getStateFacture(id)
+    getStateFacture(id).then((facture) => {
+      getStateLignes(facture.numFac)  
+    })
     getStateFactures()
     getStateCas()
     getStateClients()
   })
 
-  // watch facture update
-  watch(facture, (newFacture) => {
-    getStateLignes(newFacture.numFac)
-  })
+  // // watch facture update
+  // watch(facture, (newFacture) => {
+  //   getStateLignes(newFacture.numFac)
+  // })
   // watch lignes update and refresh the facture for update totals
   watch(lignes, (newLignes) => {
       if(newLignes) {
@@ -52,7 +54,9 @@
 
   // methods
   const updateFacture = () => {
-    updateStateFacture(facture.value)
+    updateStateFacture(facture.value).then((newFacture) => {
+      getStateLignes(newFacture.numFac)
+    })
   }
   const deleteFacture = () => {
     deleteStateFacture(facture.value)

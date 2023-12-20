@@ -10,25 +10,33 @@ export const getStateFactures = () => {
 /**
  * get the facture with the given id and set state
  */
-export const getStateFacture = (id:string) => {
-    getFactureDb(id).then((facture) => {
-        useFacture().value = facture
-    })
-    .catch((error) => {
-        errorToSnack(error, "Erreur lecture facture")
+export const getStateFacture = (id:string) :Promise<IFacture> => {
+    return new Promise((resolve, reject) => {
+        getFactureDb(id).then((facture) => {
+            useFacture().value = facture
+            resolve(facture)
+        })
+        .catch((error) => {
+            errorToSnack(error, "Erreur lecture facture")
+            reject(error)
+        })
     })
 }
 
 /**
  * Update the facture with the given facture data and set state
  */
-export const updateStateFacture = (facture:IFacture) => {
-    updateFactureDb(facture).then((updatedFac) => {
-        useFacture().value = updatedFac
-        messageToSnack("Facture " + updatedFac.numFac +" mise à jour")
-    })
-    .catch((error) => {
-        errorToSnack(error, "Erreur mise à jour facture")
+export const updateStateFacture = (facture:IFacture) :Promise<IFacture> => {
+    return new Promise((resolve, reject) => {
+        updateFactureDb(facture).then((updatedFac) => {
+            useFacture().value = updatedFac
+            messageToSnack("Facture " + updatedFac.numFac +" mise à jour")
+            resolve(updatedFac)
+        })
+        .catch((error) => {
+            errorToSnack(error, "Erreur mise à jour facture")
+            reject(error)
+        })
     })
 }
 

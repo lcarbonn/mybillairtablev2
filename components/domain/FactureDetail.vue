@@ -241,6 +241,11 @@
   const numForm = ref(props.facture.num)
   const clientForm = ref(props.facture.client)
   
+  watch(() => props.facture, (newFacture) => {
+    dateForm.value = newFacture.date
+    numForm.value = newFacture.num
+    clientForm.value = newFacture.client
+  })
 
   // watch local refs udpates
   watch(dateForm, (newValue) => {
