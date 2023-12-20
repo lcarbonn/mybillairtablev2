@@ -10,7 +10,6 @@ export const getLignesDb = (numFac:string) :Promise<ILigne[]> => {
         const { $airtableConfig, $db } = useNuxtApp()
         const db = $db as AirtableBase
         const config = $airtableConfig as IAtConf
-        console.debug("start getLignes", config.tableLigneFacture, ' numFac:', numFac)
         const lignes:ILigne[] = []
 
         db(config.tableLigneFacture).select({
@@ -29,7 +28,6 @@ export const getLignesDb = (numFac:string) :Promise<ILigne[]> => {
                 console.error(err); 
                 reject(err)
             } else {
-                console.debug("end getLignes", lignes.length)
                 resolve(lignes)
             }
         });

@@ -35,7 +35,7 @@
   const signIn = () => {
       signInUser(signinForm.value.email, signinForm.value.password)
       .then((credentials) => {
-          console.log("signIn user=", credentials)
+          // console.log("signIn user=", credentials)
       })
   }
 

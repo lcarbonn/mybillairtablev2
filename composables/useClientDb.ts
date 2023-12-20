@@ -9,7 +9,6 @@ export const getClientsDb = () :Promise<IClient[]> => {
         const { $airtableConfig, $db } = useNuxtApp()
         const db = $db as AirtableBase
         const config = $airtableConfig as IAtConf
-        console.debug("start getClient", config.tableClient)
         const clients:IClient[] = []
 
         db(config.tableClient).select({

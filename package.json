@@ -6,11 +6,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nuxt dev --dotenv .env.dev",
-    "build": "nuxt build --dotenv .env-prod",
-    "generate": "nuxt generate --dotenv .env-prod",
-    "preview": "nuxt preview --dotenv .env-prod",
-    "postinstall": "nuxt prepare --dotenv .env-prod"
+    "dev": "nuxt dev --dotenv .env.development.local",
+    "build": "nuxt build --dotenv .env.production.local",
+    "generate": "nuxt generate --dotenv .env.production.local",
+    "preview": "nuxt preview --dotenv .env.production.local",
+    "postinstall": "nuxt prepare --dotenv .env.production.local"
   },
   "devDependencies": {
     "@bootstrap-vue-next/nuxt": "^0.15.5",

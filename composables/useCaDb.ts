@@ -9,7 +9,6 @@ export const getCasDb = () :Promise<ICa[]> => {
         const { $airtableConfig, $db } = useNuxtApp()
         const db = $db as AirtableBase
         const config = $airtableConfig as IAtConf
-        console.debug("start getCas", config.tableCa)
         const cas:ICa[] = []
 
         db(config.tableCa).select({

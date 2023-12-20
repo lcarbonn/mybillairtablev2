@@ -61,7 +61,6 @@ export const deleteStateFacture = (facture:IFacture) => {
  * Create the facture with the given facture data and set state
  */
 export const createStateFacture = (facture:IFacture) => {
-    console.log("create facture:", facture)
     createFactureDb(facture).then((createdFac:IFacture) => {
         useFacture().value = createdFac
         useFactures().value.unshift(createdFac)

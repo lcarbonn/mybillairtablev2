@@ -38,10 +38,10 @@
     return firebaseUser.value?.email
   })
   const baseId = computed(() => {
-    return config.public.AIRTABLE_BASE_ID
+    return import.meta.env.VITE_AIRTABLE_BASE_ID
   })
   const baseName = computed(() => {
-    return config.public.AIRTABLE_BASE_NAME
+    return import.meta.env.VITE_AIRTABLE_BASE_NAME
   })
 
   // methods

@@ -5,6 +5,7 @@
 .nitro
 .cache
 dist
+.firebase
 package-lock.json
 
 # Node dependencies
@@ -23,3 +24,4 @@ logs
 .env
 .env.*
 !.env.example
+.firebase/hosting.ZGlzdA.cache

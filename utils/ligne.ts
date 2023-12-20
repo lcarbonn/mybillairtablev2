@@ -54,6 +54,5 @@ export const getMaxNumLigne = (lignes:ILigne[]) : number => {
       if(ligne.ligne && ligne.ligne>maxNumLigne) maxNumLigne = ligne.ligne
     });
   }
-  console.log("maxNumLigne :", maxNumLigne)
   return ++maxNumLigne
 }

@@ -9,7 +9,6 @@ export const getFacturesDb = () :Promise<IFacture[]> => {
         const { $airtableConfig, $db } = useNuxtApp()
         const db = $db as AirtableBase
         const config = $airtableConfig as IAtConf
-        console.debug("start getFactures", config.tableFacture)
         const factures:IFacture[] = []
 
         db(config.tableFacture).select({
@@ -29,7 +28,6 @@ export const getFacturesDb = () :Promise<IFacture[]> => {
                 console.error(err); 
                 reject(err)
             } else {
-                console.debug("end getFactures", factures.length)
                 resolve(factures)
             }
         });

@@ -94,7 +94,6 @@ export const copyFactureLignes = (newFactureId:string, oldNumFac:string) :Promis
  * Create the Ligne with the given Ligne data and set state
  */
 export const createStateLigne = (ligne:ILigne) => {
-    console.log("create Ligne:", ligne)
     createLigneDb(ligne).then((createdLigne:ILigne) => {
         useLignes().value.unshift(createdLigne)
         messageToSnack("Ligne " + createdLigne.numFacLigne +" créée")
