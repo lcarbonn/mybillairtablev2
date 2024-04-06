@@ -74,10 +74,11 @@ import { Facture, type IFacture } from '#imports';
     modalCopyFacture.value.show = !modalCopyFacture.value.show
   }
   // date & confirmation recieved for copy
-  const copyFacture = (dateForm:Date) => {
+  const copyFacture = async (dateForm:Date) => {
     const oldFacture = selectedFacture.value
     const newFacture = duplicateFacture(dateForm, oldFacture, factures.value, getCasOptions(cas.value))
-    copyStateFacture(newFacture, oldFacture)
+    const createdFac = copyStateFacture(newFacture, oldFacture)
+    await navigateTo('/facture/'+(await createdFac).id)
   }
 
 </script>

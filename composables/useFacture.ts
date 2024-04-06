@@ -83,22 +83,26 @@ export const createStateFacture = (facture:IFacture) :Promise<IFacture> => {
 }
 
 /**
- * Copy old fature to new facture and associated lignes adn set state
+ * Copy old facture to new facture and associated lignes adn set state
  * @param newFacture - the new facture
  * @param oldFacture - the old facture
  */
-export const copyStateFacture = (newFacture:IFacture, oldFacture:IFacture) => {
-    createFactureDb(newFacture).then((createdFac:IFacture) => {
-        useFacture().value = createdFac
-        useFactures().value.unshift(createdFac)
-        copyFactureLignes(createdFac.id, oldFacture.numFac).then(() => {
-            messageToSnack("Facture " + createdFac.numFac +" créée")
+export const copyStateFacture = (newFacture:IFacture, oldFacture:IFacture) :Promise<IFacture> => {
+    return new Promise((resolve, reject) => {
+        createFactureDb(newFacture).then((createdFac:IFacture) => {
+            useFacture().value = createdFac
+            useFactures().value.unshift(createdFac)
+            copyFactureLignes(createdFac.id, oldFacture.numFac).then(() => {
+                messageToSnack("Facture " + createdFac.numFac +" créée")
+            })
+            .catch((error) => {
+                errorToSnack(error, "Erreur copie lignes facture")
+            })
+            resolve(createdFac)
         })
         .catch((error) => {
-            errorToSnack(error, "Erreur copie lignes facture")
+            errorToSnack(error, "Erreur copie facture")
+            reject(error)
         })
-    })
-    .catch((error) => {
-        errorToSnack(error, "Erreur copie facture")
     })
 }
