@@ -29,7 +29,8 @@
                         autocomplete="false"
                     />
                 </BFormGroup>
-                <BButton type="submit" variant="primary">Connexion</BButton>
+                <BButton class="m-1" type="submit" variant="primary">Connexion</BButton>
+                <BButton class="m-1" type="button" variant="primary" @click="resetPassword()">Reset Password</BButton>
             </BForm>
         </BCard>
     </BContainer>
@@ -45,6 +46,11 @@
     })
 
     // emits declaration
-    const emit = defineEmits(['submit'])
+    const emit = defineEmits(['submit', 'resetPassword'])
+
+    // const methods
+    const resetPassword = () => {
+        emit('resetPassword')
+    }
 
 </script>

@@ -5,7 +5,7 @@
         <BAvatar rounded src="/icon.png"></BAvatar>
       </BLink>
     </BNavbarBrand>
-    <BNavbarNav><BNavItem :href="'https://airtable.com/' + baseId" target="_blanck">{{baseName}}</BNavItem></BNavbarNav>
+    <BNavbarNav><BNavItem :href="'https://airtable.com/' + baseId" target="_blank">{{baseName}}</BNavItem></BNavbarNav>
     <BNavbarToggle target="nav-collapse" />
     <BCollapse id="nav-collapse" isNav>
       <BNavbarNav class="ms-auto mb-2 mb-lg-0">
@@ -28,7 +28,7 @@
   
   // global states
   const firebaseUser = useFirebaseUser()
-  const config = useRuntimeConfig()
+  // const config = useRuntimeConfig()
 
   // computed properties
   const isConnected = computed(() => {

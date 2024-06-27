@@ -5,6 +5,7 @@
       <BaseLoginForm 
         :form="signinForm" 
         @submit="signIn"
+        @resetPassword="resetPassword"
         v-if="!firebaseUser"></BaseLoginForm>
       <BContainer v-if="firebaseUser">
         <NuxtPage />
@@ -37,6 +38,10 @@
       .then((credentials) => {
           // console.log("signIn user=", credentials)
       })
+  }
+  // reset password method
+  const resetPassword = () => {
+    sendPasswordReset(signinForm.value.email)
   }
 
 

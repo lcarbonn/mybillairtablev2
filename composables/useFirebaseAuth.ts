@@ -4,6 +4,7 @@ import {
     onAuthStateChanged,
     getAuth,
     type UserCredential,
+    sendPasswordResetEmail,
   } from "firebase/auth";
 
 /**
@@ -75,5 +76,26 @@ export const initUser = () => {
     } else {
     }
     firebaseUser.value = user
+  })
+}
+
+/**
+ * Send password reset email
+ * @param email - the email
+ * @returns A Promise that resolve the user credentials
+ * @throws Throws the firebase error
+ */
+export const sendPasswordReset = (email:string) :Promise<UserCredential> => {
+  return new Promise((resolve, reject) => {
+    const auth = getAuth()
+
+    sendPasswordResetEmail(auth,email)
+    .then(() => {
+      messageToSnack("Email sent to "+ email)
+    })
+    .catch((error) => {
+      errorToSnack(error, "Error on sending email to reset password")
+      reject(error)
+    })
   })
 }
