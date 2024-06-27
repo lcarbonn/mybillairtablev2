@@ -1,6 +1,5 @@
 import {
     signInWithEmailAndPassword,
-    signInAnonymously,
     onAuthStateChanged,
     getAuth,
     type UserCredential,
@@ -22,25 +21,6 @@ export const signInUser = (email:string, password:string) :Promise<UserCredentia
       .then((credentials) => {
         if(credentials) messageToSnack("Hello " + credentials.user.email)
         resolve(credentials)
-      })
-      .catch((error) => {
-        errorToSnack(error, "Error on login")
-        reject(error)
-      })
-    })
-  }
-
-/**
- * Sign in anonymously in firebase
- * @returns A Promise that resolve the user credentials
- * @throws Throws the firebase error
- */
-export const signInAnonymous = () :Promise<UserCredential> => {
-    return new Promise((resolve, reject) => {
-      const auth = getAuth()
-      signInAnonymously(auth)
-      .then((credentials) => {
-        resolve(credentials)        
       })
       .catch((error) => {
         errorToSnack(error, "Error on login")
@@ -82,10 +62,9 @@ export const initUser = () => {
 /**
  * Send password reset email
  * @param email - the email
- * @returns A Promise that resolve the user credentials
  * @throws Throws the firebase error
  */
-export const sendPasswordReset = (email:string) :Promise<UserCredential> => {
+export const sendPasswordReset = (email:string) => {
   return new Promise((resolve, reject) => {
     const auth = getAuth()
 
@@ -95,7 +74,6 @@ export const sendPasswordReset = (email:string) :Promise<UserCredential> => {
     })
     .catch((error) => {
       errorToSnack(error, "Error on sending email to reset password")
-      reject(error)
     })
   })
 }
