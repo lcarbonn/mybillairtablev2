@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+
   app:{
     head: {
       title: 'My Bill Airtable',
@@ -14,25 +15,60 @@ export default defineNuxtConfig({
       ]
     },
   },
+
   modules: [
     '@bootstrap-vue-next/nuxt',
     'unplugin-icons/nuxt',
     '@vite-pwa/nuxt'
   ],
+
   css: [
     'bootstrap/dist/css/bootstrap.min.css',
     '~/assets/css/custom-theme.scss'
   ],
+
   pwa: {
     /* PWA options */
     manifest: {
       name: 'My Bill Airtable',
-      short_name: 'mybillairtable',
+      short_name: 'MyBillAirtable',
       display: 'standalone',
       description: 'My Bill on Airtable',
-      lang: 'fr-FR'
+      lang: 'fr-FR',
+      theme_color: '#17a2b8',
+      icons: [
+          {
+            "src": "pwa-64x64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+          },
+          {
+            "src": "pwa-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+          },
+          {
+            "src": "pwa-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+          },
+          {
+            "src": "maskable-icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+          }
+        ]      
     },
+    workbox: {
+      navigateFallback: '/'
+    },
+    devOptions: {
+      enabled: true,
+      type: "module"
+    }    
   },
+
   runtimeConfig: {
     FIREBASE_API_KEY: process.env.NUXT_FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN: process.env.NUXT_FIREBASE_AUTH_DOMAIN,
@@ -50,5 +86,7 @@ export default defineNuxtConfig({
       FIREBASE_APP_ID: process.env.NUXT_FIREBASE_APP_ID,
       FIREBASE_MEASUREMENT_ID: process.env.NUXT_FIREBASE_MEASUREMENT_ID, 
     }
-  }  
+  },
+
+  compatibilityDate: "2024-07-16"
 })
