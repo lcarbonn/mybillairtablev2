@@ -1,10 +1,8 @@
 <template>
   <BNavbar toggleable="lg" variant="primary" sticky='top' v-b-color-mode="'dark'">
-    <BNavbarBrand @click="goHome" >
-      <BLink @click="goHome" class="navbar-brand">
+    <BNavbarBrand @click="goHome" href="/">
         <BAvatar rounded src="/icon.png"></BAvatar>
-      </BLink>
-    </BNavbarBrand>
+      </BNavbarBrand>
     <BNavbarNav><BNavItem :href="'https://airtable.com/' + baseId" target="_blank">{{baseName}}</BNavItem></BNavbarNav>
     <BNavbarToggle target="nav-collapse" />
     <BCollapse id="nav-collapse" isNav>
