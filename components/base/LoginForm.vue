@@ -1,7 +1,7 @@
 <template>
     <BContainer>
         <BCard>
-            <BForm @submit="emit('submit')">
+            <BForm @submit="onSubmit">
                 <BFormGroup
                     id="input-email"
                     label="Email address:"
@@ -37,20 +37,28 @@
 </template>
 <script setup lang="ts">
 
-    //props
-    const props = defineProps({
-        form: {
-            type: Object,
-            default: undefined
-        },
+    //local ref
+    const form = ref({
+        email: null,
+        password: null,
     })
 
     // emits declaration
     const emit = defineEmits(['submit', 'resetPassword'])
 
+    const onSubmit = (event:Event) => {
+        event.preventDefault()
+        if(form.value.email && form.value.password) {
+            signInUser(form.value.email, form.value.password)
+            .then((credentials) => {
+                useFirebaseUser().value = credentials.user
+            })
+        }
+    }
+
     // const methods
     const resetPassword = () => {
-        emit('resetPassword')
+        if(form.value.email) sendPasswordReset(form.value.email)
     }
 
 </script>

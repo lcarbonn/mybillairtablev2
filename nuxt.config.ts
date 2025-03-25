@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
 
   app:{
@@ -8,7 +9,7 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { hid: 'description', name: 'description', content: 'My Bill Airtable' },
+        { name: 'description', content: 'My Bill Airtable' },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -66,6 +67,7 @@ export default defineNuxtConfig({
     },
     devOptions: {
       enabled: true,
+      navigateFallbackAllowlist: [/^\/$/],
       type: "module"
     }    
   },
@@ -87,7 +89,5 @@ export default defineNuxtConfig({
       FIREBASE_APP_ID: process.env.NUXT_FIREBASE_APP_ID,
       FIREBASE_MEASUREMENT_ID: process.env.NUXT_FIREBASE_MEASUREMENT_ID, 
     }
-  },
-
-  compatibilityDate: "2024-07-16"
+  }
 })

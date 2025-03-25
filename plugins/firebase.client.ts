@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getAnalytics } from "firebase/analytics";
+//import { getAnalytics } from "firebase/analytics";
 import { getAuth} from "firebase/auth"
 
 
@@ -15,12 +15,12 @@ export default defineNuxtPlugin((nuxtApp) => {
         measurementId: config.public.FIREBASE_MEASUREMENT_ID
     }
     const app = initializeApp(firebaseConfig)
-    const analytics = getAnalytics(app);
+    // const analytics = getAnalytics(app);
+    const auth = getAuth()
+
 
     initUser()
     
-    const auth = getAuth()
-
     nuxtApp.vueApp.provide('auth', auth)
     nuxtApp.provide('auth', auth)
 

@@ -1,5 +1,5 @@
 import type { Record, FieldSet } from "airtable"
-import type { IOptions } from "./options"
+
 /**
  * Type for Client table
  */

@@ -1,6 +1,3 @@
-import type { ICa } from "./ca"
-import type { IFacture } from "./facture"
-
 /**
  * Filter type
  */

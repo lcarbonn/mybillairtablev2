@@ -16,8 +16,8 @@ import {
 export const signInUser = (email:string, password:string) :Promise<UserCredential> => {
     return new Promise((resolve, reject) => {
       const auth = getAuth()
-  
-      signInWithEmailAndPassword(auth,email,password)
+
+      signInWithEmailAndPassword(auth, email, password)
       .then((credentials) => {
         if(credentials) messageToSnack("Hello " + credentials.user.email)
         resolve(credentials)
@@ -39,7 +39,7 @@ export const signOutUser = () :Promise<void> => {
       getAuth().signOut()
       .then(() => {
         messageToSnack("SignOut")
-        resolve
+        resolve()
       })
     })
   }

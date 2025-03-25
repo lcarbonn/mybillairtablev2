@@ -132,9 +132,9 @@
                   <BFormSelectOption :value="undefined" disabled>-- Choisir un status --</BFormSelectOption>
                 </template>
               </BFormSelect>
-              <BInputGroupAppend>
+              <template #append>
                   <b-button :disabled="!facture.statut" @click="facture.statut = undefined"><X/></b-button>
-              </BInputGroupAppend>
+              </template>
             </BInputGroup>
           </BFormGroup>
         </BCol>

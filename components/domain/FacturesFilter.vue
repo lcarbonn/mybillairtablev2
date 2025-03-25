@@ -6,20 +6,20 @@
           label="Année CA"
           label-for="filter-ca"
         >
-        <BInputGroup size="sm">
-              <BFormSelect
-                id="filter-ca"
-                v-model="filterCA"
-                :options="casOptions"
-              >
+          <BInputGroup size="sm">
+            <BFormSelect
+              id="filter-ca"
+              v-model="filterCA"
+              :options="casOptions"
+            >
               <template #first>
                 <BFormSelectOption :value="null" disabled>-- Choisir une année de CA --</BFormSelectOption>
               </template>
             </BFormSelect>
-              <BInputGroupAppend>
-                <BButton :disabled="!filterCA" @click="filterCA = null" ><X/></BButton>
-              </BInputGroupAppend>
-            </BInputGroup>
+            <template #append>
+              <BButton :disabled="!filterCA" @click="filterCA = null" ><X/></BButton>
+          </template>
+          </BInputGroup>
         </BFormGroup>
       </BCol>
       <BCol lg="4" class="my-1">
@@ -27,20 +27,20 @@
           label="Client"
           label-for="filter-client"
         >
-        <BInputGroup size="sm">
-              <BFormSelect
-                id="filter-client"
-                v-model="filterClient"
-                :options="clientsOptions"
-              >
-              <template #first>
-                <BFormSelectOption :value="null" disabled>-- Choisir un client --</BFormSelectOption>
-              </template>
-            </BFormSelect>
-              <BInputGroupAppend>
-                <BButton :disabled="!filterClient" @click="filterClient = null" ><X/></BButton>
-              </BInputGroupAppend>
-            </BInputGroup>
+          <BInputGroup size="sm">
+            <BFormSelect
+              id="filter-client"
+              v-model="filterClient"
+              :options="clientsOptions"
+            >
+            <template #first>
+              <BFormSelectOption :value="null" disabled>-- Choisir un client --</BFormSelectOption>
+            </template>
+          </BFormSelect>
+          <template #append>
+            <BButton :disabled="!filterClient" @click="filterClient = null" ><X/></BButton>
+          </template>
+        </BInputGroup>
         </BFormGroup>
       </BCol>
       <BCol lg="4" class="my-1">
@@ -48,20 +48,20 @@
           label="Statut"
           label-for="filter-status"
         >
-        <BInputGroup size="sm">
-              <BFormSelect
-                id="filter-status"
-                v-model="filterStatus"
-                :options="statusOptions"
-              >
-              <template #first>
-                <BFormSelectOption :value="null" disabled>-- Choisir un statut --</BFormSelectOption>
-              </template>
+          <BInputGroup size="sm">
+            <BFormSelect
+              id="filter-status"
+              v-model="filterStatus"
+              :options="statusOptions"
+            >
+            <template #first>
+              <BFormSelectOption :value="null" disabled>-- Choisir un statut --</BFormSelectOption>
+            </template>
             </BFormSelect>
-              <BInputGroupAppend>
-                <BButton :disabled="!filterStatus" @click="filterStatus = null" ><X/></BButton>
-              </BInputGroupAppend>
-            </BInputGroup>
+            <template #append>
+              <BButton :disabled="!filterStatus" @click="filterStatus = null" ><X/></BButton>
+            </template>
+          </BInputGroup>
         </BFormGroup>
       </BCol>
       <BCol lg="4" class="my-1">
@@ -69,20 +69,20 @@
           label="Année Facture"
           label-for="filter-date"
         >
-        <BInputGroup size="sm">
-              <BFormSelect
-                id="filter-date"
-                v-model="filterDate"
-                :options="casOptions"
-              >
+          <BInputGroup size="sm">
+            <BFormSelect
+              id="filter-date"
+              v-model="filterDate"
+              :options="casOptions"
+            >
               <template #first>
                 <BFormSelectOption :value="null">-- Choisir une année --</BFormSelectOption>
               </template>
             </BFormSelect>
-              <BInputGroupAppend>
-                <BButton :disabled="!filterDate" @click="filterDate = null" ><X/></BButton>
-              </BInputGroupAppend>
-            </BInputGroup>
+            <template #append>
+              <BButton :disabled="!filterDate" @click="filterDate = null" ><X/></BButton>
+            </template>
+          </BInputGroup>
         </BFormGroup>
       </BCol>
       <BCol lg="4" class="my-1">
@@ -97,9 +97,9 @@
               type="search"
               placeholder="Chercher..."
             ></BFormInput>
-            <BInputGroupAppend>
+            <template #append>
               <BButton :disabled="!filterSearch" @click="filterSearch = null" ><X/></BButton>
-            </BInputGroupAppend>
+            </template>
           </BInputGroup>
         </BFormGroup>
       </BCol>

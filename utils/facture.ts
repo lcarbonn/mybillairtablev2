@@ -1,4 +1,3 @@
-import { NuxtWelcome } from "#build/components"
 import type { Record, FieldSet } from "airtable"
 
 /**

@@ -1,6 +1,6 @@
 <template>
   <BNavbar toggleable="lg" variant="primary" sticky='top' v-b-color-mode="'dark'">
-    <BNavbarBrand @click="goHome" href="/">
+    <BNavbarBrand to="/">
         <BAvatar rounded src="/icon.png"></BAvatar>
       </BNavbarBrand>
     <BNavbarNav><BNavItem :href="'https://airtable.com/' + baseId" target="_blank">{{baseName}}</BNavItem></BNavbarNav>
@@ -43,13 +43,9 @@
   })
 
   // methods
-  const goHome = async () => {
-    await navigateTo('/')
-  }
-
   const signOut = () => {
-    signOutUser().then(async () => {
-      //await navigateTo('/login')
+    signOutUser().then(() => {
+      useFirebaseUser().value = null
     })
   }
 

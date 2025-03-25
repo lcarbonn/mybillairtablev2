@@ -3,11 +3,7 @@
     <VitePwaManifest/>
     <div>
       <BaseNavBar></BaseNavBar>
-      <BaseLoginForm 
-        :form="signinForm" 
-        @submit="signIn"
-        @resetPassword="resetPassword"
-        v-if="!firebaseUser"></BaseLoginForm>
+      <BaseLoginForm v-if="!firebaseUser"/>
       <BContainer v-if="firebaseUser">
         <NuxtPage />
       </BContainer>
@@ -23,27 +19,12 @@
   // imports
   import { name, version } from '~/package.json';
 
-  // local refs for signin form
-  const signinForm = ref({ email: "", password: "" });
-  // state rfs
+  // state ref
   const firebaseUser = useFirebaseUser();
   
   // nuxt cycle hooks
   onMounted(() => {
     console.log("starting app : "+name + ", appVersion:" +version)
   })
-
-  // signIn method
-  const signIn = () => {
-      signInUser(signinForm.value.email, signinForm.value.password)
-      .then((credentials) => {
-          // console.log("signIn user=", credentials)
-      })
-  }
-  // reset password method
-  const resetPassword = () => {
-    sendPasswordReset(signinForm.value.email)
-  }
-
 
 </script>
