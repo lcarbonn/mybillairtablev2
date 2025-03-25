@@ -26,7 +26,6 @@
   
   // global states
   const firebaseUser = useFirebaseUser()
-  // const config = useRuntimeConfig()
 
   // computed properties
   const isConnected = computed(() => {
@@ -43,10 +42,11 @@
   })
 
   // methods
-  const signOut = () => {
+  const signOut = async () => {
     signOutUser().then(() => {
       useFirebaseUser().value = null
     })
+    await navigateTo('/')
   }
 
 </script>

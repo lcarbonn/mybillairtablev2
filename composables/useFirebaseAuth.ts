@@ -52,10 +52,10 @@ export const initUser = () => {
   const firebaseUser = useFirebaseUser();
 
   onAuthStateChanged(auth, (user) => {
-    if (user) {
-    } else {
-    }
     firebaseUser.value = user
+    if (!user) {
+      navigateTo('/')
+    }
   })
 }
 
