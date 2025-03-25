@@ -27,6 +27,12 @@
         <BButton class="mx-1" @click="deleteFacture(data.item as IFacture)" size="sm" ><Trash/></BButton>
         <BButton @click="copyFacture(data.item as IFacture)" size="sm"><Copy/></BButton>
       </template>
+      <template #table-busy>
+        <div class="text-center text-danger my-2">
+          <BSpinner class="align-middle" />
+          <strong>Loading...</strong>
+        </div>
+      </template>
     </BTable>
   </div>
 </template>
