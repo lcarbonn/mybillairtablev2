@@ -1,20 +1,28 @@
 <template>
-  <BNavbar toggleable="lg" variant="primary" sticky='top' v-b-color-mode="'dark'">
+  <BNavbar :toggleable="true" variant="primary" sticky='top' v-b-color-mode="'dark'">
+    <BNavbarToggle target="nav-collapse" />
     <BNavbarBrand to="/">
         <BAvatar rounded src="/icon.png"></BAvatar>
-      </BNavbarBrand>
-    <BNavbarNav><BNavItem :href="'https://airtable.com/' + baseId" target="_blank">{{baseName}}</BNavItem></BNavbarNav>
-    <BNavbarToggle target="nav-collapse" />
-    <BCollapse id="nav-collapse" isNav>
+    </BNavbarBrand>
+    <BNavbarNav fill>
+      <BNavItem :href="'https://airtable.com/' + baseId" target="_blank">{{baseName}}</BNavItem>
+    </BNavbarNav>
+    <BOffcanvas id="nav-collapse"
+        isNav
+        v-model="show"
+        placement="start"
+        title="My Bill Airtable"
+        style="background-color:var(--bs-primary);color:var(--bs-white)"
+       >
       <BNavbarNav class="ms-auto mb-2 mb-lg-0">
-        <BNavItemDropdown v-if="isConnected" right v-b-color-mode="'light'">
+        <BNavItemDropdown v-if="isConnected" right>
           <template #button-content>
             <em>{{userEmail}}<Person/></em>
           </template>
           <BDropdownItem  @click="signOut()">Sign Out</BDropdownItem>
         </BNavItemDropdown>
       </BNavbarNav>
-    </BCollapse>
+    </BOffcanvas>
   </BNavbar>
 </template>
 
@@ -24,6 +32,8 @@
   import Person from '~icons/bi/person'
   import {vBColorMode} from 'bootstrap-vue-next'
   
+  //local ref
+  const show = ref(false)
   // global states
   const firebaseUser = useFirebaseUser()
 
@@ -43,6 +53,7 @@
 
   // methods
   const signOut = async () => {
+    show.value = false
     signOutUser().then(() => {
       useFirebaseUser().value = null
     })
