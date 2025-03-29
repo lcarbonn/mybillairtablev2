@@ -3,6 +3,7 @@
     <VitePwaManifest/>
     <div>
       <BaseNavBar></BaseNavBar>
+      <BaseSnackToast></BaseSnackToast>
       <BaseLoginForm v-if="!firebaseUser"/>
       <BContainer v-if="firebaseUser">
         <NuxtPage />
@@ -10,7 +11,6 @@
     </div>
     <div class="d-flex flex-column justify-content-end">
       <BaseFooter :appVersion="version"></BaseFooter>
-      <BaseSnackbar></BaseSnackbar>
     </div>
   </div>
 </template>
