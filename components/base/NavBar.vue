@@ -21,6 +21,7 @@
           </template>
           <BDropdownItem  @click="signOut()">Sign Out</BDropdownItem>
         </BNavItemDropdown>
+        <BaseThemeItemDropdown @clicked="show=!show"/>
       </BNavbarNav>
     </BOffcanvas>
   </BNavbar>
@@ -30,7 +31,6 @@
 
   // icons
   import Person from '~icons/bi/person'
-  import {vBColorMode} from 'bootstrap-vue-next'
   
   //local ref
   const show = ref(false)
