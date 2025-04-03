@@ -1,4 +1,5 @@
 import type { AirtableBase } from "airtable/lib/airtable_base"
+import { Client } from "./client";
 
 /**
  * Get all Clients from airtable

@@ -113,7 +113,7 @@ export const getMaxNum = (factures:IFacture[]|undefined, newFacture:IFacture) :s
   return padTo2Digits(String(++maxNum))
 }
 
-export const setFactureCA = (facture:IFacture, caOpts:IOptions[]) => {
+export const setFactureCA = (facture:IFacture, caOpts:IOption[]) => {
   let caFac = undefined
   if(facture.date && caOpts) {
     const newDate = new Date(facture.date)
@@ -139,7 +139,7 @@ export const setFactureCA = (facture:IFacture, caOpts:IOptions[]) => {
   facture.ca = caFac
 }
 
-export const duplicateFacture = (date:Date, selectedFacture:IFacture, factures:IFacture[], caOpts:IOptions[]) : IFacture => {
+export const duplicateFacture = (date:Date, selectedFacture:IFacture, factures:IFacture[], caOpts:IOption[]) : IFacture => {
   //get old facture
   const oldFacture = selectedFacture
   const newFacture = new Facture()

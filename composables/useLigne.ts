@@ -91,7 +91,8 @@ export const copyFactureLignes = (newFactureId:string, oldNumFac:string) :Promis
                 if(ligne) {
                     // copy ligne the create
                     const ligneCopy = new Ligne() 
-                    ligneCopy.numFac = newFactureId
+                    ligneCopy.numFac = []
+                    ligneCopy.numFac.push(newFactureId)
                     ligneCopy.ligne = ligne.ligne
                     ligneCopy.libelle = "DUPLICATE " + ligne.libelle
                     ligneCopy.puHT = ligne.puHT

@@ -35,7 +35,7 @@ export class Ligne implements ILigne {
        constructor(record?:Record<FieldSet>) {
         if(record) {
           this.numFacLigne = record.get('#NumFacLigne') as string
-          this.numFac = record.get('#NumFac') as []
+          this.numFac = record.get('#NumFac') as string[]
           this.ligne = record.get('#Ligne') as number
           this.libelle = record.get('Libellé') as string
           this.puHT = record.get('PU HT') as number
