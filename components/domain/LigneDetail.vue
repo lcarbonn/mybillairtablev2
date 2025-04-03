@@ -13,7 +13,7 @@
             class="mb-0"
           >
             <BInputGroup size="sm">
-              <BFormInput id="ligne" v-model="numLigne" type="number" placeholder="Ligne" :state="ligneState"></BFormInput>
+              <BFormInput id="ligne" v-model.number="numLigne" type="number" placeholder="Ligne" :state="ligneState"></BFormInput>
             </BInputGroup>
           </BFormGroup>
         </BCol>
@@ -41,7 +41,7 @@
             class="mb-0"
           >
             <BInputGroup size="sm">
-              <BFormInput id="puHT" v-model="ligne.puHT" :number=true type="number" placeholder="PU HT" :state="puhtState"></BFormInput>
+              <BFormInput id="puHT" v-model.number="ligne.puHT" type="number" placeholder="PU HT" :state="puhtState"></BFormInput>
             </BInputGroup>
           </BFormGroup>
         </BCol>

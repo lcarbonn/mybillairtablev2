@@ -1,4 +1,5 @@
 <template>
+  <client-only>
   <BNavbar :toggleable="true" variant="primary" sticky='top' v-b-color-mode="'dark'">
     <BNavbarToggle target="nav-collapse" />
     <BNavbarBrand to="/">
@@ -25,6 +26,7 @@
       </BNavbarNav>
     </BOffcanvas>
   </BNavbar>
+  </client-only>
 </template>
 
 <script setup lang="ts">
@@ -35,14 +37,14 @@
   //local ref
   const show = ref(false)
   // global states
-  const firebaseUser = useFirebaseUser()
+  const authUser = useAuthUser()
 
   // computed properties
   const isConnected = computed(() => {
-    return !!firebaseUser.value?.uid
+    return !!authUser.value?.uid
   })
   const userEmail = computed(() => {
-    return firebaseUser.value?.email
+    return authUser.value?.email
   })
   const baseId = computed(() => {
     return import.meta.env.VITE_AIRTABLE_BASE_ID
@@ -54,9 +56,7 @@
   // methods
   const signOut = async () => {
     show.value = false
-    signOutUser().then(() => {
-      useFirebaseUser().value = null
-    })
+    signOutUser()
     await navigateTo('/')
   }
 

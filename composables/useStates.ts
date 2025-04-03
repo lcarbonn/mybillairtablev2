@@ -1,8 +1,7 @@
-import type { User } from "firebase/auth";
 /**
- * State for firebaseUser
+ * State for AuthUser
  */
-export const useFirebaseUser = () => useState<User|null>("firebaseUser");
+export const useAuthUser = () => useState<IAuthUser|undefined>("authUser");
 /**
  * State for snackbar message
  */

@@ -4,7 +4,7 @@ import type { Record, FieldSet } from "airtable"
  */
 export type ILigne = {
   numFacLigne:string|undefined
-  numFac:string|undefined
+  numFac:string[]|undefined
   ligne: number|undefined
   libelle:string|undefined
   puHT:number|undefined
@@ -19,7 +19,7 @@ export type ILigne = {
  */
 export class Ligne implements ILigne {
   numFacLigne:string|undefined
-  numFac:string|undefined
+  numFac:string[]|undefined
   ligne: number|undefined
   libelle:string|undefined
   puHT:number|undefined
@@ -35,7 +35,7 @@ export class Ligne implements ILigne {
        constructor(record?:Record<FieldSet>) {
         if(record) {
           this.numFacLigne = record.get('#NumFacLigne') as string
-          this.numFac = record.get('#NumFac') as string
+          this.numFac = record.get('#NumFac') as []
           this.ligne = record.get('#Ligne') as number
           this.libelle = record.get('Libellé') as string
           this.puHT = record.get('PU HT') as number

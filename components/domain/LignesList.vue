@@ -110,7 +110,8 @@
   // ask modal for add ligne
   const addNewLigne = () => {
     const ligne = new Ligne()
-    ligne.numFac = props.idFac
+    ligne.numFac = []
+    if(props.idFac)ligne.numFac.push(props.idFac)
     selectedLigne.value = ligne
     modalShowLigne.value.show = !modalShowLigne.value.show
     isNewLigne.value = true
@@ -125,7 +126,7 @@
   // copy ligne and show ligne modal for detail
   const copyLigne = (ligne:ILigne) => {
     const newLine = new Ligne()
-    newLine.numFac = props.idFac
+    newLine.numFac = ligne.numFac
     newLine.ligne = Number(maxNumLigne.value)
     newLine.libelle = "DUPLICATE " + ligne.libelle
     newLine.puHT = ligne.puHT

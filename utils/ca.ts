@@ -33,8 +33,8 @@ export class Ca implements ICa {
  * @param cas the CAs list
  * @returns options for CA select
  */
-export const getCaYearsOptions = (cas:ICa[]):IOptions[] => {
-  const opts:IOptions[] = []
+export const getCaYearsOptions = (cas:ICa[]):IOption[] => {
+  const opts:IOption[] = []
   const options = new Map()
   if(cas) cas.forEach(ca => {
     options.set(ca.year, ca.year)
@@ -50,8 +50,8 @@ export const getCaYearsOptions = (cas:ICa[]):IOptions[] => {
  * @param cas the CAs list
  * @returns options for CA select
  */
-export const getCasOptions = (cas:ICa[]):IOptions[] => {
-  const opts:IOptions[] = []
+export const getCasOptions = (cas:ICa[]):IOption[] => {
+  const opts:IOption[] = []
   if(cas) {
     cas.forEach((ca) => {
       opts.push({ value:ca.id, text: ca.date })

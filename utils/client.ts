@@ -36,13 +36,13 @@ export class Client implements IClient {
  * @param clients 
  * @returns options for select
  */
-export const getClientsOptions = (clients:IClient[]):ISupOptions[] => {
-  const cliopts:ISupOptions[] = []
-  const actifCliOpts:IOptions[] = []
-  const inactifCliOpts:IOptions[] = []
+export const getClientsOptions = (clients:IClient[]):IOptions[] => {
+  const cliopts:IOptions[] = []
+  const actifCliOpt:IOption[] = []
+  const inactifCliOpts:IOption[] = []
   if(clients) clients.forEach(client => {
     if(client.actif) {
-      actifCliOpts.push(
+      actifCliOpt.push(
         { value: client.id, text: client.name }
       )
     } else {
@@ -52,7 +52,7 @@ export const getClientsOptions = (clients:IClient[]):ISupOptions[] => {
     }
   })
   cliopts.push(
-    { label: 'Clients actifs', options: actifCliOpts}
+    { label: 'Clients actifs', options: actifCliOpt}
   )
   cliopts.push(
     { label: 'Clients inactifs', options: inactifCliOpts}

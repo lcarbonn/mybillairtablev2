@@ -1,7 +1,7 @@
 /**
  * Type for Input Select Options
  */
-export type IOptions = {
+export type IOption = {
     value:string
     text:string
 }
@@ -9,9 +9,9 @@ export type IOptions = {
 /**
  * Type for Input Select Options
  */
-export type ISupOptions = {
+export type IOptions = {
     label:string
-    options:IOptions[]
+    options:IOption[]
 }
 
 /**

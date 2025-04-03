@@ -50,9 +50,6 @@
         event.preventDefault()
         if(form.value.email && form.value.password) {
             signInUser(form.value.email, form.value.password)
-            .then((credentials) => {
-                useFirebaseUser().value = credentials.user
-            })
         }
     }
 

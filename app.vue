@@ -4,8 +4,8 @@
     <div>
       <BaseNavBar></BaseNavBar>
       <BaseSnackToast></BaseSnackToast>
-      <BaseLoginForm v-if="!firebaseUser"/>
-      <BContainer v-if="firebaseUser">
+      <BaseLoginForm v-if="!authUser"/>
+      <BContainer v-if="authUser">
         <NuxtPage />
       </BContainer>
     </div>
@@ -20,7 +20,7 @@
   import { name, version } from '~/package.json';
 
   // state ref
-  const firebaseUser = useFirebaseUser();
+  const authUser = useAuthUser()
   
   // nuxt cycle hooks
   onMounted(() => {

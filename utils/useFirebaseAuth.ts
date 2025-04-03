@@ -2,7 +2,6 @@ import {
     signInWithEmailAndPassword,
     onAuthStateChanged,
     getAuth,
-    type UserCredential,
     sendPasswordResetEmail,
   } from "firebase/auth";
 
@@ -10,20 +9,17 @@ import {
  * Sign in user in firebase with email and password
  * @param email - the email
  * @param password - the password
- * @returns A Promise that resolve the user credentials
- * @throws Throws the firebase error
+ * @returns A Promise that resolve the auth user
  */
-export const signInUser = (email:string, password:string) :Promise<UserCredential> => {
+export const signInUserFirebase = (email:string, password:string) :Promise<IAuthUser> => {
     return new Promise((resolve, reject) => {
       const auth = getAuth()
-
       signInWithEmailAndPassword(auth, email, password)
       .then((credentials) => {
-        if(credentials) messageToSnack("Hello " + credentials.user.email)
-        resolve(credentials)
+        const authUser = new AuthUser(credentials.user.uid, credentials.user.isAnonymous, credentials.user.email)
+        resolve(authUser)
       })
       .catch((error) => {
-        errorToSnack(error, "Error on login")
         reject(error)
       })
     })
@@ -33,12 +29,10 @@ export const signInUser = (email:string, password:string) :Promise<UserCredentia
  * Sign out the current user from firebase
  * @throws Throws the firebase error
  */
-export const signOutUser = () :Promise<void> => {
+export const signOutUserFirebase = () :Promise<void> => {
     return new Promise((resolve, reject) => {
-
       getAuth().signOut()
       .then(() => {
-        messageToSnack("SignOut")
         resolve()
       })
     })
@@ -47,15 +41,13 @@ export const signOutUser = () :Promise<void> => {
 /**
  * Initialize the firebase listener on auth state change
  */
-export const initUser = () => {
+export const initUserFirebase = (callback:any) => {
   const auth = getAuth()
-  const firebaseUser = useFirebaseUser();
-
   onAuthStateChanged(auth, (user) => {
-    firebaseUser.value = user
-    if (!user) {
-      navigateTo('/')
-    }
+    if (user) {
+      const authUser = new AuthUser(user.uid, user.isAnonymous, user.email)
+      callback(authUser)
+    } else {callback(undefined)}
   })
 }
 
@@ -64,16 +56,15 @@ export const initUser = () => {
  * @param email - the email
  * @throws Throws the firebase error
  */
-export const sendPasswordReset = (email:string) => {
+export const sendPasswordResetFirebase = (email:string) :Promise<void> => {
   return new Promise((resolve, reject) => {
     const auth = getAuth()
-
     sendPasswordResetEmail(auth,email)
     .then(() => {
-      messageToSnack("Email sent to "+ email)
+      resolve()
     })
     .catch((error) => {
-      errorToSnack(error, "Error on sending email to reset password")
+      reject(error)
     })
   })
 }
