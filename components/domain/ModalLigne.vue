@@ -10,7 +10,7 @@
         cancel-title="Annuler"
         ok-title="Ok"
         @ok.prevent="preventOk">
-          <BCard v-if="ligne" :title="'Ligne : '+ligne.numFacLigne">
+          <BCard v-if="ligne" :title="ligneTitle">
             <BCardText>
               <DomainLigneDetail v-if="ligne" :ligne="ligne" :maxNumLigne="maxNumLigne"></DomainLigneDetail>
             </BCardText>
@@ -37,7 +37,12 @@
   // emits declaration
   const emit = defineEmits(['submitLigne'])
 
-  // local ref
+  const ligneTitle = computed(() => {
+    let title = 'Ligne : '
+    if(props.ligne?.numFacLigne) title += props.ligne.numFacLigne
+    return title
+  })
+
 
   // methods
   const preventOk = () => {
