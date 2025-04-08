@@ -2,7 +2,7 @@
   <client-only>
   <BNavbar :toggleable="true" variant="primary" sticky='top' v-b-color-mode="'dark'">
     <BNavbarToggle target="nav-collapse" />
-    <BNavbarBrand to="/">
+    <BNavbarBrand @click="resetFilter" to="/">
         <BAvatar rounded src="/icon.png"></BAvatar>
     </BNavbarBrand>
     <BNavbarNav fill>
@@ -52,6 +52,11 @@
   const baseName = computed(() => {
     return import.meta.env.VITE_AIRTABLE_BASE_NAME
   })
+
+    // methods
+  const resetFilter = () => {
+    resetStatedFilter()
+  }
 
   // methods
   const signOut = async () => {

@@ -30,6 +30,14 @@ export class Filter implements IFilter {
     //    }
 }
 
+export const resetStatedFilter = () => {
+  useFilter().value.ca = undefined
+  useFilter().value.client = undefined
+  useFilter().value.date = undefined
+  useFilter().value.search = undefined
+  useFilter().value.statut = undefined
+}
+
 /**
  * The filtering function
  * @param factures - list of factures
