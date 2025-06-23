@@ -2,7 +2,7 @@
  * get all factures and set state
  */
 export const getStateFactures = () => {
-    getFacturesDb().then((list) => {
+    getFacturesBr().then((list) => {
         useFactures().value = list
     })
 }

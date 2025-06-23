@@ -79,10 +79,10 @@ import type { TableField } from 'bootstrap-vue-next';
         key: 'client',
         label: 'Nom client',
         sortable: true,
-        formatter: (value: any, key: any, item: any) => {
-          return getClientName(value)
-        },
-        filterByFormatted: true
+        // formatter: (value: any, key: any, item: any) => {
+        //   return getClientName(value)
+        // },
+        // filterByFormatted: true
       },
       {
         key: 'statut',

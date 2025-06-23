@@ -43,11 +43,11 @@ export const getClientsOptions = (clients:IClient[]):IOptions[] => {
   if(clients) clients.forEach(client => {
     if(client.actif) {
       actifCliOpt.push(
-        { value: client.id, text: client.name }
+        { value: client.name, text: client.name }
       )
     } else {
       inactifCliOpts.push(
-        { value: client.id, text: client.name }
+        { value: client.name, text: client.name }
       )
     }
   })
