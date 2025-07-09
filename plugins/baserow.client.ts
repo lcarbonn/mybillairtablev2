@@ -2,7 +2,6 @@ import { BaserowClient } from "@watzon/baserow";
 
 export default defineNuxtPlugin((nuxtApp) => {
 
-    // const config = useRuntimeConfig()
     const baserowConfig:IBrConf = {
         url:import.meta.env.VITE_BASEROW_URL,
         baseName:import.meta.env.VITE_BASEROW_BASE_NAME,

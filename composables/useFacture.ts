@@ -83,7 +83,7 @@ export const createStateFacture = (facture:IFacture) :Promise<IFacture> => {
 }
 
 /**
- * Copy old facture to new facture and associated lignes adn set state
+ * Copy old facture to new facture and associated lignes and set state
  * @param newFacture - the new facture
  * @param oldFacture - the old facture
  */
