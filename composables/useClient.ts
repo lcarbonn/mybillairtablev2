@@ -2,7 +2,7 @@
  * get all Clients and set state
  */
 export const getStateClients = () => {
-    getClientsDb().then((list) => {
+    getClientsBr().then((list) => {
         useClients().value = list
     })
 }

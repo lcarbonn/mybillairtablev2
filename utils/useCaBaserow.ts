@@ -14,7 +14,7 @@ export const getCasBr = () :Promise<ICa[]> => {
         {
             page:1,
             size:200,
-            orderBy:"field_4171449"
+            orderBy:"-field_4171449"
         }
         ).then((rows) => {
             const cas:ICa[] = []

@@ -8,4 +8,14 @@ describe('baserow client', () => {
     expect(clients.length).toEqual(19)
   })
 
+    // test payment delay of IPPON, id 6
+  it('count all clients form baserow', async () => {
+    const clients:IClient[] = await getClientsBr()
+    const pd = getPaymentDelay(clients, "6")
+    clients.forEach(client => {
+      console.log("Client:",client.name, ", id", client.id)
+    });
+    expect(pd).toEqual(60)
+  })
+
 })
