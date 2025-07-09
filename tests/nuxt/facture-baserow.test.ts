@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { getFactureBr } from '~/utils/useFactureBaserow'
+import { createFactureBr, deleteFactureBr, getFactureBr } from '~/utils/useFactureBaserow'
 
 describe('baserow facture', () => {
-  
+  let created_id = ''
+
   // count all factures
   it('count all factures form baserow', async () => {
     const factures:Facture[] = await getFacturesBr()
@@ -52,6 +53,40 @@ describe('baserow facture', () => {
     expect(facture.client).toEqual("V-Loc")
     expect(facture.ca).toEqual("2025-08")
     await updateFactureBr(originalFacture)
+  })
+
+    // Create new facture
+  it('create one row in baserow', async () => {
+    
+    const createdFacture:Facture = new Facture()
+    createdFacture.date = new Date("2025-06-21")
+    createdFacture.num = "02"
+    createdFacture.comment = "TEST U MODIF"
+    createdFacture.statut = "Payée"
+    createdFacture.tva=100
+    createdFacture.bdc = "BDC U MODIF"
+    createdFacture.payDate = new Date("2025-06-22")
+    createdFacture.client = "V-Loc"
+    createdFacture.ca = "2025-08"
+    const facture = await createFactureBr(createdFacture)
+    console.log("facture id:"+facture.id)
+    created_id = facture.id
+    expect(facture.date).toEqual(new Date("2025-06-21"))
+    expect(facture.numFac).toEqual("2025-06-02")
+    expect(facture.num).toEqual("02")
+    expect(facture.comment).toEqual("TEST U MODIF")
+    expect(facture.statut).toEqual("Payée")
+    expect(facture.tva).toEqual(100)
+    expect(facture.bdc).toEqual("BDC U MODIF")
+    expect(facture.payDate).toEqual(new Date("2025-06-22"))
+    expect(facture.client).toEqual("V-Loc")
+    expect(facture.ca).toEqual("2025-08")
+  })
+
+      // Create new facture
+  it('delete one row in baserow', async () => {
+    const id = await deleteFactureBr(created_id)
+    expect(id).toEqual(created_id)
   })
 
 })

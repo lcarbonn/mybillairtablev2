@@ -70,9 +70,53 @@ export const updateFactureBr = (facture:IFacture) :Promise<IFacture> => {
             field_4171436: facture.ca?[facture.ca]:undefined,
       })
       .then((row) => {
-        console.log(row.results);
         const fac = new Facture(row)
         resolve(fac)
+      })
+    })
+}
+
+/**
+ * Create the facture in the db
+ * @param facture Create the facture in db
+ * @returns a Promise with the created facture from db or the error
+ */
+export const createFactureBr = (facture:IFacture) :Promise<IFacture> => {
+    return new Promise((resolve, reject) => {
+      const { $baserow } = useNuxtApp()
+      const client = $baserow as BaserowClient
+      client.databaseRows.create(FACTURE_TABLE_ID, 
+      {
+            field_4196477: facture.date? facture.date.toISOString().substring(0,10):undefined,
+            field_4171430: facture.num,
+            field_4171438: facture.comment,
+            field_4171437: facture.tva,
+            field_4171432: facture.statut,
+            field_4171439: facture.bdc,
+            field_4171433: facture.payDate? facture.payDate.toISOString().substring(0,10):undefined,
+            field_4171431: facture.client? [facture.client]:undefined,
+            field_4171436: facture.ca?[facture.ca]:undefined,
+      })
+      .then((row) => {
+        const fac = new Facture(row)
+        resolve(fac)
+      })
+    })
+}
+
+/**
+ * Delete the facture in the db
+ * @param id the facture id 
+ * @returns a Promise witn the deleted id
+ */
+export const deleteFactureBr = (id:string) :Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const { $baserow } = useNuxtApp()
+      const client = $baserow as BaserowClient
+      const idnum = new Number(id).valueOf()
+      client.databaseRows.delete(FACTURE_TABLE_ID, idnum)
+      .then(() => {
+        resolve(id)
       })
     })
 }
