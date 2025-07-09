@@ -17,12 +17,12 @@ export const getFacturesBr = async () : Promise<Facture[]> => {
         orderBy:"-field_4171429"
       }
     ).then((rows) => {
-    const factures:IFacture[] = []
-    rows.results.forEach(row => {
-        const fac = new Facture(row)
-        factures.push(fac)
-       });
-    resolve(factures)
+      const factures:IFacture[] = []
+      rows.results.forEach(row => {
+          const fac = new Facture(row)
+          factures.push(fac)
+        });
+      resolve(factures)
     })
   })
 }

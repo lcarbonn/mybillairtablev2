@@ -18,12 +18,12 @@ export const getClientsBr = () :Promise<IClient[]> => {
         orderBy:"field_4171418"
       }
     ).then((rows) => {
-    const clients:IClient[] = []
-    rows.results.forEach(row => {
-        const client = new Client(row)
-        clients.push(client)
-       });
-    resolve(clients)
+        const clients:IClient[] = []
+        rows.results.forEach(row => {
+            const client = new Client(row)
+            clients.push(client)
+        });
+        resolve(clients)
     })
   })
 }

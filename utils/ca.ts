@@ -1,4 +1,5 @@
-import type { Record, FieldSet } from "airtable"
+import type { BaserowRow } from "@watzon/baserow"
+
 
 /**
  * Type for CA table
@@ -19,13 +20,19 @@ export class Ca implements ICa {
 
        /**
      * CA constructor
-     * @param record - Record form Airtable
+     * @param record - Record form db
      */
-       constructor(record:Record<FieldSet>) {
-        this.date = record.get('Date') as string
-        this.year = record.get('Année CA') as string
-        this.id = record.getId()
-       }
+      constructor(row:BaserowRow) {
+        this.id = row.id.toString()
+        this.date = row["field_4171449"],
+        this.year = row["field_4196415"]
+      }
+
+      //  constructor(record:Record<FieldSet>) {
+      //   this.date = record.get('Date') as string
+      //   this.year = record.get('Année CA') as string
+      //   this.id = record.getId()
+      //  }
 }
 
 /**
