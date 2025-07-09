@@ -12,7 +12,7 @@ export const getStateFactures = () => {
  */
 export const getStateFacture = (id:string) :Promise<IFacture> => {
     return new Promise((resolve, reject) => {
-        getFactureDb(id).then((facture) => {
+        getFactureBr(id).then((facture) => {
             useFacture().value = facture
             resolve(facture)
         })

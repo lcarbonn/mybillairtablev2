@@ -2,6 +2,10 @@ import { BaserowClient } from "@watzon/baserow";
 
 const FACTURE_TABLE_ID = 524380
 
+/**
+ * Get all factures from database
+ * @returns Promise - the factures list or the error
+ */
 export const getFacturesBr = async () : Promise<Facture[]> => {
   return new Promise((resolve, reject) => {
     const { $baserow } = useNuxtApp()
@@ -14,34 +18,61 @@ export const getFacturesBr = async () : Promise<Facture[]> => {
         orderBy:"-field_4171429"
       }
     ).then((rows) => {
-    console.log(`Retrieved ${rows.count} rows`);
-    console.log(rows.results);
+    // console.log(`Retrieved ${rows.count} rows`);
+    // console.log(rows.results);
     const factures:IFacture[] = []
     rows.results.forEach(row => {
-      const fac = new Facture()
-      fac.id = row.id.toString()
-      fac.numFac = row["field_4171429"]
-      fac.date = new Date(row["field_4196477"])
-      fac.num = row['field_4171430']
-      fac.comment = row['field_4171438']
-      const client = row['field_4171431'][0]
-      fac.client = client?client.value:undefined
-      const statut = row['field_4171432']
-      fac.statut = statut?statut.value:undefined
-      fac.totalHT = row['field_4172036']
-      fac.totalTTC = row['field_4277086']
-      const ca = row['field_4171436'][0]
-      fac.ca = ca?ca.value:undefined
-      fac.tva = row['field_4277079']
-      const dlp = row['field_4174240'][0]
-      fac.paymentDelay = dlp?dlp.value:undefined
-      fac.bdc = row['field_4171439']
-      fac.payDate = row['field_4171433'] ? new Date(row['field_4171433']) : undefined
-      const anca = row['field_4668726'][0]
-      fac.anneeCa = anca?anca.value:undefined
+        const fac = new Facture(row)
         factures.push(fac)
-    });
+       });
     resolve(factures)
     })
   })
+}
+
+/**
+ * Get the facture with the given id from db
+ * @param id - the facture id
+ * @returns a Promise with the facture from db or the error
+ */
+export const getFactureBr = (id:string) :Promise<IFacture> => {
+    return new Promise((resolve, reject) => {
+      const { $baserow } = useNuxtApp()
+      const client = $baserow as BaserowClient
+      client.databaseRows.get(FACTURE_TABLE_ID, Number(id))
+      .then((row) => {
+        console.log(row.results);
+        const fac = new Facture(row)
+        resolve(fac)
+    })
+    })
+}
+
+/**
+ * Update the facture in the db
+ * @param facture Update the facture in db
+ * @returns a Promise with the updated facture from db or the error
+ */
+export const updateFactureBr = (facture:IFacture) :Promise<IFacture> => {
+      return new Promise((resolve, reject) => {
+      const { $baserow } = useNuxtApp()
+      const client = $baserow as BaserowClient
+      client.databaseRows.update(FACTURE_TABLE_ID, Number(facture.id), 
+      {
+            field_4196477: facture.date? facture.date.toISOString().substring(0,10):undefined,
+            field_4171430: facture.num,
+            field_4171438: facture.comment,
+            field_4171437: facture.tva,
+            field_4171432: facture.statut,
+            field_4171439: facture.bdc,
+            field_4171433: facture.payDate? facture.payDate.toISOString().substring(0,10):undefined,
+            field_4171431: facture.client? [facture.client]:undefined,
+            field_4171436: facture.ca?[facture.ca]:undefined,
+      })
+      .then((row) => {
+        console.log(row.results);
+        const fac = new Facture(row)
+        resolve(fac)
+      })
+    })
 }
