@@ -41,7 +41,6 @@ export const getFactureBr = (id:string) :Promise<IFacture> => {
       const client = $baserow as BaserowClient
       client.databaseRows.get(FACTURE_TABLE_ID, Number(id))
       .then((row) => {
-        console.log(row.results);
         const fac = new Facture(row)
         resolve(fac)
     })
