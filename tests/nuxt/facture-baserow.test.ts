@@ -34,10 +34,10 @@ describe('baserow facture', () => {
     const updatedFacture:Facture = await getFactureBr("286")
     updatedFacture.date = new Date("2025-06-21")
     updatedFacture.num = "02"
-    updatedFacture.comment = "TEST U MODIF"
+    updatedFacture.comment = "COMMENT TU MODIF"
     updatedFacture.statut = "Payée"
     updatedFacture.tva=100
-    updatedFacture.bdc = "BDC U MODIF"
+    updatedFacture.bdc = "BDC TU MODIF"
     updatedFacture.payDate = new Date("2025-06-22")
     updatedFacture.client = "V-Loc"
     updatedFacture.ca = "2025-08"
@@ -45,13 +45,14 @@ describe('baserow facture', () => {
     expect(facture.date).toEqual(new Date("2025-06-21"))
     expect(facture.numFac).toEqual("2025-06-02")
     expect(facture.num).toEqual("02")
-    expect(facture.comment).toEqual("TEST U MODIF")
+    expect(facture.comment).toEqual("COMMENT TU MODIF")
     expect(facture.statut).toEqual("Payée")
     expect(facture.tva).toEqual(100)
-    expect(facture.bdc).toEqual("BDC U MODIF")
+    expect(facture.bdc).toEqual("BDC TU MODIF")
     expect(facture.payDate).toEqual(new Date("2025-06-22"))
     expect(facture.client).toEqual("V-Loc")
     expect(facture.ca).toEqual("2025-08")
+        console.log("payDate 2:", originalFacture.payDate)
     await updateFactureBr(originalFacture)
   })
 

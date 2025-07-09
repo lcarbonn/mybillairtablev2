@@ -18,8 +18,6 @@ export const getFacturesBr = async () : Promise<Facture[]> => {
         orderBy:"-field_4171429"
       }
     ).then((rows) => {
-    // console.log(`Retrieved ${rows.count} rows`);
-    // console.log(rows.results);
     const factures:IFacture[] = []
     rows.results.forEach(row => {
         const fac = new Facture(row)
@@ -58,15 +56,15 @@ export const updateFactureBr = (facture:IFacture) :Promise<IFacture> => {
       const client = $baserow as BaserowClient
       client.databaseRows.update(FACTURE_TABLE_ID, Number(facture.id), 
       {
-            field_4196477: facture.date? facture.date.toISOString().substring(0,10):undefined,
+            field_4196477: facture.date? facture.date.toISOString().substring(0,10):null,
             field_4171430: facture.num,
             field_4171438: facture.comment,
             field_4171437: facture.tva,
             field_4171432: facture.statut,
             field_4171439: facture.bdc,
-            field_4171433: facture.payDate? facture.payDate.toISOString().substring(0,10):undefined,
-            field_4171431: facture.client? [facture.client]:undefined,
-            field_4171436: facture.ca?[facture.ca]:undefined,
+            field_4171433: facture.payDate? facture.payDate.toISOString().substring(0,10):null,
+            field_4171431: facture.client? [facture.client]:[],
+            field_4171436: facture.ca?[facture.ca]:[],
       })
       .then((row) => {
         const fac = new Facture(row)
@@ -86,15 +84,15 @@ export const createFactureBr = (facture:IFacture) :Promise<IFacture> => {
       const client = $baserow as BaserowClient
       client.databaseRows.create(FACTURE_TABLE_ID, 
       {
-            field_4196477: facture.date? facture.date.toISOString().substring(0,10):undefined,
+            field_4196477: facture.date? facture.date.toISOString().substring(0,10):null,
             field_4171430: facture.num,
             field_4171438: facture.comment,
             field_4171437: facture.tva,
             field_4171432: facture.statut,
             field_4171439: facture.bdc,
-            field_4171433: facture.payDate? facture.payDate.toISOString().substring(0,10):undefined,
-            field_4171431: facture.client? [facture.client]:undefined,
-            field_4171436: facture.ca?[facture.ca]:undefined,
+            field_4171433: facture.payDate? facture.payDate.toISOString().substring(0,10):null,
+            field_4171431: facture.client? [facture.client]:[],
+            field_4171436: facture.ca?[facture.ca]:[],
       })
       .then((row) => {
         const fac = new Facture(row)

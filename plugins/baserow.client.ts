@@ -1,13 +1,23 @@
 import { BaserowClient } from "@watzon/baserow";
-import { contentType } from "happy-dom/lib/PropertySymbol.js";
-
 
 export default defineNuxtPlugin((nuxtApp) => {
 
+    // const config = useRuntimeConfig()
+    const baserowConfig:IBrConf = {
+        url:import.meta.env.VITE_BASEROW_URL,
+        baseName:import.meta.env.VITE_BASEROW_BASE_NAME,
+        token:import.meta.env.VITE_BASEROW_TOKEN,
+        baseId:import.meta.env.VITE_BASEROW_BASE_ID,
+        tableFacture:import.meta.env.VITE_BASEROW_FACTURE,
+        tableLigneFacture:import.meta.env.VITE_BASEROW_LIGNE_FACTURE,
+        tableClient:import.meta.env.VITE_BASEROW_CLIENT,
+        tableCa:import.meta.env.VITE_BASEROW_CA
+    }
+
     // Initialize the client
     const client = new BaserowClient({
-        url: "https://api.baserow.io",
-        token: "9xayHC7kou8WFadk9jz18erB9eVM0YMB",
+        url: baserowConfig.url,
+        token: baserowConfig.token,
         // Optional: tokenType defaults to "Token", can be "JWT" for JWT tokens
         tokenType: "Token",
         defaultHeaders:{

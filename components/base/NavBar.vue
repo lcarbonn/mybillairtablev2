@@ -6,7 +6,7 @@
         <BAvatar rounded src="/icon.png"></BAvatar>
     </BNavbarBrand>
     <BNavbarNav fill>
-      <BNavItem :href="'https://airtable.com/' + baseId" target="_blank">{{baseName}}</BNavItem>
+      <BNavItem :href="'https://baserow.io/database/' + baseId +'/table/' + factureTable" target="_blank">{{baseName}}</BNavItem>
     </BNavbarNav>
     <BOffcanvas id="nav-collapse"
         isNav
@@ -47,10 +47,13 @@
     return authUser.value?.email
   })
   const baseId = computed(() => {
-    return import.meta.env.VITE_AIRTABLE_BASE_ID
+    return import.meta.env.VITE_BASEROW_BASE_ID
   })
   const baseName = computed(() => {
-    return import.meta.env.VITE_AIRTABLE_BASE_NAME
+    return import.meta.env.VITE_BASEROW_BASE_NAME
+  })
+  const factureTable = computed(() => {
+    return import.meta.env.VITE_BASEROW_FACTURE
   })
 
     // methods

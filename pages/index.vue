@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { Facture, type IFacture } from '#imports';
 
   // local refs
   const modal = ref(false)
