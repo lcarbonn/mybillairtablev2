@@ -27,4 +27,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.provide("baserow", client)
     nuxtApp.vueApp.provide("baserow", client)
 
+    nuxtApp.provide("baserowConfig", baserowConfig)
+    nuxtApp.vueApp.provide("baserowConfig", baserowConfig)
+
 })

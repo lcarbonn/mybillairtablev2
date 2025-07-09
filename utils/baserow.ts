@@ -6,8 +6,8 @@ export type IBrConf = {
     baseName:string,
     token:string,
     baseId: string,
-    tableFacture: string,
-    tableLigneFacture: string,
-    tableClient: string,
-    tableCa: string
+    tableFacture: number,
+    tableLigneFacture: number,
+    tableClient: number,
+    tableCa: number
 }

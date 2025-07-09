@@ -1,17 +1,16 @@
 import { BaserowClient } from "@watzon/baserow";
 
-const FACTURE_TABLE_ID = 524380
-
 /**
  * Get all factures from database
  * @returns Promise - the factures list or the error
  */
 export const getFacturesBr = async () : Promise<Facture[]> => {
   return new Promise((resolve, reject) => {
-    const { $baserow } = useNuxtApp()
+    const { $baserow, $baserowConfig  } = useNuxtApp()
     const client = $baserow as BaserowClient
+    const config = $baserowConfig as IBrConf
     client.databaseRows.list(
-      FACTURE_TABLE_ID,
+    config.tableFacture,
       {
         page:1,
         size:200,
@@ -35,9 +34,10 @@ export const getFacturesBr = async () : Promise<Facture[]> => {
  */
 export const getFactureBr = (id:string) :Promise<IFacture> => {
     return new Promise((resolve, reject) => {
-      const { $baserow } = useNuxtApp()
+      const { $baserow, $baserowConfig  } = useNuxtApp()
       const client = $baserow as BaserowClient
-      client.databaseRows.get(FACTURE_TABLE_ID, Number(id))
+      const config = $baserowConfig as IBrConf
+      client.databaseRows.get(config.tableFacture, Number(id))
       .then((row) => {
         const fac = new Facture(row)
         resolve(fac)
@@ -52,9 +52,10 @@ export const getFactureBr = (id:string) :Promise<IFacture> => {
  */
 export const updateFactureBr = (facture:IFacture) :Promise<IFacture> => {
       return new Promise((resolve, reject) => {
-      const { $baserow } = useNuxtApp()
+      const { $baserow, $baserowConfig  } = useNuxtApp()
       const client = $baserow as BaserowClient
-      client.databaseRows.update(FACTURE_TABLE_ID, Number(facture.id), 
+      const config = $baserowConfig as IBrConf
+      client.databaseRows.update(config.tableFacture, Number(facture.id), 
       {
             field_4196477: facture.date? facture.date.toISOString().substring(0,10):null,
             field_4171430: facture.num,
@@ -80,9 +81,10 @@ export const updateFactureBr = (facture:IFacture) :Promise<IFacture> => {
  */
 export const createFactureBr = (facture:IFacture) :Promise<IFacture> => {
     return new Promise((resolve, reject) => {
-      const { $baserow } = useNuxtApp()
+      const { $baserow, $baserowConfig  } = useNuxtApp()
       const client = $baserow as BaserowClient
-      client.databaseRows.create(FACTURE_TABLE_ID, 
+      const config = $baserowConfig as IBrConf
+      client.databaseRows.create(config.tableFacture, 
       {
             field_4196477: facture.date? facture.date.toISOString().substring(0,10):null,
             field_4171430: facture.num,
@@ -108,10 +110,11 @@ export const createFactureBr = (facture:IFacture) :Promise<IFacture> => {
  */
 export const deleteFactureBr = (id:string) :Promise<string> => {
     return new Promise((resolve, reject) => {
-      const { $baserow } = useNuxtApp()
+      const { $baserow, $baserowConfig  } = useNuxtApp()
       const client = $baserow as BaserowClient
+      const config = $baserowConfig as IBrConf
       const idnum = new Number(id).valueOf()
-      client.databaseRows.delete(FACTURE_TABLE_ID, idnum)
+      client.databaseRows.delete(config.tableFacture, idnum)
       .then(() => {
         resolve(id)
       })

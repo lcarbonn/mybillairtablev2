@@ -1,4 +1,4 @@
-import type { Record, FieldSet } from "airtable"
+import type { BaserowRow } from "@watzon/baserow"
 
 /**
  * Type for Client table
@@ -19,16 +19,17 @@ export class Client implements IClient {
   actif:boolean
   id: string
 
-       /**
+ 
+    /**
      * Client constructor
      * @param record - Record form Airtable
      */
-       constructor(record:Record<FieldSet>) {
-        this.name = record.get('Name') as string
-        this.paymentDelay = record.get('Délai Règlement') as number
-        this.actif = record.get('Actif') as boolean
-        this.id = record.getId()
-       }
+      constructor(row:BaserowRow) {
+        this.id = row.id.toString()
+        this.name = row["field_4171418"],
+        this.paymentDelay = new Number(row["field_4171424"]).valueOf(),
+        this.actif = new Boolean(row["field_4171428"]).valueOf()
+      }
 }
 
 /**
