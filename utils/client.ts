@@ -61,10 +61,10 @@ export const getClientsOptions = (clients:IClient[]):IOptions[] => {
   return cliopts
 }
 
-export const getPaymentDelay = (clients:IClient[], clientId:string):number|undefined => {
+export const getPaymentDelay = (clients:IClient[], clientName:string):number|undefined => {
   let paymentDelay = undefined
   clients.forEach(client => {
-    if(client.id == clientId) {
+    if(client.name == clientName) {
       paymentDelay = client.paymentDelay
     }
   })

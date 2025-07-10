@@ -52,6 +52,7 @@ export class Facture implements IFacture {
           this.id = row.id.toString()
           this.numFac = row["field_4171429"]
           this.date = new Date(row["field_4196477"])
+          this.index = row["field_4878525"]
           this.num = row['field_4171430']
           this.comment = row['field_4171438']
           const client = row['field_4171431'][0]
@@ -62,7 +63,7 @@ export class Facture implements IFacture {
           this.totalTTC = row['field_4277086']
           const ca = row['field_4171436'][0]
           this.ca = ca?ca.value:undefined
-          this.tva = new Number(row['field_4171437']).valueOf()
+          this.tva = new Number(row['field_4171437']).valueOf()/100
           const dlp = row['field_4174240'][0]
           this.paymentDelay = dlp?dlp.value:undefined
           this.bdc = row['field_4171439']
@@ -73,40 +74,10 @@ export class Facture implements IFacture {
         else {
           this.id=""
           this.numFac = ""
-          this.tva = 20
+          this.tva = 0.2
         }
 
       }
-      //  constructor(record?:Record<FieldSet>) {
-      //   if(record) {
-      //     const client:any = record.get('Client')
-      //     const ca:any = record.get('CA')
-      //     const dr:any = record.get("Délai règlement")
-      //     const newDate:any = record.get('Date')
-      //     const payDate:any = record.get('Date Paiement')
-      //     this.numFac = record.get('#NumFac') as string
-      //     this.date = newDate ? new Date(newDate):undefined
-      //     this.index = record.get('Index') as string
-      //     this.num = record.get('#Num') as string
-      //     this.comment = record.get('Comment') as string
-      //     this.client = client?client[0]:undefined
-      //     this.statut = record.get('Statut') as string
-      //     this.totalHT = record.get('Total HT') as number
-      //     this.totalTTC = record.get('Total TTC') as number
-      //     this.ca = ca ? ca[0] : undefined
-      //     this.tva = record.get('Taux TVA') as number
-      //     this.paymentDelay = dr ? dr[0] : undefined
-      //     this.bdc = record.get('Bon de Commande') as string
-      //     this.payDate = payDate ? new Date(payDate) : undefined
-      //     this.anneeCa = record.get('Année CA') as string
-      //     this.id = record.getId()
-      //   }
-      //   else {
-      //     this.id=""
-      //     this.numFac = ""
-      //     this.tva = 0.2
-      //   }
-      //  }
 }
 
 
