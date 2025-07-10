@@ -18,7 +18,7 @@ describe('baserow facture', () => {
     expect(facture.num).toEqual("01")
     expect(facture.comment).toEqual("COMMENT TU")
     expect(facture.statut).toEqual("A Vérifier")
-    expect(facture.tva).toEqual(20)
+    expect(facture.tva).toEqual(0.2)
     expect(facture.client).toEqual("ISEGCOM")
     expect(facture.bdc).toEqual("BDC TU")
     expect(facture.ca).toEqual("2025-07")
@@ -36,7 +36,7 @@ describe('baserow facture', () => {
     updatedFacture.num = "02"
     updatedFacture.comment = "COMMENT TU MODIF"
     updatedFacture.statut = "Payée"
-    updatedFacture.tva=100
+    updatedFacture.tva=1
     updatedFacture.bdc = "BDC TU MODIF"
     updatedFacture.payDate = new Date("2025-06-22")
     updatedFacture.client = "V-Loc"
@@ -47,12 +47,11 @@ describe('baserow facture', () => {
     expect(facture.num).toEqual("02")
     expect(facture.comment).toEqual("COMMENT TU MODIF")
     expect(facture.statut).toEqual("Payée")
-    expect(facture.tva).toEqual(100)
+    expect(facture.tva).toEqual(1)
     expect(facture.bdc).toEqual("BDC TU MODIF")
     expect(facture.payDate).toEqual(new Date("2025-06-22"))
     expect(facture.client).toEqual("V-Loc")
     expect(facture.ca).toEqual("2025-08")
-        console.log("payDate 2:", originalFacture.payDate)
     await updateFactureBr(originalFacture)
   })
 
@@ -64,7 +63,7 @@ describe('baserow facture', () => {
     createdFacture.num = "02"
     createdFacture.comment = "TEST U MODIF"
     createdFacture.statut = "Payée"
-    createdFacture.tva=100
+    createdFacture.tva=1
     createdFacture.bdc = "BDC U MODIF"
     createdFacture.payDate = new Date("2025-06-22")
     createdFacture.client = "V-Loc"
@@ -77,7 +76,7 @@ describe('baserow facture', () => {
     expect(facture.num).toEqual("02")
     expect(facture.comment).toEqual("TEST U MODIF")
     expect(facture.statut).toEqual("Payée")
-    expect(facture.tva).toEqual(100)
+    expect(facture.tva).toEqual(1)
     expect(facture.bdc).toEqual("BDC U MODIF")
     expect(facture.payDate).toEqual(new Date("2025-06-22"))
     expect(facture.client).toEqual("V-Loc")
