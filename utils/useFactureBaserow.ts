@@ -41,7 +41,12 @@ export const getFactureBr = (id:string) :Promise<IFacture> => {
       .then((row) => {
         const fac = new Facture(row)
         resolve(fac)
-    })
+      })
+      .catch((error) => {
+        console.error("getFactureBr", error)
+        reject(error)
+      })
+
     })
 }
 
@@ -71,6 +76,11 @@ export const updateFactureBr = (facture:IFacture) :Promise<IFacture> => {
         const fac = new Facture(row)
         resolve(fac)
       })
+      .catch((error) => {
+        console.error("updateFactureBr", error)
+        reject(error)
+      })
+      
     })
 }
 
@@ -100,6 +110,10 @@ export const createFactureBr = (facture:IFacture) :Promise<IFacture> => {
         const fac = new Facture(row)
         resolve(fac)
       })
+      .catch((error) => {
+        console.error("createFactureBr", error)
+        reject(error)
+      })
     })
 }
 
@@ -118,5 +132,10 @@ export const deleteFactureBr = (id:string) :Promise<string> => {
       .then(() => {
         resolve(id)
       })
+      .catch((error) => {
+        console.error("deleteFactureBr", error)
+        reject(error)
+      })
+
     })
 }

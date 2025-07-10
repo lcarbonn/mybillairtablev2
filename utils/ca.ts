@@ -23,7 +23,7 @@ export class Ca implements ICa {
      * @param record - Record form db
      */
       constructor(row:BaserowRow) {
-        this.id = row.id.toString()
+        this.id = row["field_4171449"]
         this.date = row["field_4171449"],
         this.year = row["field_4196415"]
       }
