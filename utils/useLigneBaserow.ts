@@ -12,11 +12,6 @@ export const createLigneBr = (ligne:ILigne) :Promise<ILigne> => {
         const config = $baserowConfig as IBrConf
       client.databaseRows.create(config.tableLigneFacture, 
       {
-//                 "#Ligne": ligne.ligne,
-//                 "Libellé": ligne.libelle,
-//                 "PU HT": ligne.puHT,
-//                 "PU/H": ligne.typePU,
-//                 "#NumFac": ligne.numFac
             field_4171447:ligne.numFac? [ligne.numFac]:[],
             field_4171446:ligne.ligne,
             field_4196569:ligne.libelle,
@@ -28,30 +23,9 @@ export const createLigneBr = (ligne:ILigne) :Promise<ILigne> => {
         resolve(ligne)
       })
       .catch((error) => {
-        console.error("createLigneDb", error)
+        console.error("createLigneBr", error)
         reject(error)
       })
-
-//         const { $airtableConfig, $db } = useNuxtApp()
-//         const db = $db as AirtableBase
-//         const config = $airtableConfig as IAtConf
-//         db(config.tableLigneFacture).create(
-//             {
-//                 "#Ligne": ligne.ligne,
-//                 "Libellé": ligne.libelle,
-//                 "PU HT": ligne.puHT,
-//                 "PU/H": ligne.typePU,
-//                 "#NumFac": ligne.numFac
-//             }, function(err, record) {
-//                 if (err) {
-//                     console.error(err);
-//                     reject(err)
-//                 }
-//                 if(record) {
-//                     const ligne = new Ligne(record)
-//                     resolve(ligne)
-//                 }
-//             })
     })
 }
 
@@ -60,8 +34,28 @@ export const createLigneBr = (ligne:ILigne) :Promise<ILigne> => {
  * @param ligne Update the Ligne in db
  * @returns a Promise with the updated Ligne from db or the error
  */
-// export const updateLigneDb = (ligne:ILigne) :Promise<ILigne> => {
-//     return new Promise((resolve, reject) => {
+export const updateLigneBr = (ligne:ILigne) :Promise<ILigne> => {
+    return new Promise((resolve, reject) => {
+        const { $baserow, $baserowConfig  } = useNuxtApp()
+        const client = $baserow as BaserowClient
+        const config = $baserowConfig as IBrConf
+        client.databaseRows.update(config.tableLigneFacture, Number(ligne.id),
+        {
+            field_4171447:ligne.numFac? [ligne.numFac]:[],
+            field_4171446:ligne.ligne,
+            field_4196569:ligne.libelle,
+            field_4171443:ligne.puHT,
+            field_4171445:ligne.typePU
+        })
+        .then((row) => {
+            const ligne = new Ligne(row)
+            resolve(ligne)
+        })
+        .catch((error) => {
+            console.error("updateLigneBr", error)
+            reject(error)
+        })
+
 //         if(!ligne.id) {
 //             reject("ligne id not provided")
 //             return
@@ -87,8 +81,8 @@ export const createLigneBr = (ligne:ILigne) :Promise<ILigne> => {
 //                 }
 //             }
 //         )
-//     })
-// }
+    })
+}
 
 /**
  * Delete the Ligne in the db
@@ -129,6 +123,7 @@ export const getLignesBr = (numFac:string) :Promise<ILigne[]> => {
             size:20,
             orderBy:"field_4171446",
             filter__field_4171447__link_row_contains:numFac
+            // the following doesn't work
             // filters: [
             //     {
             //         field: "field_4171447",

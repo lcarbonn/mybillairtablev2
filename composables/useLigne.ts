@@ -12,7 +12,7 @@ export const getStateLignes = (numFac:string) => {
  */
 export const createStateLigne = (ligne:ILigne) :Promise<ILigne> => {
     return new Promise((resolve, reject) => {
-        createLigneDb(ligne).then((createdLigne:ILigne) => {
+        createLigneBr(ligne).then((createdLigne:ILigne) => {
             useLignes().value.push(createdLigne)
             messageToSnack("Ligne " + createdLigne.numFacLigne +" créée")
             resolve(createdLigne)
@@ -29,7 +29,7 @@ export const createStateLigne = (ligne:ILigne) :Promise<ILigne> => {
  * @param ligne - the ligne
  */
 export const updateStateLigne = (ligne:ILigne) => {
-    updateLigneDb(ligne).then((updatedLigne) => {
+    updateLigneBr(ligne).then((updatedLigne) => {
         let lignes:ILigne[] = []
         useLignes().value.forEach(l => {
             if(l.id == updatedLigne.id) {
@@ -49,7 +49,7 @@ export const updateStateLigne = (ligne:ILigne) => {
  * Delete the Ligne with the given id and set state
  */
 export const deleteStateLigne = (id:string) => {
-    deleteLigneDb(id).then((deletedId) => {
+    deleteLigneBr(id).then((deletedId) => {
         let Lignes:ILigne[] = []
         useLignes().value.forEach(Ligne => {
             if (Ligne.id != deletedId)
@@ -71,7 +71,7 @@ export const deleteFactureLignes = (numFac:string) :Promise<void> => {
     return new Promise((resolve, reject) => {
         getLignesBr(numFac).then((list) => {
             list.forEach(ligne => {
-                if(ligne.id) deleteLigneDb(ligne.id)
+                if(ligne.id) deleteLigneBr(ligne.id)
             });
             resolve()
         })
@@ -91,13 +91,13 @@ export const copyFactureLignes = (newFactureId:string, oldNumFac:string) :Promis
                 if(ligne) {
                     // copy ligne the create
                     const ligneCopy = new Ligne() 
-                    ligneCopy.numFac = []
-                    ligneCopy.numFac.push(newFactureId)
+                    ligneCopy.numFac = newFactureId
+                    // ligneCopy.numFac.push(newFactureId)
                     ligneCopy.ligne = ligne.ligne
                     ligneCopy.libelle = "DUPLICATE " + ligne.libelle
                     ligneCopy.puHT = ligne.puHT
                     ligneCopy.typePU = ligne.typePU
-                    createLigneDb(ligneCopy)
+                    createLigneBr(ligneCopy)
                 }
             });
             resolve()
