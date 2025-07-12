@@ -17,21 +17,6 @@ describe('baserow ligne', () => {
     expect(lignes[0].totalHT).toEqual(0)
   })
 
-  // // read test facture 286
-  // it('get one row form baserow', async () => {
-  //   const facture:Facture = await getFactureBr("286")
-  //   expect(facture.date).toEqual(new Date("2025-06-20"))
-  //   expect(facture.numFac).toEqual("2025-06-01")
-  //   expect(facture.num).toEqual("01")
-  //   expect(facture.comment).toEqual("COMMENT TU")
-  //   expect(facture.statut).toEqual("A Vérifier")
-  //   expect(facture.tva).toEqual(0.2)
-  //   expect(facture.client).toEqual("ISEGCOM")
-  //   expect(facture.bdc).toEqual("BDC TU")
-  //   expect(facture.ca).toEqual("2025-07")
-  //   expect(facture.payDate).toBeUndefined()
-  // })
-
   // // Update facture 286
   // it('update one row in baserow', async () => {
   //   const originalFacture:Facture = await getFactureBr("286")
@@ -62,38 +47,31 @@ describe('baserow ligne', () => {
   //   await updateFactureBr(originalFacture)
   // })
 
-  //   // Create new facture
-  // it('create one row in baserow', async () => {
+    // Create new ligne
+  it('create one row in baserow', async () => {
     
-  //   const createdFacture:Facture = new Facture()
-  //   createdFacture.date = new Date("2025-06-21")
-  //   createdFacture.num = "02"
-  //   createdFacture.comment = "TEST U MODIF"
-  //   createdFacture.statut = "Payée"
-  //   createdFacture.tva=1
-  //   createdFacture.bdc = "BDC U MODIF"
-  //   createdFacture.payDate = new Date("2025-06-22")
-  //   createdFacture.client = "V-Loc"
-  //   createdFacture.ca = "2025-08"
-  //   const facture = await createFactureBr(createdFacture)
-  //   console.log("facture id:"+facture.id)
-  //   created_id = facture.id
-  //   expect(facture.date).toEqual(new Date("2025-06-21"))
-  //   expect(facture.numFac).toEqual("2025-06-02")
-  //   expect(facture.num).toEqual("02")
-  //   expect(facture.comment).toEqual("TEST U MODIF")
-  //   expect(facture.statut).toEqual("Payée")
-  //   expect(facture.tva).toEqual(1)
-  //   expect(facture.bdc).toEqual("BDC U MODIF")
-  //   expect(facture.payDate).toEqual(new Date("2025-06-22"))
-  //   expect(facture.client).toEqual("V-Loc")
-  //   expect(facture.ca).toEqual("2025-08")
-  // })
+    const createdLigne:Ligne = new Ligne()
+    createdLigne.numFac = "2025-06-02"
+    createdLigne.libelle = "LIGNE TU ADDED"
+    createdLigne.ligne = 3
+    createdLigne.puHT = 80
+    createdLigne.typePU = "jour"
+    const ligne = await createLigneBr(createdLigne)
+    console.log("ligne id:"+ligne.id)
+    created_id = ligne.id
+    expect(ligne.numFac).toEqual("2025-06-02")
+    expect(ligne.numFacLigne).toEqual("2025-06-02-3")
+    expect(ligne.ligne).toEqual(3)
+    expect(ligne.libelle).toEqual("LIGNE TU ADDED")
+    expect(ligne.puHT).toEqual(80)
+    expect(ligne.typePU).toEqual("jour")
+    expect(ligne.totalHT).toEqual(0)
+  })
 
-  //     // Create new facture
-  // it('delete one row in baserow', async () => {
-  //   const id = await deleteFactureBr(created_id)
-  //   expect(id).toEqual(created_id)
-  // })
+  // Delete new ligne
+  it('delete one row in baserow', async () => {
+    const id = await deleteLigneBr(created_id)
+    expect(id).toEqual(created_id)
+  })
 
 })

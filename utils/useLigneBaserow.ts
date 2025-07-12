@@ -5,8 +5,33 @@ import { BaserowClient } from "@watzon/baserow";
  * @param ligne - Create the Ligne in db
  * @returns a Promise with the created Ligne from db or the error
  */
-// export const createLigneDb = (ligne:ILigne) :Promise<ILigne> => {
-//     return new Promise((resolve, reject) => {
+export const createLigneBr = (ligne:ILigne) :Promise<ILigne> => {
+    return new Promise((resolve, reject) => {
+        const { $baserow, $baserowConfig  } = useNuxtApp()
+        const client = $baserow as BaserowClient
+        const config = $baserowConfig as IBrConf
+      client.databaseRows.create(config.tableLigneFacture, 
+      {
+//                 "#Ligne": ligne.ligne,
+//                 "Libellé": ligne.libelle,
+//                 "PU HT": ligne.puHT,
+//                 "PU/H": ligne.typePU,
+//                 "#NumFac": ligne.numFac
+            field_4171447:ligne.numFac? [ligne.numFac]:[],
+            field_4171446:ligne.ligne,
+            field_4196569:ligne.libelle,
+            field_4171443:ligne.puHT,
+            field_4171445:ligne.typePU
+      })
+      .then((row) => {
+        const ligne = new Ligne(row)
+        resolve(ligne)
+      })
+      .catch((error) => {
+        console.error("createLigneDb", error)
+        reject(error)
+      })
+
 //         const { $airtableConfig, $db } = useNuxtApp()
 //         const db = $db as AirtableBase
 //         const config = $airtableConfig as IAtConf
@@ -27,8 +52,8 @@ import { BaserowClient } from "@watzon/baserow";
 //                     resolve(ligne)
 //                 }
 //             })
-//     })
-// }
+    })
+}
 
 /**
  * Update the Ligne in the db
@@ -70,22 +95,22 @@ import { BaserowClient } from "@watzon/baserow";
  * @param id the Ligne id 
  * @returns a Promise witn the deleted id
  */
-// export const deleteLigneDb = (id:string) :Promise<string> => {
-//     return new Promise((resolve, reject) => {
-//         const { $airtableConfig, $db } = useNuxtApp()
-//         const db = $db as AirtableBase
-//         const config = $airtableConfig as IAtConf
-//         db(config.tableLigneFacture).destroy(id, function(err, deletedRecord) {
-//             if (err) {
-//                 console.error(err);
-//                 reject(err)
-//             }
-//             if(deletedRecord) {
-//                 resolve(deletedRecord.id)
-//             }
-//         })
-//     })
-// }
+export const deleteLigneBr = (id:string) :Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const { $baserow, $baserowConfig  } = useNuxtApp()
+      const client = $baserow as BaserowClient
+      const config = $baserowConfig as IBrConf
+      const idnum = new Number(id).valueOf()
+      client.databaseRows.delete(config.tableLigneFacture, idnum)
+      .then(() => {
+        resolve(id)
+      })
+      .catch((error) => {
+        console.error("deleteLigneBr", error)
+        reject(error)
+      })
+    })
+}
 
 /**
  * Get all Lignes from db for the given facture numFac
@@ -120,26 +145,5 @@ export const getLignesBr = (numFac:string) :Promise<ILigne[]> => {
                 });
             resolve(lignes)
         })
-
-
-        // db(config.tableLigneFacture).select({
-        //         fields: ['#NumFacLigne', '#Ligne', "Libellé", 'PU HT', 'PU/H', '#NumFac', "Quantité", "Total HT"],
-        //         sort: [{ field: "#Ligne", direction: "asc" }],
-        //         filterByFormula: "{#NumFac} = '"+numFac+"'"
-        //     }).eachPage(function page(records, fetchNextPage) {
-        //     records.forEach(function(record) {
-
-        //         const ligne = new Ligne(record)
-        //         lignes.push(ligne)
-        //     });
-        //     fetchNextPage();
-        // }, function done(err) {
-        //     if (err) { 
-        //         console.error(err); 
-        //         reject(err)
-        //     } else {
-        //         resolve(lignes)
-        //     }
-        // });
     })
 }

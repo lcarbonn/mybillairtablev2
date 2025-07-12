@@ -136,6 +136,5 @@ export const deleteFactureBr = (id:string) :Promise<string> => {
         console.error("deleteFactureBr", error)
         reject(error)
       })
-
     })
 }

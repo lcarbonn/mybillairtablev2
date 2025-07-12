@@ -28,7 +28,6 @@ describe('baserow facture', () => {
   it('update one row in baserow', async () => {
     const originalFacture:Facture = await getFactureBr("286")
     expect(originalFacture.date).toEqual(new Date("2025-06-20"))
-    console.log("payDate:", originalFacture.payDate)
 
     const updatedFacture:Facture = await getFactureBr("286")
     updatedFacture.date = new Date("2025-06-21")
@@ -68,7 +67,7 @@ describe('baserow facture', () => {
     createdFacture.client = "V-Loc"
     createdFacture.ca = "2025-08"
     const facture = await createFactureBr(createdFacture)
-    console.log("facture id:"+facture.id)
+
     created_id = facture.id
     expect(facture.date).toEqual(new Date("2025-06-21"))
     expect(facture.numFac).toEqual("2025-06-02")
@@ -82,7 +81,7 @@ describe('baserow facture', () => {
     expect(facture.ca).toEqual("2025-08")
   })
 
-      // Create new facture
+  // Create new facture
   it('delete one row in baserow', async () => {
     const id = await deleteFactureBr(created_id)
     expect(id).toEqual(created_id)

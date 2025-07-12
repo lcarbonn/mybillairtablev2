@@ -5,14 +5,14 @@ import type { BaserowRow } from "@watzon/baserow"
  */
 export type ILigne = {
   numFacLigne:string|undefined
-  numFac:string[]|undefined
+  numFac:string|undefined
   ligne: number|undefined
   libelle:string|undefined
   puHT:number|undefined
   typePU:string|undefined
   quantite:number|undefined
   totalHT:number|undefined
-  id: string|undefined
+  id: string
 }
 
 /**
@@ -20,14 +20,14 @@ export type ILigne = {
  */
 export class Ligne implements ILigne {
   numFacLigne:string|undefined
-  numFac:string[]|undefined
+  numFac:string|undefined
   ligne: number|undefined
   libelle:string|undefined
   puHT:number|undefined
   typePU:string|undefined
   quantite:number|undefined
   totalHT:number|undefined
-  id: string|undefined
+  id: string
 
        /**
      * CA constructor
@@ -47,6 +47,9 @@ export class Ligne implements ILigne {
           this.typePU = typePU?typePU.value:undefined
           this.quantite = new Number(row["field_4171573"]).valueOf()
           this.totalHT = new Number(row["field_4172031"]).valueOf()
+        }
+        else {
+          this.id=""
         }
 
       //  constructor(record?:Record<FieldSet>) {
