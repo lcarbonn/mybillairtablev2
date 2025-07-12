@@ -110,8 +110,7 @@
   // ask modal for add ligne
   const addNewLigne = () => {
     const ligne = new Ligne()
-    ligne.numFac = []
-    if(props.idFac)ligne.numFac.push(props.idFac)
+    if(props.idFac)ligne.numFac = props.idFac
     selectedLigne.value = ligne
     modalShowLigne.value.show = !modalShowLigne.value.show
     isNewLigne.value = true

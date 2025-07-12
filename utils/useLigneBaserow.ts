@@ -55,32 +55,6 @@ export const updateLigneBr = (ligne:ILigne) :Promise<ILigne> => {
             console.error("updateLigneBr", error)
             reject(error)
         })
-
-//         if(!ligne.id) {
-//             reject("ligne id not provided")
-//             return
-//         }
-
-//         const { $airtableConfig, $db } = useNuxtApp()
-//         const db = $db as AirtableBase
-//         const config = $airtableConfig as IAtConf
-//         db(config.tableLigneFacture).update(ligne.id,
-//             {
-//             "#Ligne": ligne.ligne,
-//             "Libellé": ligne.libelle,
-//             "PU HT": ligne.puHT,
-//             "PU/H": ligne.typePU,
-//             }, function(err, record) {
-//                 if (err) {
-//                     console.error(err);
-//                     reject(err)
-//                     }
-//                 if(record) {
-//                     const ligne = new Ligne(record)
-//                     resolve(ligne)
-//                 }
-//             }
-//         )
     })
 }
 
@@ -91,18 +65,18 @@ export const updateLigneBr = (ligne:ILigne) :Promise<ILigne> => {
  */
 export const deleteLigneBr = (id:string) :Promise<string> => {
     return new Promise((resolve, reject) => {
-      const { $baserow, $baserowConfig  } = useNuxtApp()
-      const client = $baserow as BaserowClient
-      const config = $baserowConfig as IBrConf
-      const idnum = new Number(id).valueOf()
-      client.databaseRows.delete(config.tableLigneFacture, idnum)
-      .then(() => {
-        resolve(id)
-      })
-      .catch((error) => {
-        console.error("deleteLigneBr", error)
-        reject(error)
-      })
+        const { $baserow, $baserowConfig  } = useNuxtApp()
+        const client = $baserow as BaserowClient
+        const config = $baserowConfig as IBrConf
+        const idnum = new Number(id).valueOf()
+        client.databaseRows.delete(config.tableLigneFacture, idnum)
+        .then(() => {
+            resolve(id)
+        })
+        .catch((error) => {
+            console.error("deleteLigneBr", error)
+            reject(error)
+        })
     })
 }
 
@@ -139,6 +113,10 @@ export const getLignesBr = (numFac:string) :Promise<ILigne[]> => {
                 lignes.push(ligne)
                 });
             resolve(lignes)
+        })
+        .catch((error) => {
+            console.error("getLignesBr", error)
+            reject(error)
         })
     })
 }

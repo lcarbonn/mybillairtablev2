@@ -24,6 +24,10 @@ export const getFacturesBr = async () : Promise<Facture[]> => {
         });
       resolve(factures)
     })
+    .catch((error) => {
+      console.error("getFacturesBr", error)
+      reject(error)
+    })
   })
 }
 
@@ -46,7 +50,6 @@ export const getFactureBr = (id:string) :Promise<IFacture> => {
         console.error("getFactureBr", error)
         reject(error)
       })
-
     })
 }
 

@@ -36,7 +36,7 @@ describe('baserow facture', () => {
     expect(facture.ca).toEqual("2025-09")
   })
 
-  // read test facture 286
+  // read test facture
   it('get one row form baserow', async () => {
     const facture:Facture = await getFactureBr(TEST_FACTURE.id)
     expect(facture.date).toEqual(new Date("2025-08-20"))

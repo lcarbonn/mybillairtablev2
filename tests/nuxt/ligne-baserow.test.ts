@@ -5,6 +5,7 @@ describe('baserow ligne', () => {
   let TEST_FACTURE:IFacture
   let TEST_LIGNE:ILigne
 
+    // create facture before ligne
     beforeAll(async () => {
       const createdFacture:Facture = new Facture()
       createdFacture.date = new Date("2025-08-20")
@@ -78,6 +79,7 @@ describe('baserow ligne', () => {
     expect(id).toEqual(TEST_LIGNE.id)
   })
 
+  // delete test facture
   afterAll(async () => {
       const facture = await deleteFactureBr(TEST_FACTURE.id)
   })
