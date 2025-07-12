@@ -76,7 +76,6 @@ export class Facture implements IFacture {
           this.numFac = ""
           this.tva = 0.2
         }
-
       }
 }
 

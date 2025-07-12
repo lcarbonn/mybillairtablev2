@@ -18,16 +18,6 @@ export class Filter implements IFilter {
   client:string|undefined
   statut:string|undefined
   date:number|undefined
-
-    // /**
-    //  * Card constructor
-    //  * @param ca
-    //  */
-    //    constructor(ca:string, search:string, client:string) {
-    //     this.ca = ca
-    //     this.search = search
-    //     this.client = client
-    //    }
 }
 
 export const resetStatedFilter = () => {

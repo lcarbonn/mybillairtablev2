@@ -2,7 +2,7 @@
  * get all Lignes for the numFac Facture and set state
  */
 export const getStateLignes = (numFac:string) => {
-    getLignesDb(numFac).then((list) => {
+    getLignesBr(numFac).then((list) => {
         useLignes().value = list
     })
 }
@@ -69,7 +69,7 @@ export const deleteStateLigne = (id:string) => {
  */
 export const deleteFactureLignes = (numFac:string) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        getLignesDb(numFac).then((list) => {
+        getLignesBr(numFac).then((list) => {
             list.forEach(ligne => {
                 if(ligne.id) deleteLigneDb(ligne.id)
             });
@@ -86,7 +86,7 @@ export const deleteFactureLignes = (numFac:string) :Promise<void> => {
  */
 export const copyFactureLignes = (newFactureId:string, oldNumFac:string) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        getLignesDb(oldNumFac).then((list) => {
+        getLignesBr(oldNumFac).then((list) => {
             list.forEach(ligne => {
                 if(ligne) {
                     // copy ligne the create

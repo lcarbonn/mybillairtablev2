@@ -12,10 +12,10 @@ describe('baserow client', () => {
   it('count all clients form baserow', async () => {
     const clients:IClient[] = await getClientsBr()
     const pd = getPaymentDelay(clients, "Ippon Technologies")
-    clients.forEach(client => {
-      console.log("Client:",client.name, ", id", client.id)
-    });
-    console.log("paymentDate:",pd)
+    // clients.forEach(client => {
+    //   console.log("Client:",client.name, ", id", client.id)
+    // });
+    // console.log("paymentDate:",pd)
     expect(pd).toEqual(60)
   })
 

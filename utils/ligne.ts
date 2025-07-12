@@ -1,4 +1,5 @@
-import type { Record, FieldSet } from "airtable"
+import type { BaserowRow } from "@watzon/baserow"
+
 /**
  * Type for LigneFacture table
  */
@@ -30,20 +31,36 @@ export class Ligne implements ILigne {
 
        /**
      * CA constructor
-     * @param record - Record form Airtable
+     * @param record - Record form DB
      */
-       constructor(record?:Record<FieldSet>) {
-        if(record) {
-          this.numFacLigne = record.get('#NumFacLigne') as string
-          this.numFac = record.get('#NumFac') as string[]
-          this.ligne = record.get('#Ligne') as number
-          this.libelle = record.get('Libellé') as string
-          this.puHT = record.get('PU HT') as number
-          this.typePU = record.get('PU/H') as string
-          this.quantite = record.get('Quantité') as number
-          this.totalHT = record.get('Total HT') as number
-          this.id = record.getId()
+      constructor(row?:BaserowRow) {
+        if(row) {
+          this.id = row.id.toString()
+          const numFacLigne = row["field_4171442"][0]
+          this.numFacLigne = numFacLigne?numFacLigne.value:undefined
+          const numFac = row["field_4171447"][0]
+          this.numFac = numFac?numFac.value:undefined
+          this.ligne = new Number(row["field_4171446"]).valueOf()
+          this.libelle = row["field_4196569"]
+          this.puHT = new Number(row["field_4171443"]).valueOf()
+          const typePU = row["field_4171445"]
+          this.typePU = typePU?typePU.value:undefined
+          this.quantite = new Number(row["field_4171573"]).valueOf()
+          this.totalHT = new Number(row["field_4172031"]).valueOf()
         }
+
+      //  constructor(record?:Record<FieldSet>) {
+      //   if(record) {
+      //     this.numFacLigne = record.get('#NumFacLigne') as string
+      //     this.numFac = record.get('#NumFac') as string[]
+      //     this.ligne = record.get('#Ligne') as number
+      //     this.libelle = record.get('Libellé') as string
+      //     this.puHT = record.get('PU HT') as number
+      //     this.typePU = record.get('PU/H') as string
+      //     this.quantite = record.get('Quantité') as number
+      //     this.totalHT = record.get('Total HT') as number
+      //     this.id = record.getId()
+      //   }
        }
 }
 

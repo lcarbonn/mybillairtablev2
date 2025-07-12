@@ -1,6 +1,5 @@
 import type { BaserowRow } from "@watzon/baserow"
 
-
 /**
  * Type for CA table
  */

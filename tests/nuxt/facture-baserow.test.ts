@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import { createFactureBr, deleteFactureBr, getFactureBr } from '~/utils/useFactureBaserow'
 
 describe('baserow facture', () => {
   let created_id = ''
@@ -14,8 +13,8 @@ describe('baserow facture', () => {
   it('get one row form baserow', async () => {
     const facture:Facture = await getFactureBr("286")
     expect(facture.date).toEqual(new Date("2025-06-20"))
-    expect(facture.numFac).toEqual("2025-06-01")
-    expect(facture.num).toEqual("01")
+    expect(facture.numFac).toEqual("2025-06-02")
+    expect(facture.num).toEqual("02")
     expect(facture.comment).toEqual("COMMENT TU")
     expect(facture.statut).toEqual("A Vérifier")
     expect(facture.tva).toEqual(0.2)
@@ -33,7 +32,7 @@ describe('baserow facture', () => {
 
     const updatedFacture:Facture = await getFactureBr("286")
     updatedFacture.date = new Date("2025-06-21")
-    updatedFacture.num = "02"
+    updatedFacture.num = "03"
     updatedFacture.comment = "COMMENT TU MODIF"
     updatedFacture.statut = "Payée"
     updatedFacture.tva=1
@@ -43,8 +42,8 @@ describe('baserow facture', () => {
     updatedFacture.ca = "2025-08"
     const facture = await updateFactureBr(updatedFacture)
     expect(facture.date).toEqual(new Date("2025-06-21"))
-    expect(facture.numFac).toEqual("2025-06-02")
-    expect(facture.num).toEqual("02")
+    expect(facture.numFac).toEqual("2025-06-03")
+    expect(facture.num).toEqual("03")
     expect(facture.comment).toEqual("COMMENT TU MODIF")
     expect(facture.statut).toEqual("Payée")
     expect(facture.tva).toEqual(1)
