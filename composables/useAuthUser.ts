@@ -1,12 +1,12 @@
 /**
- * Sign in user with email and password
+ * Sign in user in firebase with email and password
  * @param email - the email
  * @param password - the password
  * @returns A Promise that resolve the auth user
  */
 export const signInUser = (email:string, password:string) :Promise<IAuthUser> => {
     return new Promise((resolve, reject) => {
-        signInUserBr(email,password)
+        signInUserFirebase(email,password)
         .then((authUser) => {
             messageToSnack("Hello " + authUser.email)
             useAuthUser().value = authUser
@@ -24,35 +24,31 @@ export const signInUser = (email:string, password:string) :Promise<IAuthUser> =>
  */
 export const signOutUser = () :Promise<void> => {
     return new Promise((resolve, reject) => {
-      const refresh_token = useAuthUser().value?.uid
-      if(!refresh_token) resolve()
-      else {
-        signOutUserBr(refresh_token)
-        .then(() => {
-          useAuthUser().value = undefined
-          messageToSnack("SignOut")
-          resolve()
-        })
-        .catch((error) => {
-          errorToSnack("Error on signOut", error)
-          reject(error)
-        })
-      }
+      signOutUserFirebase()
+      .then(() => {
+        useAuthUser().value = undefined
+        messageToSnack("SignOut")
+        resolve()
+      })
+      .catch((error) => {
+        errorToSnack("Error on signOut", error)
+        reject(error)
+      })
     })
   }
 
-// /**
-//  * Initialize the authUser listener on auth state change
-//  */
-// export const initUser = () => {
-//     const callback = async (authUser:IAuthUser) => {
-//         useAuthUser().value = authUser
-//         if(!authUser) {
-//           await navigateTo('/')
-//         }
-//     }
-//     initUserFirebase(callback)
-// }
+/**
+ * Initialize the authUser listener on auth state change
+ */
+export const initUser = () => {
+    const callback = async (authUser:IAuthUser) => {
+        useAuthUser().value = authUser
+        if(!authUser) {
+          await navigateTo('/')
+        }
+    }
+    initUserFirebase(callback)
+}
 
 /**
  * Send password reset email

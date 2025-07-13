@@ -1,7 +1,7 @@
 {
   "name": "mybillairtable",
-  "version": "2.3.0",
-  "description": "Airtable Factures",
+  "version": "3.0.0",
+  "description": "Nocolowco Factures",
   "author": "laurent",
   "private": true,
   "type": "module",

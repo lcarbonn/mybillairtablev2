@@ -92,7 +92,7 @@ export const copyStateFacture = (newFacture:IFacture, oldFacture:IFacture) :Prom
         createFactureBr(newFacture).then((createdFac:IFacture) => {
             useFacture().value = createdFac
             useFactures().value.unshift(createdFac)
-            copyFactureLignes(createdFac.id, oldFacture.numFac).then(() => {
+            copyFactureLignes(createdFac.numFac, oldFacture.numFac).then(() => {
                 messageToSnack("Facture " + createdFac.numFac +" créée")
             })
             .catch((error) => {
