@@ -1,6 +1,6 @@
 {
   "name": "mybillairtable",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Nocolowco Factures",
   "author": "laurent",
   "private": true,
@@ -19,7 +19,6 @@
     "@vite-pwa/nuxt": "^0.10.6",
     "@vuepic/vue-datepicker": "^7.4.0",
     "@watzon/baserow": "^0.2.14",
-    "airtable": "^0.12.2",
     "bootstrap": "^5.3.3",
     "bootstrap-vue-next": "^0.28.0",
     "firebase": "^11.4.0",
