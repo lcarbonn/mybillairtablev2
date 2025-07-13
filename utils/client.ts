@@ -22,7 +22,7 @@ export class Client implements IClient {
  
     /**
      * Client constructor
-     * @param record - Record form Airtable
+     * @param record - Record form db
      */
       constructor(row:BaserowRow) {
         this.id = row.id.toString()

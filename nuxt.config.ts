@@ -5,11 +5,11 @@ export default defineNuxtConfig({
 
   app:{
     head: {
-      title: 'My Bill Airtable',
+      title: 'Noco Lowco Bill',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'My Bill Airtable' },
+        { name: 'description', content: 'Noco Lowco Bill' },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -33,10 +33,10 @@ export default defineNuxtConfig({
   pwa: {
     /* PWA options */
     manifest: {
-      name: 'My Bill Airtable',
-      short_name: 'MyBillAirtable',
+      name: 'Noco Lowco Bill',
+      short_name: 'Nocolowcobill',
       display: 'standalone',
-      description: 'My Bill on Airtable',
+      description: 'Noco Lowco Bill',
       lang: 'fr-FR',
       theme_color: '#17a2b8',
       icons: [

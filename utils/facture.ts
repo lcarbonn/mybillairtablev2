@@ -45,7 +45,7 @@ export class Facture implements IFacture {
     
     /**
      * Facture constructor
-     * @param record - Record form Airtable
+     * @param record - Record form DB
      */
       constructor(row?:BaserowRow) {
         if(row) {

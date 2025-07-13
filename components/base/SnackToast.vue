@@ -12,7 +12,7 @@
         if(newMessage.isError)
             show?.({props: {title:'Error', body: ''+newMessage.message , variant:'danger'}})
         else
-            show?.({props: {title:'My Bill Airtable', body: ''+newMessage.message, variant:'info'}})
+            show?.({props: {title:'Noco Lowco Bill', body: ''+newMessage.message, variant:'info'}})
       }
     })
 </script>
