@@ -28,6 +28,7 @@ export const getStateFacture = (id:string) :Promise<IFacture> => {
  */
 export const updateStateFacture = (facture:IFacture) :Promise<IFacture> => {
     return new Promise((resolve, reject) => {
+        messageToSnack("Mise à jour Facture " + facture.numFac)
         updateFactureBr(facture).then((updatedFac) => {
             useFacture().value = updatedFac
             messageToSnack("Facture " + updatedFac.numFac +" mise à jour")
@@ -45,6 +46,7 @@ export const updateStateFacture = (facture:IFacture) :Promise<IFacture> => {
  */
 export const deleteStateFacture = (facture:IFacture) => {
     // delete lignes
+    messageToSnack("Suppression Facture " + facture.numFac)
     deleteFactureLignes(facture.numFac).then(() => {
         // delete facture
         deleteFactureBr(facture.id).then((deletedId) => {
@@ -70,6 +72,7 @@ export const deleteStateFacture = (facture:IFacture) => {
  */
 export const createStateFacture = (facture:IFacture) :Promise<IFacture> => {
     return new Promise((resolve, reject) => {
+        messageToSnack("Création Facture")
         createFactureBr(facture).then((createdFac:IFacture) => {
             useFacture().value = createdFac
             messageToSnack("Facture " + createdFac.numFac +" créée")
@@ -89,6 +92,7 @@ export const createStateFacture = (facture:IFacture) :Promise<IFacture> => {
  */
 export const copyStateFacture = (newFacture:IFacture, oldFacture:IFacture) :Promise<IFacture> => {
     return new Promise((resolve, reject) => {
+        messageToSnack("Copie Facture " + oldFacture.numFac)
         createFactureBr(newFacture).then((createdFac:IFacture) => {
             useFacture().value = createdFac
             useFactures().value.unshift(createdFac)
