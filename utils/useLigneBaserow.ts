@@ -7,25 +7,26 @@ import { BaserowClient } from "@watzon/baserow";
  */
 export const createLigneBr = (ligne:ILigne) :Promise<ILigne> => {
     return new Promise((resolve, reject) => {
-        const { $baserow, $baserowConfig  } = useNuxtApp()
+        const { $baserow, $baserowConfig, $ligneConfig  } = useNuxtApp()
         const client = $baserow as BaserowClient
         const config = $baserowConfig as IBrConf
-      client.databaseRows.create(config.tableLigneFacture, 
-      {
-            field_4171447:ligne.numFac? [ligne.numFac]:[],
-            field_4171446:ligne.ligne,
-            field_4196569:ligne.libelle,
-            field_4171443:ligne.puHT,
-            field_4171445:ligne.typePU
-      })
-      .then((row) => {
-        const ligne = new Ligne(row)
-        resolve(ligne)
-      })
-      .catch((error) => {
-        console.error("createLigneBr", error)
-        reject(error)
-      })
+        const LIGNE_CONF = $ligneConfig as ILigneConf
+        client.databaseRows.create(config.tableLigneFacture, 
+        {
+            [LIGNE_CONF.LIGNE_NUMFAC]:ligne.numFac? [ligne.numFac]:[],
+            [LIGNE_CONF.LIGNE_LIGNE]:ligne.ligne,
+            [LIGNE_CONF.LIGNE_LIBELLE]:ligne.libelle,
+            [LIGNE_CONF.LIGNE_PUHT]:ligne.puHT,
+            [LIGNE_CONF.LIGNE_TYPEPU]:ligne.typePU
+        })
+        .then((row) => {
+            const ligne = new Ligne(row)
+            resolve(ligne)
+        })
+        .catch((error) => {
+            console.error("createLigneBr", error)
+            reject(error)
+        })
     })
 }
 
@@ -36,16 +37,17 @@ export const createLigneBr = (ligne:ILigne) :Promise<ILigne> => {
  */
 export const updateLigneBr = (ligne:ILigne) :Promise<ILigne> => {
     return new Promise((resolve, reject) => {
-        const { $baserow, $baserowConfig  } = useNuxtApp()
+        const { $baserow, $baserowConfig, $ligneConfig  } = useNuxtApp()
         const client = $baserow as BaserowClient
         const config = $baserowConfig as IBrConf
+        const LIGNE_CONF = $ligneConfig as ILigneConf
         client.databaseRows.update(config.tableLigneFacture, Number(ligne.id),
         {
-            field_4171447:ligne.numFac? [ligne.numFac]:[],
-            field_4171446:ligne.ligne,
-            field_4196569:ligne.libelle,
-            field_4171443:ligne.puHT,
-            field_4171445:ligne.typePU
+            [LIGNE_CONF.LIGNE_NUMFAC]:ligne.numFac? [ligne.numFac]:[],
+            [LIGNE_CONF.LIGNE_LIGNE]:ligne.ligne,
+            [LIGNE_CONF.LIGNE_LIBELLE]:ligne.libelle,
+            [LIGNE_CONF.LIGNE_PUHT]:ligne.puHT,
+            [LIGNE_CONF.LIGNE_TYPEPU]:ligne.typePU
         })
         .then((row) => {
             const ligne = new Ligne(row)
@@ -87,16 +89,19 @@ export const deleteLigneBr = (id:string) :Promise<string> => {
  */
 export const getLignesBr = (numFac:string) :Promise<ILigne[]> => {
     return new Promise((resolve, reject) => {
-        const { $baserow, $baserowConfig  } = useNuxtApp()
+        const { $baserow, $baserowConfig, $ligneConfig  } = useNuxtApp()
         const client = $baserow as BaserowClient
         const config = $baserowConfig as IBrConf
+        const LIGNE_CONF = $ligneConfig as ILigneConf
+        const filter = new String("filter__"+LIGNE_CONF.LIGNE_NUMFAC+"__link_row_contains").valueOf()
         client.databaseRows.list(
         config.tableLigneFacture,
         {
             page:1,
             size:20,
-            orderBy:"field_4171446",
-            filter__field_4171447__link_row_contains:numFac
+            orderBy:LIGNE_CONF.LIGNE_LIGNE,
+            [filter]:numFac
+            //filter__field_4171447__link_row_contains:numFac
             // the following doesn't work
             // filters: [
             //     {

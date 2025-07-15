@@ -40,7 +40,17 @@ export default defineNuxtPlugin((nuxtApp) => {
     const caConfig:ICaConf = {
         CA_DATE:import.meta.env.VITE_BASEROW_CA_DATE,
         CA_YEAR:import.meta.env.VITE_BASEROW_CA_YEAR,
+    }
 
+    const ligneConfig:ILigneConf = {
+        LIGNE_NUMFACLIGNE:import.meta.env.VITE_BASEROW_LIGNE_NUMFACLIGNE,
+        LIGNE_NUMFAC:import.meta.env.VITE_BASEROW_LIGNE_NUMFAC,
+        LIGNE_LIGNE:import.meta.env.VITE_BASEROW_LIGNE_LIGNE,
+        LIGNE_LIBELLE:import.meta.env.VITE_BASEROW_LIGNE_LIBELLE,
+        LIGNE_PUHT:import.meta.env.VITE_BASEROW_LIGNE_PUHT,
+        LIGNE_TYPEPU:import.meta.env.VITE_BASEROW_LIGNE_TYPEPU,
+        LIGNE_QUANTITE:import.meta.env.VITE_BASEROW_LIGNE_QUANTITE,
+        LIGNE_TOTALHT:import.meta.env.VITE_BASEROW_LIGNE_TOTALHT
     }
 
     // Initialize the client
@@ -68,5 +78,8 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     nuxtApp.provide("caConfig", caConfig)
     nuxtApp.vueApp.provide("caConfig", caConfig)
+
+    nuxtApp.provide("ligneConfig", ligneConfig)
+    nuxtApp.vueApp.provide("ligneConfig", ligneConfig)
 
 })

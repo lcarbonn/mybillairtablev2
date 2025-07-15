@@ -51,19 +51,6 @@ export class Ligne implements ILigne {
         else {
           this.id=""
         }
-
-      //  constructor(record?:Record<FieldSet>) {
-      //   if(record) {
-      //     this.numFacLigne = record.get('#NumFacLigne') as string
-      //     this.numFac = record.get('#NumFac') as string[]
-      //     this.ligne = record.get('#Ligne') as number
-      //     this.libelle = record.get('Libellé') as string
-      //     this.puHT = record.get('PU HT') as number
-      //     this.typePU = record.get('PU/H') as string
-      //     this.quantite = record.get('Quantité') as number
-      //     this.totalHT = record.get('Total HT') as number
-      //     this.id = record.getId()
-      //   }
        }
 }
 

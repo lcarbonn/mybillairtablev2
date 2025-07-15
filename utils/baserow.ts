@@ -49,3 +49,17 @@ export type ICaConf = {
     CA_DATE:string
     CA_YEAR:string
 }
+
+/**
+ * Type Baserow Ligne config
+ */
+export type ILigneConf = {
+    LIGNE_NUMFACLIGNE:string
+    LIGNE_NUMFAC:string
+    LIGNE_LIGNE:string
+    LIGNE_LIBELLE:string
+    LIGNE_PUHT:string
+    LIGNE_TYPEPU:string
+    LIGNE_QUANTITE:string
+    LIGNE_TOTALHT:string
+}

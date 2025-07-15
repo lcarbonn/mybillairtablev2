@@ -1,5 +1,4 @@
 import { BaserowClient } from "@watzon/baserow";
-import { MutationRecord } from "happy-dom";
 
 /**
  * Get all factures from database
