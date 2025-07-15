@@ -41,3 +41,11 @@ export type IClientConf = {
     CLIENT_PAYMENT_DELAY:string
     CLIENT_ACTIF:string
 }
+
+/**
+ * Type Baserow CA config
+ */
+export type ICaConf = {
+    CA_DATE:string
+    CA_YEAR:string
+}

@@ -37,6 +37,12 @@ export default defineNuxtPlugin((nuxtApp) => {
         CLIENT_ACTIF:import.meta.env.VITE_BASEROW_CLIENT_ACTIF
     }
 
+    const caConfig:ICaConf = {
+        CA_DATE:import.meta.env.VITE_BASEROW_CA_DATE,
+        CA_YEAR:import.meta.env.VITE_BASEROW_CA_YEAR,
+
+    }
+
     // Initialize the client
     const client = new BaserowClient({
         url: baserowConfig.url,
@@ -59,5 +65,8 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     nuxtApp.provide("clientConfig", clientConfig)
     nuxtApp.vueApp.provide("clientConfig", clientConfig)
+
+    nuxtApp.provide("caConfig", caConfig)
+    nuxtApp.vueApp.provide("caConfig", caConfig)
 
 })

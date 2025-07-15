@@ -22,16 +22,13 @@ export class Ca implements ICa {
      * @param record - Record form db
      */
       constructor(row:BaserowRow) {
-        this.id = row["field_4171449"]
-        this.date = row["field_4171449"],
-        this.year = row["field_4196415"]
-      }
+        const {$caConfig  } = useNuxtApp()
+        const CA_CONF = $caConfig as ICaConf
 
-      //  constructor(record:Record<FieldSet>) {
-      //   this.date = record.get('Date') as string
-      //   this.year = record.get('Année CA') as string
-      //   this.id = record.getId()
-      //  }
+        this.id = row[CA_CONF.CA_DATE]
+        this.date = row[CA_CONF.CA_DATE],
+        this.year = row[CA_CONF.CA_YEAR]
+      }
 }
 
 /**
