@@ -1,7 +1,7 @@
 {
-  "name": "mynocolocowbill",
-  "version": "3.0.3",
-  "description": "Nocolowco Factures",
+  "name": "nocolocowbill",
+  "version": "3.0.4",
+  "description": "Noco Lowco Factures",
   "author": "laurent",
   "private": true,
   "type": "module",

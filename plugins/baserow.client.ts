@@ -13,6 +13,24 @@ export default defineNuxtPlugin((nuxtApp) => {
         tableCa:import.meta.env.VITE_BASEROW_CA
     }
 
+    const factureConfig:IFactureConf = {
+        FACTURE_NUMFAC:import.meta.env.VITE_BASEROW_FACTURE_NUMFAC,
+        FACTURE_DATE:import.meta.env.VITE_BASEROW_FACTURE_DATE,
+        FACTURE_INDEX:import.meta.env.VITE_BASEROW_FACTURE_INDEX,
+        FACTURE_NUM:import.meta.env.VITE_BASEROW_FACTURE_NUM,
+        FACTURE_COMMENT:import.meta.env.VITE_BASEROW_FACTURE_COMMENT,
+        FACTURE_CLIENT:import.meta.env.VITE_BASEROW_FACTURE_CLIENT,
+        FACTURE_STATUT:import.meta.env.VITE_BASEROW_FACTURE_STATUT,
+        FACTURE_TOTALHT:import.meta.env.VITE_BASEROW_FACTURE_TOTALHT,
+        FACTURE_TOTALTTC:import.meta.env.VITE_BASEROW_FACTURE_TOTALTTC,
+        FACTURE_CA:import.meta.env.VITE_BASEROW_FACTURE_CA,
+        FACTURE_TVA:import.meta.env.VITE_BASEROW_FACTURE_TVA,
+        FACTURE_PAYMENT_DELAY:import.meta.env.VITE_BASEROW_FACTURE_PAYMENT_DELAY,
+        FACTURE_BDC:import.meta.env.VITE_BASEROW_FACTURE_BDC,
+        FACTURE_PAYDATE:import.meta.env.VITE_BASEROW_FACTURE_PAYDATE,
+        FACTURE_ANNEECA:import.meta.env.VITE_BASEROW_FACTURE_ANNEECA
+    }
+
     // Initialize the client
     const client = new BaserowClient({
         url: baserowConfig.url,
@@ -29,5 +47,8 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     nuxtApp.provide("baserowConfig", baserowConfig)
     nuxtApp.vueApp.provide("baserowConfig", baserowConfig)
+
+    nuxtApp.provide("factureConfig", factureConfig)
+    nuxtApp.vueApp.provide("factureConfig", factureConfig)
 
 })

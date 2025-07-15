@@ -48,27 +48,30 @@ export class Facture implements IFacture {
      * @param record - Record form DB
      */
       constructor(row?:BaserowRow) {
+        const { $baserow, $baserowConfig, $factureConfig  } = useNuxtApp()
+        const facConf = $factureConfig as IFactureConf
+
         if(row) {
           this.id = row.id.toString()
-          this.numFac = row["field_4171429"]
-          this.date = new Date(row["field_4196477"])
-          this.index = row["field_4878525"]
-          this.num = row['field_4171430']
-          this.comment = row['field_4171438']
-          const client = row['field_4171431'][0]
+          this.numFac = row[facConf.FACTURE_NUMFAC]
+          this.date = new Date(row[facConf.FACTURE_DATE])
+          this.index = row[facConf.FACTURE_INDEX]
+          this.num = row[facConf.FACTURE_NUM]
+          this.comment = row[facConf.FACTURE_COMMENT]
+          const client = row[facConf.FACTURE_CLIENT][0]
           this.client = client?client.value:undefined
-          const statut = row['field_4171432']
+          const statut = row[facConf.FACTURE_STATUT]
           this.statut = statut?statut.value:undefined
-          this.totalHT = row['field_4172036']
-          this.totalTTC = row['field_4277086']
-          const ca = row['field_4171436'][0]
+          this.totalHT = row[facConf.FACTURE_TOTALHT]
+          this.totalTTC = row[facConf.FACTURE_TOTALTTC]
+          const ca = row[facConf.FACTURE_CA][0]
           this.ca = ca?ca.value:undefined
-          this.tva = new Number(row['field_4171437']).valueOf()/100
-          const dlp = row['field_4174240'][0]
+          this.tva = new Number(row[facConf.FACTURE_TVA]).valueOf()/100
+          const dlp = row[facConf.FACTURE_PAYMENT_DELAY][0]
           this.paymentDelay = dlp?dlp.value:undefined
-          this.bdc = row['field_4171439']
-          this.payDate = row['field_4171433'] ? new Date(row['field_4171433']) : undefined
-          const anca = row['field_4668726'][0]
+          this.bdc = row[facConf.FACTURE_BDC]
+          this.payDate = row[facConf.FACTURE_PAYDATE] ? new Date(row[facConf.FACTURE_PAYDATE]) : undefined
+          const anca = row[facConf.FACTURE_ANNEECA][0]
           this.anneeCa = anca?anca.value:undefined
         }
         else {

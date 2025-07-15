@@ -1,4 +1,5 @@
 import { BaserowClient } from "@watzon/baserow";
+import { MutationRecord } from "happy-dom";
 
 /**
  * Get all factures from database
@@ -6,15 +7,17 @@ import { BaserowClient } from "@watzon/baserow";
  */
 export const getFacturesBr = async () : Promise<Facture[]> => {
   return new Promise((resolve, reject) => {
-    const { $baserow, $baserowConfig  } = useNuxtApp()
+    const { $baserow, $baserowConfig, $factureConfig  } = useNuxtApp()
     const client = $baserow as BaserowClient
     const config = $baserowConfig as IBrConf
+    const facConf = $factureConfig as IFactureConf
+    const orderBy = new String("-"+facConf.FACTURE_NUMFAC).valueOf()
     client.databaseRows.list(
     config.tableFacture,
       {
         page:1,
         size:200,
-        orderBy:"-field_4171429"
+        orderBy:orderBy
       }
     ).then((rows) => {
       const factures:IFacture[] = []
@@ -60,21 +63,23 @@ export const getFactureBr = (id:string) :Promise<IFacture> => {
  */
 export const updateFactureBr = (facture:IFacture) :Promise<IFacture> => {
       return new Promise((resolve, reject) => {
-      const { $baserow, $baserowConfig  } = useNuxtApp()
+      const { $baserow, $baserowConfig, $factureConfig  } = useNuxtApp()
       const client = $baserow as BaserowClient
       const config = $baserowConfig as IBrConf
-      client.databaseRows.update(config.tableFacture, Number(facture.id), 
+      const facConf = $factureConfig as IFactureConf
+      client.databaseRows.update(config.tableFacture, Number(facture.id),
       {
-            field_4196477: facture.date? facture.date.toISOString().substring(0,10):null,
-            field_4171430: facture.num,
-            field_4171438: facture.comment,
-            field_4171437: facture.tva?facture.tva*100:20,
-            field_4171432: facture.statut,
-            field_4171439: facture.bdc,
-            field_4171433: facture.payDate? facture.payDate.toISOString().substring(0,10):null,
-            field_4171431: facture.client? [facture.client]:[],
-            field_4171436: facture.ca?[facture.ca]:[],
-      })
+            [facConf.FACTURE_DATE]: facture.date? facture.date.toISOString().substring(0,10):null,
+            [facConf.FACTURE_NUM]: facture.num,
+            [facConf.FACTURE_COMMENT]: facture.comment,
+            [facConf.FACTURE_TVA]: facture.tva?facture.tva*100:20,
+            [facConf.FACTURE_STATUT]: facture.statut,
+            [facConf.FACTURE_BDC]: facture.bdc,
+            [facConf.FACTURE_PAYDATE]: facture.payDate? facture.payDate.toISOString().substring(0,10):null,
+            [facConf.FACTURE_CLIENT]: facture.client? [facture.client]:[],
+            [facConf.FACTURE_CA]: facture.ca?[facture.ca]:[],
+      }
+      )
       .then((row) => {
         const fac = new Facture(row)
         resolve(fac)
@@ -94,20 +99,21 @@ export const updateFactureBr = (facture:IFacture) :Promise<IFacture> => {
  */
 export const createFactureBr = (facture:IFacture) :Promise<IFacture> => {
     return new Promise((resolve, reject) => {
-      const { $baserow, $baserowConfig  } = useNuxtApp()
+      const { $baserow, $baserowConfig, $factureConfig  } = useNuxtApp()
       const client = $baserow as BaserowClient
       const config = $baserowConfig as IBrConf
+      const facConf = $factureConfig as IFactureConf
       client.databaseRows.create(config.tableFacture, 
       {
-            field_4196477: facture.date? facture.date.toISOString().substring(0,10):null,
-            field_4171430: facture.num,
-            field_4171438: facture.comment,
-            field_4171437: facture.tva?facture.tva*100:20,
-            field_4171432: facture.statut,
-            field_4171439: facture.bdc,
-            field_4171433: facture.payDate? facture.payDate.toISOString().substring(0,10):null,
-            field_4171431: facture.client? [facture.client]:[],
-            field_4171436: facture.ca?[facture.ca]:[],
+            [facConf.FACTURE_DATE]: facture.date? facture.date.toISOString().substring(0,10):null,
+            [facConf.FACTURE_NUM]: facture.num,
+            [facConf.FACTURE_COMMENT]: facture.comment,
+            [facConf.FACTURE_TVA]: facture.tva?facture.tva*100:20,
+            [facConf.FACTURE_STATUT]: facture.statut,
+            [facConf.FACTURE_BDC]: facture.bdc,
+            [facConf.FACTURE_PAYDATE]: facture.payDate? facture.payDate.toISOString().substring(0,10):null,
+            [facConf.FACTURE_CLIENT]: facture.client? [facture.client]:[],
+            [facConf.FACTURE_CA]: facture.ca?[facture.ca]:[],
       })
       .then((row) => {
         const fac = new Facture(row)
