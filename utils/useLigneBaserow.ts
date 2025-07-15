@@ -94,6 +94,7 @@ export const getLignesBr = (numFac:string) :Promise<ILigne[]> => {
         const config = $baserowConfig as IBrConf
         const LIGNE_CONF = $ligneConfig as ILigneConf
         const filter = new String("filter__"+LIGNE_CONF.LIGNE_NUMFAC+"__link_row_contains").valueOf()
+        console.log("filer:"+filter)
         client.databaseRows.list(
         config.tableLigneFacture,
         {
@@ -101,7 +102,7 @@ export const getLignesBr = (numFac:string) :Promise<ILigne[]> => {
             size:20,
             orderBy:LIGNE_CONF.LIGNE_LIGNE,
             [filter]:numFac
-            //filter__field_4171447__link_row_contains:numFac
+            // ["filter__field_4171447__link_row_contains"]:numFac
             // the following doesn't work
             // filters: [
             //     {
