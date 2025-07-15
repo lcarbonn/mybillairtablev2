@@ -31,6 +31,12 @@ export default defineNuxtPlugin((nuxtApp) => {
         FACTURE_ANNEECA:import.meta.env.VITE_BASEROW_FACTURE_ANNEECA
     }
 
+    const clientConfig:IClientConf = {
+        CLIENT_NAME:import.meta.env.VITE_BASEROW_CLIENT_NAME,
+        CLIENT_PAYMENT_DELAY:import.meta.env.VITE_BASEROW_CLIENT_PAYMENT_DELAY,
+        CLIENT_ACTIF:import.meta.env.VITE_BASEROW_CLIENT_ACTIF
+    }
+
     // Initialize the client
     const client = new BaserowClient({
         url: baserowConfig.url,
@@ -50,5 +56,8 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     nuxtApp.provide("factureConfig", factureConfig)
     nuxtApp.vueApp.provide("factureConfig", factureConfig)
+
+    nuxtApp.provide("clientConfig", clientConfig)
+    nuxtApp.vueApp.provide("clientConfig", clientConfig)
 
 })

@@ -48,7 +48,7 @@ export class Facture implements IFacture {
      * @param record - Record form DB
      */
       constructor(row?:BaserowRow) {
-        const { $baserow, $baserowConfig, $factureConfig  } = useNuxtApp()
+        const { $factureConfig  } = useNuxtApp()
         const facConf = $factureConfig as IFactureConf
 
         if(row) {

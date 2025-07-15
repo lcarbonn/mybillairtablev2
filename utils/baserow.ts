@@ -32,3 +32,12 @@ export type IFactureConf = {
     FACTURE_PAYDATE:string
     FACTURE_ANNEECA:string
 }
+
+/**
+ * Type Baserow Client config
+ */
+export type IClientConf = {
+    CLIENT_NAME:string
+    CLIENT_PAYMENT_DELAY:string
+    CLIENT_ACTIF:string
+}

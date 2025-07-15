@@ -25,10 +25,13 @@ export class Client implements IClient {
      * @param record - Record form db
      */
       constructor(row:BaserowRow) {
+        const {$clientConfig  } = useNuxtApp()
+        const CLIENT_CONF = $clientConfig as IClientConf
+
         this.id = row.id.toString()
-        this.name = row["field_4171418"],
-        this.paymentDelay = new Number(row["field_4171424"]).valueOf(),
-        this.actif = new Boolean(row["field_4171428"]).valueOf()
+        this.name = row[CLIENT_CONF.CLIENT_NAME],
+        this.paymentDelay = new Number(row[CLIENT_CONF.CLIENT_PAYMENT_DELAY]).valueOf(),
+        this.actif = new Boolean(row[CLIENT_CONF.CLIENT_ACTIF]).valueOf()
       }
 }
 
