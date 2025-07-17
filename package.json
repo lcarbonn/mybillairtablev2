@@ -1,6 +1,6 @@
 {
   "name": "nocolocowbill",
-  "version": "3.0.4",
+  "version": "3.1.0",
   "description": "Noco Lowco Factures",
   "author": "laurent",
   "private": true,
@@ -21,7 +21,6 @@
     "@watzon/baserow": "^0.2.14",
     "bootstrap": "^5.3.3",
     "bootstrap-vue-next": "^0.28.0",
-    "firebase": "^11.4.0",
     "nuxt": "^3.16.0",
     "unplugin-icons": "^22.1.0",
     "vue": "^3.5.13",

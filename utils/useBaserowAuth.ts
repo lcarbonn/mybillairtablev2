@@ -1,7 +1,7 @@
 import { BaserowClient } from "@watzon/baserow";
 
 /**
- * Sign in user in firebase with email and password
+ * Sign in user with email and password
  * @param email - the email
  * @param password - the password
  * @returns A Promise that resolve the auth user
@@ -13,7 +13,7 @@ export const signInUserBr = (email:string, password:string) :Promise<IAuthUser> 
         client.user.login(email, password)
         .then((tokens) => {
           console.log("tokens:", tokens)
-          const authUser = new AuthUser(tokens.refresh_token, false, email)
+          const authUser = new AuthUser(tokens.refresh_token, false, email, tokens.access_token)
           resolve(authUser)
         })
         .catch((error) => {
@@ -23,45 +23,35 @@ export const signInUserBr = (email:string, password:string) :Promise<IAuthUser> 
   }
 
 /**
- * Sign out the current user from firebase
- * @throws Throws the firebase error
+ * Sign out the current user
+ * @throws Throws the error
  */
-export const signOutUserBr = (refreshToken:string) :Promise<void> => {
+export const signOutUserBr = () :Promise<void> => {
     return new Promise((resolve, reject) => {
         const { $baserow } = useNuxtApp()
         const client = $baserow as BaserowClient
-        client.user.logout(refreshToken)
-          .then(() => {
-            resolve()
-          })
-          .catch((error) => {
-            reject(error)
-          })
+        
+        // client.user.logout(refreshToken)
+        //   .then(() => {
+        //     resolve()
+        //   })
+        //   .catch((error) => {
+        //     reject(error)
+        //   })
     })
   }
 
 // /**
-//  * Initialize the firebase listener on auth state change
+//  * Send password change
+//  * @param oldPassword - the old password
+//  * @param newPassword - the new password
+//  * @throws Throws the error
 //  */
-// export const initUser = (callback:any) => {
-//   const auth = getAuth()
-//   onAuthStateChanged(auth, (user) => {
-//     if (user) {
-//       const authUser = new AuthUser(user.uid, user.isAnonymous, user.email)
-//       callback(authUser)
-//     } else {callback(undefined)}
-//   })
-// }
-
-// /**
-//  * Send password reset email
-//  * @param email - the email
-//  * @throws Throws the firebase error
-//  */
-// export const sendPasswordReset = (email:string) :Promise<void> => {
+// export const sendPasswordChangeBr = (oldPassword:string, newPassword:string) :Promise<void> => {
 //   return new Promise((resolve, reject) => {
-//     const auth = getAuth()
-//     sendPasswordResetEmail(auth,email)
+//     const { $baserow } = useNuxtApp()
+//     const client = $baserow as BaserowClient
+//     client.user.sendPasswordResetEmail(oldPassword, newPassword)
 //     .then(() => {
 //       resolve()
 //     })

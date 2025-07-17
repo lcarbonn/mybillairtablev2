@@ -1,12 +1,12 @@
 /**
- * Sign in user in firebase with email and password
+ * Sign in user with email and password
  * @param email - the email
  * @param password - the password
  * @returns A Promise that resolve the auth user
  */
 export const signInUser = (email:string, password:string) :Promise<IAuthUser> => {
     return new Promise((resolve, reject) => {
-        signInUserFirebase(email,password)
+        signInUserBr(email,password)
         .then((authUser) => {
             messageToSnack("Hello " + authUser.email)
             useAuthUser().value = authUser
@@ -24,46 +24,27 @@ export const signInUser = (email:string, password:string) :Promise<IAuthUser> =>
  */
 export const signOutUser = () :Promise<void> => {
     return new Promise((resolve, reject) => {
-      signOutUserFirebase()
-      .then(() => {
         useAuthUser().value = undefined
         messageToSnack("SignOut")
         resolve()
-      })
-      .catch((error) => {
-        errorToSnack("Error on signOut", error)
-        reject(error)
-      })
     })
   }
 
-/**
- * Initialize the authUser listener on auth state change
- */
-export const initUser = () => {
-    const callback = async (authUser:IAuthUser) => {
-        useAuthUser().value = authUser
-        if(!authUser) {
-          await navigateTo('/')
-        }
-    }
-    initUserFirebase(callback)
-}
-
-/**
- * Send password reset email
- * @param email - the email
- */
-export const sendPasswordReset = (email:string) :Promise<void> => {
-  return new Promise((resolve, reject) => {
-    sendPasswordResetFirebase(email)
-    .then(() => {
-      messageToSnack("Reset password email sent to "+ email)
-      resolve()
-    })
-    .catch((error) => {
-      errorToSnack("Error on sending email to reset password", error)
-      reject(error)
-    })
-  })
-}
+// /**
+//  * Send password change
+//  * @param oldPassword - the old password
+//  * @param newPassword - the new password
+//  */
+// export const sendPasswordReset = (oldPassword:string, newPassword:string) :Promise<void> => {
+//   return new Promise((resolve, reject) => {
+//     sendPasswordChangeBr(oldPassword, newPassword)
+//     .then(() => {
+//       messageToSnack("Passwor changed")
+//       resolve()
+//     })
+//     .catch((error) => {
+//       errorToSnack("Error Password change", error)
+//       reject(error)
+//     })
+//   })
+// }

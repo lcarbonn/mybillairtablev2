@@ -30,7 +30,7 @@
                     />
                 </BFormGroup>
                 <BButton class="m-1" type="submit" variant="primary">Connexion</BButton>
-                <BButton class="m-1" type="button" variant="primary" @click="resetPassword()">Reset Password</BButton>
+                <!-- <BButton class="m-1" type="button" variant="primary" @click="resetPassword()">Reset Password</BButton> -->
             </BForm>
         </BCard>
     </BContainer>
