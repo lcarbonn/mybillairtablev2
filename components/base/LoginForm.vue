@@ -53,9 +53,9 @@
         }
     }
 
-    // const methods
-    const resetPassword = () => {
-        if(form.value.email) sendPasswordReset(form.value.email)
-    }
+    // // const methods
+    // const resetPassword = () => {
+    //     if(form.value.email) sendPasswordReset(form.value.email)
+    // }
 
 </script>
