@@ -1,0 +1,4 @@
+#!/bin/sh
+npm run generate
+export DEPLOYPATH=/home/eheq1939/nocolowcobill.lc-consult.fr/
+/bin/cp -R dist/* $DEPLOYPATH
