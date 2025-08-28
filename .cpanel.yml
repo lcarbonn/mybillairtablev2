@@ -1,9 +1,0 @@
-##### deployement on cpanel
----
-deployment:
-  tasks:
-    - source ~/.bashrc
-    - npm install
-    - npm run generate
-    - export DEPLOYPATH=/home/eheq1939/nocolowcobill.lc-consult.fr/
-    - /bin/cp -R dist/* $DEPLOYPATH
