@@ -6,7 +6,7 @@
         <BAvatar rounded src="/icon.png"></BAvatar>
     </BNavbarBrand>
     <BNavbarNav fill>
-      <BNavItem :href="'https://baserow.io/database/' + baseId +'/table/' + factureTable" target="_blank">{{baseName}}</BNavItem>
+      <BNavItem :href="'https://baserow.io/database/' + baseId +'/table/' + factureTable" target="_blank"><BAvatar rounded src="/baserow-logo.png"></BAvatar></BNavItem>
     </BNavbarNav>
     <BOffcanvas id="nav-collapse"
         isNav
