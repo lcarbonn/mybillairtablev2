@@ -81,7 +81,7 @@ describe('baserow facture', () => {
     await updateFactureBr(originalFacture)
   })
 
-  // Create new facture
+  // delete the created new facture
   it('delete one row in baserow', async () => {
     const id = await deleteFactureBr(TEST_FACTURE.id)
     expect(id).toEqual(TEST_FACTURE.id)
